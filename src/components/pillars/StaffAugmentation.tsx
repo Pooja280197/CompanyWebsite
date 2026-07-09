@@ -3,11 +3,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
- 
   ChevronDown,
   Clock,
   Users,
-  Code,
   Shield,
   Zap,
   GitBranch,
@@ -52,6 +50,7 @@ const ENGAGEMENT_MODELS = [
     desc: 'Professionals working exclusively on your product, fully integrated into your team.',
     accent: '#2563eb',
     bg: '#dbeafe',
+    bgMid: '#bfdbfe',
   },
   {
     icon: Clock,
@@ -59,6 +58,7 @@ const ENGAGEMENT_MODELS = [
     desc: 'Flexible allocation for intermittent needs — pay only for the hours you use.',
     accent: '#7c3aed',
     bg: '#ede9fe',
+    bgMid: '#ddd6fe',
   },
   {
     icon: Target,
@@ -66,6 +66,7 @@ const ENGAGEMENT_MODELS = [
     desc: 'Resources scoped to specific tasks or milestones with clear deliverables.',
     accent: '#059669',
     bg: '#d1fae5',
+    bgMid: '#a7f3d0',
   },
   {
     icon: Layers,
@@ -73,6 +74,7 @@ const ENGAGEMENT_MODELS = [
     desc: 'Cohesive multi-resource teams for scaling operations or joint ventures.',
     accent: '#d97706',
     bg: '#fef3c7',
+    bgMid: '#fde68a',
   },
   {
     icon: RefreshCw,
@@ -80,6 +82,7 @@ const ENGAGEMENT_MODELS = [
     desc: 'Terms shaped to your requirements, with transparent billing aligned to your budget.',
     accent: '#dc2626',
     bg: '#fee2e2',
+    bgMid: '#fecaca',
   },
   {
     icon: Shield,
@@ -87,6 +90,7 @@ const ENGAGEMENT_MODELS = [
     desc: 'Quick deployment, minimal downtime, and immediate replacement if the fit isn\'t right. In writing.',
     accent: '#0891b2',
     bg: '#cffafe',
+    bgMid: '#a5f3fc',
   },
 ];
 
@@ -99,6 +103,36 @@ const SKILL_STACKS = [
   { category: 'Mobile', items: ['iOS', 'Android', 'Flutter', 'React Native', 'Xamarin'] },
   { category: 'Data', items: ['Big Data', 'Hadoop', 'Spark', 'Power BI', 'Tableau', 'Snowflake'] },
   { category: 'Security', items: ['Penetration testing', 'Risk assessment', 'SIEM', 'Compliance audits'] },
+];
+
+const SKILL_BY_CATEGORY = Object.fromEntries(
+  SKILL_STACKS.map((stack) => [stack.category, stack.items]),
+) as Record<string, string[]>;
+
+const SKILL_HIERARCHY = [
+  {
+    pillar: 'Engineering',
+    categories: [
+      { name: 'Languages', items: SKILL_BY_CATEGORY.Languages },
+      { name: 'Frameworks', items: SKILL_BY_CATEGORY.Frameworks },
+      { name: 'Mobile', items: SKILL_BY_CATEGORY.Mobile },
+    ],
+  },
+  {
+    pillar: 'Infrastructure',
+    categories: [
+      { name: 'Cloud', items: SKILL_BY_CATEGORY.Cloud },
+      { name: 'DevOps', items: SKILL_BY_CATEGORY.DevOps },
+      { name: 'Security', items: SKILL_BY_CATEGORY.Security },
+    ],
+  },
+  {
+    pillar: 'Data & AI',
+    categories: [
+      { name: 'AI & ML', items: SKILL_BY_CATEGORY['AI & ML'] },
+      { name: 'Data', items: SKILL_BY_CATEGORY.Data },
+    ],
+  },
 ];
 
 const PROCESS_STEPS = [
@@ -116,21 +150,33 @@ const WHY_KEEP = [
     icon: Shield,
     title: 'Compliance & legal handled',
     desc: 'Engagements structured to industry regulations, risk-free on your side.',
+    accent: '#2563eb',
+    bg: '#eff6ff',
+    bgMid: '#dbeafe',
   },
   {
     icon: BarChart3,
     title: 'Performance monitoring',
     desc: 'We track and optimize our people\'s output; you\'re never managing underperformance alone.',
+    accent: '#9333ea',
+    bg: '#faf5ff',
+    bgMid: '#f3e8ff',
   },
   {
     icon: GitBranch,
     title: 'Skill development',
     desc: 'Continuous upskilling keeps the bench current, not recycled.',
+    accent: '#0891b2',
+    bg: '#ecfeff',
+    bgMid: '#cffafe',
   },
   {
     icon: Globe,
     title: '24/7 coverage',
     desc: 'Resources across time zones for teams that never fully sleep.',
+    accent: '#d97706',
+    bg: '#fffbeb',
+    bgMid: '#fef3c7',
   },
 ];
 
@@ -143,6 +189,7 @@ const SUCCESS_STORY = {
       solution: 'Five AI developers embedded with their team, built predictive segmentation',
       result: '20% sales increase',
       accent: '#2563eb',
+      bg: '#eff6ff',
     },
     {
       industry: 'Manufacturing',
@@ -150,6 +197,7 @@ const SUCCESS_STORY = {
       solution: 'Two DevOps specialists — deployment pipelines and security closure',
       result: 'Deployment times down 25%, pipeline security closed',
       accent: '#d97706',
+      bg: '#fff7ed',
     },
   ],
 };
@@ -366,10 +414,8 @@ export default function StaffAugmentation() {
             />
 
             <p className="sr sr-d2 text-[#555] text-base sm:text-lg leading-[1.85] mt-8 max-w-[48rem] mx-auto text-center">
-              Staff augmentation flips the equation: the skills arrive in days, the commitment matches the project,
-              and the overhead — sourcing, screening, payroll, replacement — is ours. This is our own discipline,
-              not a reseller directory: <strong>100+ verified IT professionals</strong> across 20+ technology stacks,
-              with a bench we've screened before you ever see a CV.
+              Hiring rarely moves at roadmap speed. The search runs weeks. The recruiter's fee lands before day one.
+              The salary locks in whether you need them in month seven or not — and the deadline hasn't moved.
             </p>
           </div>
 
@@ -377,49 +423,40 @@ export default function StaffAugmentation() {
             {MATH_ITEMS.map((item, i) => (
               <div
                 key={item}
-                className={`sr-from-left p-5 rounded-xl border border-red-100 bg-gradient-to-br from-red-50 to-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1`}
+                className="sr-from-left p-5 rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
                 style={{ transitionDelay: `${i * 0.1}s` }}
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 text-red-500 mt-0.5" aria-hidden="true">✕</span>
+                  <span className="flex-shrink-0 text-blue-500 mt-0.5" aria-hidden="true">
+                    <Clock size={18} />
+                  </span>
                   <p className="text-sm text-gray-700 leading-relaxed">{item}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 rounded-2xl bg-gradient-to-br from-blue-50 via-indigo-50 to-white border border-blue-100">
-            <div className="flex items-center gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                <Users className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-blue-600">100+</div>
-                <div className="text-sm text-gray-600">Verified IT professionals</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
-                <Code className="w-6 h-6 text-indigo-600" />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-indigo-600">20+</div>
-                <div className="text-sm text-gray-600">Technology stacks</div>
-              </div>
-            </div>
+          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-blue-50 via-indigo-50 to-white border border-blue-100 text-center">
+            <p className="text-sm text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              <strong>Staff augmentation flips the equation:</strong> the skills arrive in days, the commitment matches
+              the project, and the overhead — sourcing, screening, payroll, replacement — is ours.{' '}
+              <strong>100+ verified IT professionals</strong> across <strong>20+ technology stacks</strong>, with a
+              bench we've screened before you ever see a CV.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Engagement Models */}
-      <section className="py-20 px-6 bg-gray-50" aria-labelledby="engagement-heading">
+      <section className="ai-deliver py-20 px-6" aria-labelledby="engagement-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            <span className="ai-deliver__eyebrow">How we engage</span>
             <ScrollTextReveal
               id="engagement-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="ai-deliver__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -439,29 +476,33 @@ export default function StaffAugmentation() {
                 { text: 'project' },
               ]}
             />
-            <p className="text-[#555] text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
+            <p className="ai-deliver__subtitle">
               Choose the model that fits your workflow, budget, and timeline.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="ai-deliver__grid">
             {ENGAGEMENT_MODELS.map((model, i) => {
               const Icon = model.icon;
+              const cardStyle = {
+                '--deliver-accent': model.accent,
+                '--deliver-bg': model.bg,
+                '--deliver-bg-mid': model.bgMid,
+                transitionDelay: `${i * 0.07}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={model.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2 group"
-                  style={{ transitionDelay: `${i * 0.07}s` }}
+                  className="ai-deliver__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: model.bg, color: model.accent }}
-                  >
-                    <Icon size={24} strokeWidth={1.75} />
+                  <div className="ai-deliver__icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.7} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{model.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{model.desc}</p>
-                </div>
+                  <h3 className="ai-deliver__card-title">{model.title}</h3>
+                  <p className="ai-deliver__card-desc">{model.desc}</p>
+                </article>
               );
             })}
           </div>
@@ -469,14 +510,14 @@ export default function StaffAugmentation() {
       </section>
 
       {/* Skills on the bench */}
-      <section className="py-20 px-6" aria-labelledby="skills-heading">
+      <section className="skill-tree py-20 px-6 bg-gray-50" aria-labelledby="skills-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-12 sr">
             <ScrollTextReveal
               id="skills-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="skill-tree__title w-full"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -495,26 +536,44 @@ export default function StaffAugmentation() {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SKILL_STACKS.map((stack, i) => (
-              <div
-                key={stack.category}
-                className="sr-from-left p-5 rounded-xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all duration-300"
-                style={{ transitionDelay: `${i * 0.06}s` }}
-              >
-                <h4 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">{stack.category}</h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {stack.items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-xs bg-gray-50 text-gray-700 px-2.5 py-1 rounded-full border border-gray-100"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+          <div className="skill-tree__canvas sr">
+            <div className="skill-tree__root-wrap">
+              <div className="skill-tree__root">
+                <span className="skill-tree__root-title"> Verified Skills</span>
+                {/* <span className="skill-tree__root-sub">20+ technology stacks on the bench</span> */}
               </div>
-            ))}
+              <div className="skill-tree__root-stem" aria-hidden="true" />
+            </div>
+
+            <div className="skill-tree__pillars">
+              {SKILL_HIERARCHY.map((pillar, pi) => (
+                <div
+                  key={pillar.pillar}
+                  className="skill-tree__pillar sr-from-center"
+                  style={{ transitionDelay: `${pi * 0.12}s` }}
+                >
+                  <div className="skill-tree__pillar-stem" aria-hidden="true" />
+                  <div className="skill-tree__pillar-tile">{pillar.pillar}</div>
+                  <div className="skill-tree__pillar-stem skill-tree__pillar-stem--down" aria-hidden="true" />
+
+                  <div className="skill-tree__categories">
+                    {pillar.categories.map((category) => (
+                      <div key={category.name} className="skill-tree__category">
+                        <div className="skill-tree__category-tile">{category.name}</div>
+                        <div className="skill-tree__category-stem" aria-hidden="true" />
+                        <div className="skill-tree__skills">
+                          {category.items.map((skill) => (
+                            <span key={skill} className="skill-tree__skill">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -562,7 +621,7 @@ export default function StaffAugmentation() {
               {PROCESS_STEPS.map((step, i) => (
                 <div
                   key={step.num}
-                  className="sr-from-left flex flex-col lg:flex-row gap-4 lg:gap-8 items-start p-5 rounded-2xl bg-white border border-gray-100 hover:shadow-md transition-all duration-300"
+                  className="staff-process__step sr-from-left flex flex-col lg:flex-row gap-4 lg:gap-8 items-start p-5 rounded-2xl bg-white border border-gray-100 transition-all duration-300"
                   style={{ transitionDelay: `${i * 0.06}s` }}
                 >
                   <div className="flex-shrink-0 flex items-center gap-4 lg:w-[7rem]">
@@ -583,14 +642,15 @@ export default function StaffAugmentation() {
       </section>
 
       {/* Success Story */}
-      <section className="py-20 px-6" aria-labelledby="story-heading">
+      <section className="staff-story py-20 px-6 bg-gray-50" aria-labelledby="story-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            <span className="staff-story__eyebrow">Proof in practice</span>
             <ScrollTextReveal
               id="story-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="staff-story__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -612,41 +672,49 @@ export default function StaffAugmentation() {
             />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {SUCCESS_STORY.cases.map((story, i) => (
-              <div
-                key={story.industry}
-                className="sr-from-center p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2"
-                style={{ transitionDelay: `${i * 0.15}s` }}
-              >
-                <div
-                  className="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white mb-4"
-                  style={{ backgroundColor: story.accent }}
+          <div className="staff-story__grid">
+            {SUCCESS_STORY.cases.map((story, i) => {
+              const cardStyle = {
+                '--story-accent': story.accent,
+                '--story-bg': story.bg,
+                transitionDelay: `${i * 0.12}s`,
+              } as React.CSSProperties;
+
+              return (
+                <article
+                  key={story.industry}
+                  className="staff-story__card sr-from-center"
+                  style={cardStyle}
                 >
-                  {story.industry}
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                  <span className="font-medium text-gray-800">Problem:</span> {story.problem}
-                </p>
-                <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                  <span className="font-medium text-gray-800">Solution:</span> {story.solution}
-                </p>
-                <div
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold"
-                  style={{ backgroundColor: `${story.accent}15`, color: story.accent }}
-                >
-                  <Zap size={14} />
-                  {story.result}
-                </div>
-                <p className="text-xs text-gray-400 mt-3">Same model, different skills — your direction, our bench.</p>
-              </div>
-            ))}
+                  <span className="staff-story__industry">{story.industry}</span>
+
+                  <div className="staff-story__block">
+                    <span className="staff-story__label">Problem</span>
+                    <p className="staff-story__text">{story.problem}</p>
+                  </div>
+
+                  <div className="staff-story__block">
+                    <span className="staff-story__label">Solution</span>
+                    <p className="staff-story__text">{story.solution}</p>
+                  </div>
+
+                  <div className="staff-story__result">
+                    <Zap size={15} strokeWidth={2} aria-hidden="true" />
+                    <span>{story.result}</span>
+                  </div>
+                </article>
+              );
+            })}
           </div>
+
+          <p className="staff-story__footnote sr">
+            Same model, different skills — your direction, our bench.
+          </p>
         </div>
       </section>
 
       {/* Why teams keep their augmented engineers */}
-      <section className="py-20 px-6 bg-gray-50" aria-labelledby="keep-heading">
+      <section className="why-keep py-20 px-6 bg-gray-50" aria-labelledby="keep-heading">
         <div className="max-w-[1200px] mx-auto w-full">
           <div className="text-center mb-14">
             <ScrollTextReveal
@@ -674,21 +742,31 @@ export default function StaffAugmentation() {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="why-keep__grid">
             {WHY_KEEP.map((item, i) => {
               const Icon = item.icon;
+              const cardStyle = {
+                '--method-accent': item.accent,
+                '--method-bg': item.bg,
+                '--method-bg-mid': item.bgMid,
+                transitionDelay: `${i * 0.09}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={item.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 text-center"
-                  style={{ transitionDelay: `${i * 0.08}s` }}
+                  className="method-rail__card why-keep__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
-                    <Icon size={26} strokeWidth={1.75} />
+                  <div className="method-rail__icon-ring" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.65} />
                   </div>
-                  <h4 className="text-sm font-semibold text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
-                </div>
+
+                  <div className="method-rail__body">
+                    <h3 className="method-rail__card-title">{item.title}</h3>
+                    <p className="method-rail__card-desc">{item.desc}</p>
+                  </div>
+                </article>
               );
             })}
           </div>

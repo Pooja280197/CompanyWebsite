@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { NavMegaItem } from '../data/navProducts';
+import { NavDropdownCaret } from './NavDropdownCaret';
 
 interface Props {
   open: boolean;
@@ -8,6 +9,7 @@ interface Props {
   label: string;
   items: NavMegaItem[];
   columns?: 1 | 2;
+  arrowLeft?: number | null;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClose: () => void;
@@ -23,6 +25,7 @@ export function NavListDropdown({
   label,
   items,
   columns = 1,
+  arrowLeft = null,
   onMouseEnter,
   onMouseLeave,
   onClose,
@@ -56,6 +59,7 @@ export function NavListDropdown({
         open ? 'services-dropdown--open pointer-events-auto' : 'pointer-events-none'
       }`}
     >
+      <NavDropdownCaret left={arrowLeft} visible={open} />
       <div className={`mx-auto px-4 ${columns === 2 ? 'max-w-[720px]' : 'max-w-[420px]'}`}>
         <div
           ref={panelRef}

@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { SERVICE_MEGA_COLUMNS } from '../data/serviceItems';
+import { NavDropdownCaret } from './NavDropdownCaret';
 
 interface Props {
   open: boolean;
   menuId: string;
+  arrowLeft?: number | null;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClose: () => void;
@@ -17,6 +19,7 @@ function isItemActive(pathname: string, href: string) {
 export function ServicesDropdown({
   open,
   menuId,
+  arrowLeft = null,
   onMouseEnter,
   onMouseLeave,
   onClose,
@@ -47,6 +50,7 @@ export function ServicesDropdown({
         open ? 'services-dropdown--open pointer-events-auto' : 'pointer-events-none'
       }`}
     >
+      <NavDropdownCaret left={arrowLeft} visible={open} />
       <div className="max-w-[920px] mx-auto px-4">
         <div
           ref={panelRef}
