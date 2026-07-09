@@ -32,6 +32,7 @@ import {
 import { ScrollTextReveal, HeroTitleWaveGroup, getHeroLineLetterCounts, getHeroWaveStartDelay } from '../ScrollTextReveal';
 import { ServiceHeroBackground } from '../ServiceHeroBackground';
 import { HERO_IMAGES } from '../../data/heroImages';
+import { ServiceProofSection } from '../service-pages/ServiceProofSection';
 
 const HERO_TAGLINE = `Product engineering for the moment after launch`;
 
@@ -61,6 +62,7 @@ const DELIVERABLES = [
     link: '/custom-software-development',
     accent: '#2563eb',
     bg: '#dbeafe',
+    bgMid: '#bfdbfe',
   },
   {
     icon: Globe,
@@ -69,6 +71,7 @@ const DELIVERABLES = [
     link: '/web-development-and-design',
     accent: '#7c3aed',
     bg: '#ede9fe',
+    bgMid: '#ddd6fe',
   },
   {
     icon: Smartphone,
@@ -77,6 +80,7 @@ const DELIVERABLES = [
     link: '/mobile-app-development',
     accent: '#059669',
     bg: '#d1fae5',
+    bgMid: '#a7f3d0',
   },
   {
     icon: PenTool,
@@ -85,6 +89,7 @@ const DELIVERABLES = [
     link: '/ui-ux-design',
     accent: '#d97706',
     bg: '#fef3c7',
+    bgMid: '#fde68a',
   },
 ];
 
@@ -94,59 +99,97 @@ const ENGAGEMENT_STEPS = [
     label: 'Discovery & honest scoping',
     desc: 'Including the conversation about what not to build in version one.',
     icon: Target,
+    accent: '#2563eb',
+    bg: '#eff6ff',
+    bgMid: '#bfdbfe',
   },
   {
     num: '02',
     label: 'Architecture',
     desc: 'Foundation that absorbs change without breaking.',
     icon: Layers,
+    accent: '#7c3aed',
+    bg: '#f5f3ff',
+    bgMid: '#ddd6fe',
   },
   {
     num: '03',
     label: 'Sprint-based delivery',
     desc: 'Demos every cycle — you see progress in working software, not status decks.',
     icon: GitBranch,
+    accent: '#ea580c',
+    bg: '#fff7ed',
+    bgMid: '#fed7aa',
   },
   {
     num: '04',
     label: 'QA alongside development',
     desc: 'Quality runs with the build, not as a panic phase after it.',
     icon: Shield,
+    accent: '#059669',
+    bg: '#ecfdf5',
+    bgMid: '#a7f3d0',
   },
   {
     num: '05',
     label: 'Launch plan',
     desc: 'Including the week after launch, when real users find the real bugs.',
     icon: Rocket,
+    accent: '#0891b2',
+    bg: '#ecfeff',
+    bgMid: '#a5f3fc',
   },
 ];
 
 const PROOF_STATS = [
   { value: '30%', label: 'Faster operations' },
-  { value: '50%', label: 'Quicker decision-making' },
-  { value: '40%', label: 'Lower costs from fewer failures' },
+  { value: '50%', label: 'Quicker decisions' },
+  { value: '40%', label: 'Lower failure costs' },
 ];
+
+const PROOF_INTRO = (
+  <>
+    A century-old manufacturer ran divisions, locations, and machines on manual tracking.
+    We engineered a cloud-based operations platform with live dashboards and predictive
+    maintenance: operations <strong>30% faster</strong>, decision-making{' '}
+    <strong>50% quicker</strong>, costs down <strong>40%</strong> from fewer unexpected failures.
+    The same discipline scales down to an MVP in weeks — and up to modernizing legacy platforms
+    without stopping the business that runs on them.
+  </>
+);
 
 const WHY_STAY = [
   {
     icon: Check,
     title: 'Fixed, itemized quotes',
     desc: 'The number you approve is the invoice you receive.',
+    accent: '#2563eb',
+    bg: '#eff6ff',
+    bgMid: '#bfdbfe',
   },
   {
     icon: Eye,
     title: 'Honest "don\'t build that yet"',
     desc: 'We\'ve talked clients out of six-figure features that data said nobody would use.',
+    accent: '#ea580c',
+    bg: '#fff7ed',
+    bgMid: '#fed7aa',
   },
   {
     icon: Award,
     title: '95% client retention',
     desc: 'Across eight years and 500+ projects.',
+    accent: '#7c3aed',
+    bg: '#f5f3ff',
+    bgMid: '#ddd6fe',
   },
   {
     icon: Shield,
     title: 'Post-launch ownership',
     desc: 'Monitoring, maintenance, and iteration under one roof.',
+    accent: '#0891b2',
+    bg: '#ecfeff',
+    bgMid: '#a5f3fc',
   },
 ];
 
@@ -399,14 +442,15 @@ export default function ProductEngineering() {
       </section>
 
       {/* What we build */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white" aria-labelledby="build-heading">
+      <section className="ai-deliver py-20 px-6" aria-labelledby="build-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            <span className="ai-deliver__eyebrow">Capabilities</span>
             <ScrollTextReveal
               id="build-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="ai-deliver__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -422,36 +466,37 @@ export default function ProductEngineering() {
                 { text: 'build' },
               ]}
             />
-            <p className="text-[#555] text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
+            <p className="ai-deliver__subtitle">
               Full-stack product engineering that survives launch.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="ai-deliver__grid ai-deliver__grid--pairs">
             {DELIVERABLES.map((item, i) => {
               const Icon = item.icon;
+              const cardStyle = {
+                '--deliver-accent': item.accent,
+                '--deliver-bg': item.bg,
+                '--deliver-bg-mid': item.bgMid,
+                transitionDelay: `${i * 0.07}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={item.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2 group"
-                  style={{ transitionDelay: `${i * 0.07}s` }}
+                  className="ai-deliver__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: item.bg, color: item.accent }}
-                  >
-                    <Icon size={24} strokeWidth={1.75} />
+                  <div className="ai-deliver__icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.7} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-3">{item.desc}</p>
-                  <Link
-                    to={item.link}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-emerald-800 transition-colors group"
-                  >
+                  <h3 className="ai-deliver__card-title">{item.title}</h3>
+                  <p className="ai-deliver__card-desc">{item.desc}</p>
+                  <Link to={item.link} className="ai-deliver__link group">
                     Learn more
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                   </Link>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -459,17 +504,15 @@ export default function ProductEngineering() {
       </section>
 
       {/* How an engagement runs */}
-      <section className="py-20 px-6 bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-5" aria-hidden="true">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_50%_0%,_rgba(52,211,153,0.2)_0%,_transparent_60%)]" />
-        </div>
-
-        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+      <section className="engagement-flow py-20 px-6" aria-labelledby="engagement-heading">
+        <div className="max-w-[1200px] mx-auto w-full">
+          <div className="text-center mb-14 sr">
+            <span className="engagement-flow__eyebrow">Our process</span>
             <ScrollTextReveal
+              id="engagement-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="engagement-flow__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -485,96 +528,56 @@ export default function ProductEngineering() {
                 { text: 'engagement' },
                 { text: 'runs' },
               ]}
-              textColor="#ffffff"
             />
-            <p className="text-emerald-200 text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
-              From discovery to launch and beyond — one continuous responsibility.
+            <p className="engagement-flow__subtitle">
+              From discovery to launch and beyond — one continuous responsibility, not a chain of handoffs.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="engagement-flow__track">
             {ENGAGEMENT_STEPS.map((step, i) => {
               const Icon = step.icon;
+              const stepStyle = {
+                '--step-accent': step.accent,
+                '--step-bg': step.bg,
+                '--step-bg-mid': step.bgMid,
+                transitionDelay: `${i * 0.08}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={step.num}
-                  className="sr-from-center p-5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/15 transition-all duration-300 text-center"
-                  style={{ transitionDelay: `${i * 0.08}s` }}
+                  className="engagement-flow__step sr-from-center"
+                  style={stepStyle}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-300 mx-auto mb-3">
-                    <Icon size={22} strokeWidth={1.5} />
+                  <span className="engagement-flow__dot" aria-hidden="true" />
+                  <div className="engagement-flow__step-top">
+                    <span className="engagement-flow__num">{step.num}</span>
+                    <div className="engagement-flow__icon" aria-hidden="true">
+                      <Icon size={20} strokeWidth={1.75} />
+                    </div>
                   </div>
-                  <span className="text-xs font-bold text-emerald-300/60 tabular-nums block mb-1">{step.num}</span>
-                  <h4 className="text-sm font-semibold text-white mb-1">{step.label}</h4>
-                  <p className="text-xs text-emerald-200/70 leading-relaxed">{step.desc}</p>
-                </div>
+                  <h3 className="engagement-flow__label">{step.label}</h3>
+                  <p className="engagement-flow__desc">{step.desc}</p>
+                </article>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Proof */}
-      <section className="py-20 px-6" aria-labelledby="proof-heading">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="sr">
-              <ScrollTextReveal
-                id="proof-heading"
-                tag="h2"
-                align="left"
-                className="w-full"
-                wordGap="0.2em"
-                style={{
-                  fontFamily: 'Inter,sans-serif',
-                  fontWeight: 600,
-                  fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                  letterSpacing: '0.02em',
-                  lineHeight: 1.25,
-                  maxWidth: '100%',
-                }}
-                words={[
-                  { text: 'Proof' },
-                ]}
-              />
-              <p className="text-[#555] text-base leading-[1.8] mt-4">
-                A century-old manufacturer ran divisions, locations, and machines on manual tracking.
-                We engineered a cloud-based operations platform with live dashboards and predictive
-                maintenance: operations <strong className="text-emerald-600">30% faster</strong>,
-                decision-making <strong className="text-emerald-600">50% quicker</strong>,
-                costs down <strong className="text-emerald-600">40%</strong> from fewer unexpected failures.
-              </p>
-              <p className="text-[#555] text-base leading-[1.8] mt-3">
-                The same discipline scaled down builds an MVP in weeks — and scaled up modernizes a
-                legacy platform without stopping the business that runs on it.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sr sr-d2">
-              {PROOF_STATS.map((stat, i) => (
-                <div
-                  key={stat.label}
-                  className="p-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 text-center hover:shadow-md transition-all duration-300"
-                  style={{ transitionDelay: `${i * 0.1}s` }}
-                >
-                  <div className="text-2xl md:text-3xl font-bold text-emerald-600">{stat.value}</div>
-                  <div className="text-xs text-gray-600 mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceProofSection intro={PROOF_INTRO} stats={PROOF_STATS} />
 
       {/* Why teams pick us */}
-      <section className="py-20 px-6 bg-gray-50" aria-labelledby="why-heading">
+      <section className="why-pick py-20 px-6" aria-labelledby="why-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            {/* <span className="why-pick__eyebrow">Why NSS</span> */}
             <ScrollTextReveal
               id="why-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="why-pick__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -594,23 +597,37 @@ export default function ProductEngineering() {
                 { text: 'stay' },
               ]}
             />
+            <p className="why-pick__subtitle">
+              Not because we promise everything — because we own the outcome after the contract is signed.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="why-pick__grid">
             {WHY_STAY.map((item, i) => {
               const Icon = item.icon;
+              const cardStyle = {
+                '--pick-accent': item.accent,
+                '--pick-bg': item.bg,
+                '--pick-bg-mid': item.bgMid,
+                transitionDelay: `${i * 0.09}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={item.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                  style={{ transitionDelay: `${i * 0.08}s` }}
+                  className="why-pick__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
+                  <span className="why-pick__shine" aria-hidden="true" />
+                  <div className="why-pick__icon" aria-hidden="true">
                     <Icon size={22} strokeWidth={1.75} />
                   </div>
-                  <h4 className="text-sm font-semibold text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
-                </div>
+                  <h3 className="why-pick__card-title">{item.title}</h3>
+                  <p className="why-pick__card-desc">{item.desc}</p>
+                  <span className="why-pick__arrow" aria-hidden="true">
+                    <ArrowRight size={14} strokeWidth={2.25} />
+                  </span>
+                </article>
               );
             })}
           </div>

@@ -14,17 +14,16 @@ import {
   Shield,
   Sparkles,
   Zap,
-  BarChart3,
   Cloud,
   Eye,
   Activity,
   TrendingUp,
-  Server,
 
 } from 'lucide-react';
 import { ScrollTextReveal, HeroTitleWaveGroup, getHeroLineLetterCounts, getHeroWaveStartDelay } from '../ScrollTextReveal';
 import { ServiceHeroBackground } from '../ServiceHeroBackground';
 import { HERO_IMAGES } from '../../data/heroImages';
+import { SmoothHorizontalScroll } from '../SmoothHorizontalScroll';
 
 const HERO_TAGLINE = `AI that survives contact with production`;
 
@@ -54,6 +53,7 @@ const DELIVERABLES = [
     link: '/ai-ml-development-services',
     accent: '#7c3aed',
     bg: '#ede9fe',
+    bgMid: '#ddd6fe',
   },
   {
     icon: Bot,
@@ -62,6 +62,7 @@ const DELIVERABLES = [
     link: '/ai-ml-development-services',
     accent: '#2563eb',
     bg: '#dbeafe',
+    bgMid: '#bfdbfe',
   },
   {
     icon: Eye,
@@ -70,6 +71,7 @@ const DELIVERABLES = [
     link: '/ai-ml-development-services',
     accent: '#059669',
     bg: '#d1fae5',
+    bgMid: '#a7f3d0',
   },
   {
     icon: PieChart,
@@ -78,6 +80,7 @@ const DELIVERABLES = [
     link: '/data-science-and-analytics',
     accent: '#d97706',
     bg: '#fef3c7',
+    bgMid: '#fde68a',
   },
   {
     icon: Network,
@@ -86,6 +89,7 @@ const DELIVERABLES = [
     link: '/iot-solutions',
     accent: '#dc2626',
     bg: '#fee2e2',
+    bgMid: '#fecaca',
   },
 ];
 
@@ -95,46 +99,55 @@ const PROCESS_STEPS = [
     label: 'Data readiness audit',
     desc: 'Where your data lives, what shape it\'s in, what\'s missing.',
     icon: Database,
+    accent: '#2563eb',
+    bg: '#eff6ff',
+    bgMid: '#dbeafe',
   },
   {
     num: '02',
     label: 'Business-case scoping',
     desc: 'The model earns its keep or doesn\'t get built.',
     icon: TrendingUp,
+    accent: '#9333ea',
+    bg: '#faf5ff',
+    bgMid: '#f3e8ff',
   },
   {
     num: '03',
     label: 'Pipeline & architecture',
     desc: 'Designed before model training — infrastructure first.',
     icon: GitBranch,
+    accent: '#db2777',
+    bg: '#fdf2f8',
+    bgMid: '#fce7f3',
   },
   {
     num: '04',
     label: 'Iterative modeling',
     desc: 'With measurable baselines and clear success criteria.',
     icon: Activity,
+    accent: '#d97706',
+    bg: '#fffbeb',
+    bgMid: '#fef3c7',
   },
   {
     num: '05',
     label: 'Deployment with MLOps',
     desc: 'Versioning, monitoring, drift detection, retraining schedules.',
     icon: Cloud,
+    accent: '#0891b2',
+    bg: '#ecfeff',
+    bgMid: '#cffafe',
   },
   {
     num: '06',
     label: 'Governance',
     desc: 'Access, audit trails, and compliance mapped to your industry.',
     icon: Shield,
+    accent: '#059669',
+    bg: '#ecfdf5',
+    bgMid: '#d1fae5',
   },
-];
-
-const FRAMEWORKS = [
-  { name: 'TensorFlow', icon: Brain, color: '#f97316' },
-  { name: 'PyTorch', icon: Brain, color: '#e74c3c' },
-  { name: 'Scikit-learn', icon: Brain, color: '#2ecc71' },
-  { name: 'Kafka', icon: Server, color: '#3498db' },
-  { name: 'Spark', icon: Zap, color: '#e67e22' },
-  { name: 'Power BI', icon: BarChart3, color: '#f1c40f' },
 ];
 
 const FAQS = [
@@ -364,11 +377,11 @@ export default function AiData() {
             {WALL_ITEMS.map((item, i) => (
               <div
                 key={item}
-                className={`sr-from-left p-5 rounded-xl border border-purple-100 bg-gradient-to-br from-purple-50 to-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1`}
+                className="sr-from-left p-5 rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
                 style={{ transitionDelay: `${i * 0.1}s` }}
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 text-purple-500 mt-0.5" aria-hidden="true">
+                  <span className="flex-shrink-0 text-blue-500 mt-0.5" aria-hidden="true">
                     <Zap size={18} />
                   </span>
                   <p className="text-sm text-gray-700 leading-relaxed">{item}</p>
@@ -377,7 +390,7 @@ export default function AiData() {
             ))}
           </div>
 
-          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-purple-50 via-violet-50 to-white border border-purple-100 text-center">
+          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-blue-50 via-indigo-50 to-white border border-blue-100 text-center">
             <p className="text-sm text-gray-700 leading-relaxed max-w-3xl mx-auto">
               <strong>That's why our AI and data engineering services are one practice, not two departments.</strong>{' '}
               The pipeline, the governance, and the deployment path get designed on day one — before a single model is trained.
@@ -387,14 +400,15 @@ export default function AiData() {
       </section>
 
       {/* What we deliver */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white" aria-labelledby="deliver-heading">
+      <section className="ai-deliver py-20 px-6" aria-labelledby="deliver-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            <span className="ai-deliver__eyebrow">Capabilities</span>
             <ScrollTextReveal
               id="deliver-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="ai-deliver__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -410,36 +424,37 @@ export default function AiData() {
                 { text: 'deliver' },
               ]}
             />
-            <p className="text-[#555] text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
+            <p className="ai-deliver__subtitle">
               End-to-end AI and data solutions that survive production.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="ai-deliver__grid">
             {DELIVERABLES.map((item, i) => {
               const Icon = item.icon;
+              const cardStyle = {
+                '--deliver-accent': item.accent,
+                '--deliver-bg': item.bg,
+                '--deliver-bg-mid': item.bgMid,
+                transitionDelay: `${i * 0.07}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={item.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2 group"
-                  style={{ transitionDelay: `${i * 0.07}s` }}
+                  className="ai-deliver__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: item.bg, color: item.accent }}
-                  >
-                    <Icon size={24} strokeWidth={1.75} />
+                  <div className="ai-deliver__icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.7} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-3">{item.desc}</p>
-                  <Link
-                    to={item.link}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-purple-600 hover:text-purple-800 transition-colors group"
-                  >
+                  <h3 className="ai-deliver__card-title">{item.title}</h3>
+                  <p className="ai-deliver__card-desc">{item.desc}</p>
+                  <Link to={item.link} className="ai-deliver__link group">
                     Learn more
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                   </Link>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -447,17 +462,15 @@ export default function AiData() {
       </section>
 
       {/* Production-first method */}
-      <section className="py-20 px-6 bg-gradient-to-br from-purple-900 via-violet-900 to-indigo-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-5" aria-hidden="true">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_50%_0%,_rgba(167,139,250,0.2)_0%,_transparent_60%)]" />
-        </div>
-
-        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+      <section className="method-rail py-20" aria-labelledby="method-heading">
+        <div className="max-w-[1200px] mx-auto px-6 mb-12">
+          <div className="text-center sr">
+            <span className="method-rail__eyebrow">How we work</span>
             <ScrollTextReveal
+              id="method-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="method-rail__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -472,51 +485,70 @@ export default function AiData() {
                 { text: 'production-first' },
                 { text: 'method' },
               ]}
-              textColor="#ffffff"
             />
-            <p className="text-purple-200 text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
+            <p className="method-rail__subtitle">
               Pipeline, governance, and deployment designed before training begins.
             </p>
+            <p className="method-rail__hint" aria-hidden="true">
+              Scroll with mouse wheel or drag →
+            </p>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <SmoothHorizontalScroll ariaLabel="Production-first method steps">
+          <div className="method-rail__row">
             {PROCESS_STEPS.map((step, i) => {
               const Icon = step.icon;
+              const cardStyle = {
+                '--method-accent': step.accent,
+                '--method-bg': step.bg,
+                '--method-bg-mid': step.bgMid,
+                transitionDelay: `${i * 0.12}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={step.num}
-                  className="sr-from-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/15 transition-all duration-300"
-                  style={{ transitionDelay: `${i * 0.08}s` }}
+                  className="method-rail__card sr-from-right"
+                  style={cardStyle}
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-300">
-                      <Icon size={20} strokeWidth={1.5} />
-                    </div>
-                    <span className="text-sm font-bold text-purple-300 tabular-nums">{step.num}</span>
+                  <span className="method-rail__watermark" aria-hidden="true">{step.num}</span>
+                  {i < PROCESS_STEPS.length - 1 && (
+                    <span className="method-rail__pipe" aria-hidden="true" />
+                  )}
+
+                  <div className="method-rail__icon-ring" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.65} />
                   </div>
-                  <h4 className="text-base font-semibold text-white mb-1">{step.label}</h4>
-                  <p className="text-sm text-purple-200/80 leading-relaxed">{step.desc}</p>
-                </div>
+
+                  <div className="method-rail__body">
+                    <h3 className="method-rail__card-title">{step.label}</h3>
+                    <p className="method-rail__card-desc">{step.desc}</p>
+                  </div>
+                </article>
               );
             })}
           </div>
-        </div>
+        </SmoothHorizontalScroll>
       </section>
 
       {/* An honest note on AI */}
-      <section className="py-20 px-6" aria-labelledby="honest-heading">
+      <section className="ai-honest-note py-20 px-6 bg-gray-50" aria-labelledby="honest-heading">
         <div className="max-w-[900px] mx-auto w-full">
-          <div className="sr p-8 md:p-12 rounded-3xl bg-gradient-to-br from-amber-50 via-orange-50 to-white border border-amber-200 shadow-sm">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+          <div className="ai-honest-note__card sr">
+            <div className="ai-honest-note__orb ai-honest-note__orb--left" aria-hidden="true" />
+            <div className="ai-honest-note__orb ai-honest-note__orb--right" aria-hidden="true" />
+            <div className="flex items-start gap-4 md:gap-5 relative z-10">
+              <div className="ai-honest-note__icon flex-shrink-0" aria-hidden="true">
                 <Sparkles size={24} />
               </div>
               <div>
+                <span className="ai-honest-note__eyebrow">Our stance</span>
                 <ScrollTextReveal
                   id="honest-heading"
                   tag="h2"
                   align="left"
-                  className="w-full"
+                  className="ai-honest-note__title w-full mt-2"
                   wordGap="0.2em"
                   style={{
                     fontFamily: 'Inter,sans-serif',
@@ -533,69 +565,16 @@ export default function AiData() {
                     { text: 'on' },
                     { text: 'AI' },
                   ]}
-                  textColor="#92400e"
+                  scrollFromColor="#f8fafc"
+                  scrollToColor="#e2e8f0"
                 />
-                <p className="text-amber-800/80 text-base leading-[1.8] mt-3 max-w-2xl">
+                <p className="ai-honest-note__text">
                   Not every problem needs machine learning. If a rules engine or a well-built report solves it,
                   we'll tell you — an AI project that shouldn't exist is the most expensive kind. Clients tend to
-                  remember that conversation; it's a large part of why <strong className="text-amber-900">95% of them stay</strong>.
+                  remember that conversation; it's a large part of why <strong>95% of them stay</strong>.
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Frameworks */}
-      <section className="py-20 px-6 bg-gray-50" aria-labelledby="frameworks-heading">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
-            <ScrollTextReveal
-              id="frameworks-heading"
-              tag="h2"
-              align="center"
-              className="w-full"
-              wordGap="0.2em"
-              style={{
-                fontFamily: 'Inter,sans-serif',
-                fontWeight: 600,
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                letterSpacing: '0.02em',
-                lineHeight: 1.25,
-                maxWidth: '100%',
-              }}
-              words={[
-                { text: 'The' },
-                { text: 'stack' },
-                { text: 'serves' },
-                { text: 'the' },
-                { text: 'problem' },
-              ]}
-            />
-            <p className="text-[#555] text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
-              Never the reverse. We use the right tools for each challenge.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {FRAMEWORKS.map((framework, i) => {
-              const Icon = framework.icon;
-              return (
-                <div
-                  key={framework.name}
-                  className="sr-from-center p-4 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 text-center"
-                  style={{ transitionDelay: `${i * 0.06}s` }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2"
-                    style={{ backgroundColor: `${framework.color}15`, color: framework.color }}
-                  >
-                    <Icon size={20} strokeWidth={1.5} />
-                  </div>
-                  <span className="text-xs font-medium text-gray-700">{framework.name}</span>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>

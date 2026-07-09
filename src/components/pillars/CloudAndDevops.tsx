@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { ScrollTextReveal, HeroTitleWaveGroup, getHeroLineLetterCounts, getHeroWaveStartDelay } from '../ScrollTextReveal';
 import { ServiceHeroBackground } from '../ServiceHeroBackground';
+import { ServiceProofSection } from '../service-pages/ServiceProofSection';
 import { HERO_IMAGES } from '../../data/heroImages';
 
 const HERO_TAGLINE = `Infrastructure that scales. Releases that don't scare anyone.`;
@@ -47,6 +48,7 @@ const DELIVERABLES = [
     link: '/cloud-solutions',
     accent: '#2563eb',
     bg: '#dbeafe',
+    bgMid: '#bfdbfe',
   },
   {
     icon: TrendingDown,
@@ -55,6 +57,7 @@ const DELIVERABLES = [
     link: '/cloud-solutions',
     accent: '#059669',
     bg: '#d1fae5',
+    bgMid: '#a7f3d0',
   },
   {
     icon: GitBranch,
@@ -63,6 +66,7 @@ const DELIVERABLES = [
     link: '/devops-development',
     accent: '#7c3aed',
     bg: '#ede9fe',
+    bgMid: '#ddd6fe',
   },
   {
     icon: Layers,
@@ -71,6 +75,7 @@ const DELIVERABLES = [
     link: '/cloud-solutions',
     accent: '#d97706',
     bg: '#fef3c7',
+    bgMid: '#fde68a',
   },
   {
     icon: Shield,
@@ -79,6 +84,7 @@ const DELIVERABLES = [
     link: '/software-maintenance-support',
     accent: '#dc2626',
     bg: '#fee2e2',
+    bgMid: '#fecaca',
   },
   {
     icon: Cloud,
@@ -87,22 +93,50 @@ const DELIVERABLES = [
     link: '/salesforce-development',
     accent: '#0891b2',
     bg: '#cffafe',
+    bgMid: '#a5f3fc',
   },
 ];
 
 const PROOF_STATS = [
-  { value: '99.99%', label: 'Uptime under peak load' },
-  { value: '40%', label: 'Faster performance' },
+  { value: '99.99%', label: 'Uptime at peak' },
   { value: '35%', label: 'Lower cloud costs' },
-  { value: '0', label: 'Downtime deployments since' },
+  { value: '40%', label: 'Faster performance' },
 ];
 
-const PROOF_INTRO = `A high-traffic enterprise application faced traffic spikes, slow queries, DDoS exposure, and an unoptimized bill. We rebuilt the foundation — load balancing with auto-scaling, database tuning (+30% query speed), zero-trust security hardening, and automated CI/CD.`;
+const PROOF_INTRO = (
+  <>
+    A high-traffic enterprise application faced traffic spikes, slow queries, DDoS exposure,
+    and an unoptimized bill. We rebuilt the foundation — load balancing with auto-scaling,
+    database tuning (<strong>+30% query speed</strong>), zero-trust security hardening, and
+    automated CI/CD. <strong>Zero-downtime deployments</strong> since go-live.
+  </>
+);
 
 const CERTIFICATIONS = [
-  { name: 'AWS', icon: Cloud, color: '#f97316', items: ['Migration Hub', 'EC2', 'Cost Explorer'] },
-  { name: 'Azure', icon: CloudSnow, color: '#0078d4', items: ['Azure Migrate', 'Site Recovery', 'Compute Engine'] },
-  { name: 'Google Cloud', icon: CloudSun, color: '#4285f4', items: ['Compute Engine', 'GKE', 'Cloud Storage'] },
+  {
+    name: 'Azure',
+    icon: CloudSnow,
+    color: '#0078d4',
+    bg: '#dbeafe',
+    bgMid: '#bfdbfe',
+    items: ['Azure Migrate', 'Site Recovery', 'Compute Engine'],
+  },
+  {
+    name: 'AWS',
+    icon: Cloud,
+    color: '#f97316',
+    bg: '#ffedd5',
+    bgMid: '#fed7aa',
+    items: ['Migration Hub', 'EC2', 'Cost Explorer'],
+  },
+  {
+    name: 'Google Cloud',
+    icon: CloudSun,
+    color: '#4285f4',
+    bg: '#dbeafe',
+    bgMid: '#93c5fd',
+    items: ['Compute Engine', 'GKE', 'Cloud Storage'],
+  },
 ];
 
 const FAQS = [
@@ -353,14 +387,15 @@ export default function CloudDevOps() {
       </section>
 
       {/* What we deliver */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-50 to-white" aria-labelledby="deliver-heading">
+      <section className="ai-deliver py-20 px-6" aria-labelledby="deliver-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            <span className="ai-deliver__eyebrow">Capabilities</span>
             <ScrollTextReveal
               id="deliver-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="ai-deliver__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -376,99 +411,55 @@ export default function CloudDevOps() {
                 { text: 'deliver' },
               ]}
             />
-            <p className="text-[#555] text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
+            <p className="ai-deliver__subtitle">
               End-to-end cloud and DevOps solutions that eliminate the quiet tax.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="ai-deliver__grid">
             {DELIVERABLES.map((item, i) => {
               const Icon = item.icon;
+              const cardStyle = {
+                '--deliver-accent': item.accent,
+                '--deliver-bg': item.bg,
+                '--deliver-bg-mid': item.bgMid,
+                transitionDelay: `${i * 0.07}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={item.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2 group"
-                  style={{ transitionDelay: `${i * 0.07}s` }}
+                  className="ai-deliver__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: item.bg, color: item.accent }}
-                  >
-                    <Icon size={24} strokeWidth={1.75} />
+                  <div className="ai-deliver__icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.7} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-3">{item.desc}</p>
-                  <Link
-                    to={item.link}
-                    className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors group"
-                  >
+                  <h3 className="ai-deliver__card-title">{item.title}</h3>
+                  <p className="ai-deliver__card-desc">{item.desc}</p>
+                  <Link to={item.link} className="ai-deliver__link group">
                     Learn more
                     <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                   </Link>
-                </div>
+                </article>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Proof under pressure */}
-      <section className="py-20 px-6 bg-gradient-to-b from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10" aria-hidden="true">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_50%_0%,_rgba(96,165,250,0.15)_0%,_transparent_60%)]" />
-        </div>
-
-        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
-            <ScrollTextReveal
-              tag="h2"
-              align="center"
-              className="w-full"
-              wordGap="0.2em"
-              style={{
-                fontFamily: 'Inter,sans-serif',
-                fontWeight: 600,
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                letterSpacing: '0.02em',
-                lineHeight: 1.25,
-                maxWidth: '100%',
-              }}
-              words={[
-                { text: 'Proof' },
-                { text: 'under' },
-                { text: 'pressure' },
-              ]}
-              textColor="#ffffff"
-            />
-            <p className="text-blue-200 text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
-              {PROOF_INTRO}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {PROOF_STATS.map((stat, i) => (
-              <div
-                key={stat.label}
-                className="sr-from-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 text-center hover:bg-white/15 transition-all duration-300"
-                style={{ transitionDelay: `${i * 0.1}s` }}
-              >
-                <div className="text-3xl md:text-4xl font-bold text-blue-300">{stat.value}</div>
-                <div className="text-xs text-blue-200/80 mt-1 uppercase tracking-wide">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceProofSection intro={PROOF_INTRO} stats={PROOF_STATS} />
 
       {/* Certifications */}
-      <section className="py-20 px-6" aria-labelledby="certs-heading">
+      <section className="cloud-certs py-20 px-6 bg-gray-50" aria-labelledby="certs-heading">
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 sr">
+            <span className="cloud-certs__eyebrow">Platforms</span>
             <ScrollTextReveal
               id="certs-heading"
               tag="h2"
               align="center"
-              className="w-full"
+              className="cloud-certs__title w-full mt-3"
               wordGap="0.2em"
               style={{
                 fontFamily: 'Inter,sans-serif',
@@ -484,38 +475,39 @@ export default function CloudDevOps() {
                 { text: 'platforms' },
               ]}
             />
-            <p className="text-[#555] text-base leading-[1.7] mt-4 max-w-[40rem] mx-auto">
+            <p className="cloud-certs__subtitle">
               We recommend the platform your workload and budget deserve, not the one with the best partner margin.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="cloud-certs__grid max-w-[920px] mx-auto">
             {CERTIFICATIONS.map((cert, i) => {
               const Icon = cert.icon;
+              const cardStyle = {
+                '--cert-accent': cert.color,
+                '--cert-bg': cert.bg,
+                '--cert-bg-mid': cert.bgMid,
+                transitionDelay: `${i * 0.1}s`,
+              } as React.CSSProperties;
+
               return (
-                <div
+                <article
                   key={cert.name}
-                  className="sr-from-center p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2 text-center"
-                  style={{ transitionDelay: `${i * 0.1}s` }}
+                  className="cloud-certs__card sr-from-center"
+                  style={cardStyle}
                 >
-                  <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                    style={{ backgroundColor: `${cert.color}15`, color: cert.color }}
-                  >
-                    <Icon size={32} strokeWidth={1.5} />
+                  <div className="cloud-certs__icon" aria-hidden="true">
+                    <Icon size={24} strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{cert.name}</h3>
-                  <div className="flex flex-wrap justify-center gap-2">
+                  <h3 className="cloud-certs__card-title">{cert.name}</h3>
+                  <div className="cloud-certs__tags">
                     {cert.items.map((item) => (
-                      <span
-                        key={item}
-                        className="text-xs bg-gray-50 text-gray-600 px-3 py-1.5 rounded-full border border-gray-100"
-                      >
+                      <span key={item} className="cloud-certs__tag">
                         {item}
                       </span>
                     ))}
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
