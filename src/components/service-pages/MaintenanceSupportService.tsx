@@ -13,11 +13,10 @@ import {
   X,
   Check,
 } from 'lucide-react';
-import { ScrollTextReveal } from '../ScrollTextReveal';
+import { ScrollTextReveal, SERVICE_HERO_WAVE_PROPS, HeroTitleWaveGroup, getHeroLineLetterCounts, getHeroWaveStartDelay } from '../ScrollTextReveal';
+import { ServiceHeroBackground } from '../ServiceHeroBackground';
+import { HERO_IMAGES } from '../../data/heroImages';
 import { ServiceProofSection } from './ServiceProofSection';
-const HERO_BG_IMAGE =
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80';
-
 const UNMAINTAINED_COST_WORDS = [
   { text: 'What' },
   { text: 'unmaintained' },
@@ -37,8 +36,6 @@ const HERO_TAGLINE = `Launch day is the beginning.`;
 const HERO_DESC = `Software that isn't maintained decays: dependencies age, security holes open, performance erodes one release at a time. Our software maintenance and support services make sure yours doesn't get the chance.`;
 
 const HERO_LETTER_INTERVAL = 72;
-const HERO_TITLE_STROKE = '#fb923c';
-
 const HERO_TITLE_LINES = [
   {
     words: [{ text: 'MAINTENANCE' }],
@@ -360,17 +357,14 @@ export default function MaintenanceSupportService() {
     <article className="min-h-screen bg-white">
       {/* Hero */}
       <header className="webdev-hero relative border-b border-white/10 px-6">
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <img
-            src={HERO_BG_IMAGE}
-            alt=""
-            className="webdev-hero__img h-full w-full object-cover object-[72%_center]"
-          />
-          <div className="webdev-hero__overlay webdev-hero__overlay--dark" aria-hidden="true" />
-        </div>
+        <ServiceHeroBackground image={HERO_IMAGES.maintenanceSupport} />
 
         <div className="relative z-10 max-w-[1200px] mx-auto w-full">
           <div className="max-w-[58rem] text-left">
+            <HeroTitleWaveGroup
+              lineLetterCounts={getHeroLineLetterCounts(HERO_TITLE_LINES)}
+              waveStartDelay={getHeroWaveStartDelay(HERO_TITLE_LINES, HERO_LETTER_INTERVAL)}
+            >
             <div
               className="hero-outline-text a1 mb-3"
               style={{ fontSize: 'clamp(2.5rem, 5.8vw, 4.25rem)' }}
@@ -382,10 +376,8 @@ export default function MaintenanceSupportService() {
                   tag="span"
                   align="left"
                   animate="words"
-                  outlinedText
-                  strokeColor={HERO_TITLE_STROKE}
-                  strokeWidth={3}
-                  letterInterval={HERO_LETTER_INTERVAL}
+                  {...SERVICE_HERO_WAVE_PROPS}
+                  waveLineIndex={i}                  letterInterval={HERO_LETTER_INTERVAL}
                   startDelay={line.startDelay}
                   wordGap="0.55em"
                   words={line.words}
@@ -400,7 +392,7 @@ export default function MaintenanceSupportService() {
                 />
               ))}
             </div>
-
+            </HeroTitleWaveGroup>
             <h1 className="webdev-hero__tagline a2 mb-3 w-full text-left">
               {HERO_TAGLINE}
             </h1>

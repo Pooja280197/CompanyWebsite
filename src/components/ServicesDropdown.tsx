@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { SERVICE_MEGA_COLUMNS } from '../data/serviceItems';
 
 interface Props {
@@ -10,6 +10,10 @@ interface Props {
   onClose: () => void;
 }
 
+function isItemActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function ServicesDropdown({
   open,
   menuId,
@@ -18,6 +22,7 @@ export function ServicesDropdown({
   onClose,
 }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!open) return;
@@ -50,7 +55,9 @@ export function ServicesDropdown({
           <div className="services-dropdown__card">
             <div className="services-dropdown__shine" aria-hidden="true" />
             <div className="services-dropdown__grid">
-              {SERVICE_MEGA_COLUMNS.map((column, colIndex) => (
+              {SERVICE_MEGA_COLUMNS.map((column, colIndex) => {
+                const titleDelay = linkIndex++;
+                return (
                 <div
                   key={column.id}
                   className={`services-dropdown__col ${open ? 'services-dropdown__col--in' : ''}`}
@@ -58,7 +65,21 @@ export function ServicesDropdown({
                   role="group"
                   aria-label={column.title}
                 >
-                  <h3 className="services-dropdown__col-title">{column.title}</h3>
+                  <h3 className="services-dropdown__col-title">
+                    <Link
+                      to={column.href}
+                      role="menuitem"
+                      onClick={onClose}
+                      aria-label={`View ${column.title} overview`}
+                      aria-current={isItemActive(pathname, column.href) ? 'page' : undefined}
+                      className={`services-dropdown__link services-dropdown__link--heading ${open ? 'services-dropdown__link--in' : ''} ${
+                        isItemActive(pathname, column.href) ? 'services-dropdown__link--active' : ''
+                      }`}
+                      style={{ transitionDelay: open ? `${titleDelay * 28 + 100}ms` : '0ms' }}
+                    >
+                      {column.title}
+                    </Link>
+                  </h3>
                   <ul className="services-dropdown__list">
                     {column.items.map((item) => {
                       const delay = linkIndex++;
@@ -68,7 +89,10 @@ export function ServicesDropdown({
                             to={item.href}
                             role="menuitem"
                             onClick={onClose}
-                            className={`services-dropdown__link ${open ? 'services-dropdown__link--in' : ''}`}
+                            aria-current={isItemActive(pathname, item.href) ? 'page' : undefined}
+                            className={`services-dropdown__link ${open ? 'services-dropdown__link--in' : ''} ${
+                              isItemActive(pathname, item.href) ? 'services-dropdown__link--active' : ''
+                            }`}
                             style={{ transitionDelay: open ? `${delay * 28 + 100}ms` : '0ms' }}
                           >
                             {item.label}
@@ -78,7 +102,8 @@ export function ServicesDropdown({
                     })}
                   </ul>
                 </div>
-              ))}
+              );
+              })}
             </div>
           </div>
         </div>
@@ -88,18 +113,35 @@ export function ServicesDropdown({
 }
 
 export function ServicesMobileList({ onNavigate }: { onNavigate: () => void }) {
+  const { pathname } = useLocation();
+
   return (
     <div className="mt-1 pb-4 space-y-6">
       {SERVICE_MEGA_COLUMNS.map((column) => (
         <div key={column.id}>
-          <p className="services-dropdown__col-title text-base mb-0 pb-3">{column.title}</p>
+          <h3 className="services-dropdown__col-title">
+            <Link
+              to={column.href}
+              onClick={onNavigate}
+              aria-label={`View ${column.title} overview`}
+              aria-current={isItemActive(pathname, column.href) ? 'page' : undefined}
+              className={`services-dropdown__link services-dropdown__link--heading text-lg py-3 ${
+                isItemActive(pathname, column.href) ? 'services-dropdown__link--active' : ''
+              }`}
+            >
+              {column.title}
+            </Link>
+          </h3>
           <ul className="services-dropdown__list">
             {column.items.map((item) => (
               <li key={item.id}>
                 <Link
                   to={item.href}
                   onClick={onNavigate}
-                  className="services-dropdown__link text-lg py-3"
+                  aria-current={isItemActive(pathname, item.href) ? 'page' : undefined}
+                  className={`services-dropdown__link text-lg py-3 ${
+                    isItemActive(pathname, item.href) ? 'services-dropdown__link--active' : ''
+                  }`}
                 >
                   {item.label}
                 </Link>
