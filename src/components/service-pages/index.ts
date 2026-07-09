@@ -1,0 +1,15 @@
+export { default as BrandStrategyService } from './BrandStrategyService';
+export { default as WebDevelopmentService } from './WebDevelopmentService';
+export { default as CustomSoftware } from './CUSTOMSOFTWARE';
+export { default as DigitalMarketingService } from './DigitalMarketingService';
+export { default as UiUxDesignService } from './UiUxDesignService';
+export { default as AnalyticsService } from './AnalyticsService';
+export { default as MobileAppsService } from './MobileAppsService';
+export { default as AiSolutionsService } from './AiSolutionsService';
+export { default as CloudServicesService } from './CloudServicesService';
+export { default as EcommerceService } from './EcommerceService';
+export { default as SeoService } from './SeoService';
+export { default as ConsultingService } from './ConsultingService';
+export { default as DevopsService } from './DevopsService';
+export { default as MaintenanceSupportService } from './MaintenanceSupportService';
+export { default as SalesforceService } from './SalesforceService';
