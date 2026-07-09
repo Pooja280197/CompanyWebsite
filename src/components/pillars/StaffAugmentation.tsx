@@ -18,10 +18,9 @@ import {
   Layers,
  
 } from 'lucide-react';
-import { ScrollTextReveal } from '../ScrollTextReveal';
-
-const HERO_BG_IMAGE =
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80';
+import { ScrollTextReveal, HeroTitleWaveGroup, getHeroLineLetterCounts, getHeroWaveStartDelay } from '../ScrollTextReveal';
+import { ServiceHeroBackground } from '../ServiceHeroBackground';
+import { HERO_IMAGES } from '../../data/heroImages';
 
 const HERO_TAGLINE = `Your team, extended — without the hiring drag`;
 
@@ -277,31 +276,29 @@ export default function StaffAugmentation() {
     <article className="min-h-screen bg-white">
       {/* Hero */}
       <header className="webdev-hero relative border-b border-white/10 px-6" style={{ height: '100svh', maxHeight: '100svh' }}>
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80"
-            alt=""
-            className="webdev-hero__img h-full w-full object-cover object-[72%_center]"
-          />
-          <div className="webdev-hero__overlay webdev-hero__overlay--dark" aria-hidden="true" />
-        </div>
+        <ServiceHeroBackground image={HERO_IMAGES.staffAugmentation} />
 
         <div className="relative z-10 max-w-[1200px] mx-auto w-full">
           <div className="max-w-[58rem] text-left">
+            <HeroTitleWaveGroup
+              lineLetterCounts={getHeroLineLetterCounts(HERO_TITLE_LINES)}
+              waveStartDelay={getHeroWaveStartDelay(HERO_TITLE_LINES, 72)}
+            >
             <div
-              className="hero-outline-text a1 mb-3"
+              className="hero-outline-text hero-outline-text--pillar a1 mb-3"
               style={{ fontSize: 'clamp(2.5rem, 5.8vw, 4.25rem)' }}
               aria-hidden="true"
             >
-              {HERO_TITLE_LINES.map((line) => (
+              {HERO_TITLE_LINES.map((line, i) => (
                 <ScrollTextReveal
                   key={line.words.map((w) => w.text).join('-')}
                   tag="span"
                   align="left"
                   animate="words"
                   outlinedText
-                  strokeColor="#f97316"
-                  strokeWidth={3}
+                  gradientStroke
+                  gradientFillWave
+                  waveLineIndex={i}                  strokeWidth={3}
                   letterInterval={72}
                   startDelay={line.startDelay}
                   wordGap="0.55em"
@@ -316,7 +313,7 @@ export default function StaffAugmentation() {
                 />
               ))}
             </div>
-
+            </HeroTitleWaveGroup>
             <h1 className="webdev-hero__tagline a2 mb-3 w-full text-left">
               {HERO_TAGLINE}
             </h1>
@@ -327,8 +324,8 @@ export default function StaffAugmentation() {
 
             <Link
               to="/#contact"
-              className="nav-cta-btn nav-cta-btn--cta a3 mt-5 inline-flex bg-gradient-to-b from-amber-400 via-orange-500 to-orange-600"
-              style={{ '--nav-cta-w': '16.75rem' } as React.CSSProperties}
+              className="nav-cta-btn nav-cta-btn--cta nav-cta-btn--blue a3 mt-5 inline-flex"
+              style={{ '--nav-cta-w': '21.5rem' } as React.CSSProperties}
             >
               <span className="nav-cta-btn__label">Get Candidate Profiles in 48 Hours</span>
               <span className="nav-cta-btn__icon">
@@ -710,7 +707,7 @@ export default function StaffAugmentation() {
             </p>
             <Link
               to="/#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 text-white font-semibold hover:bg-gray-800 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="pillar-cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105"
             >
               Start with Candidate Profiles
               <ArrowRight size={18} />
@@ -770,7 +767,7 @@ export default function StaffAugmentation() {
           </p>
           <Link
             to="/#contact"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gray-900 text-white text-sm font-semibold hover:bg-gray-800 transition-all duration-300 hover:scale-105"
+            className="pillar-cta-btn inline-flex items-center gap-2 px-7 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:scale-105"
           >
             Get Candidate Profiles in 48 Hours
             <ArrowRight size={16} />

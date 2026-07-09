@@ -139,6 +139,7 @@ export interface ServiceMegaLink {
 export interface ServiceMegaColumn {
   id: string;
   title: string;
+  href: string;
   items: ServiceMegaLink[];
 }
 
@@ -146,6 +147,7 @@ export const SERVICE_MEGA_COLUMNS: ServiceMegaColumn[] = [
   {
     id: 'product-engineering',
     title: 'Product Engineering',
+    href: '/whatWeDo/productEngineering',
     items: [
       { id: 'custom-software', label: 'Custom Software', href: '/services/custom-software' },
       { id: 'web-development', label: 'Web Development', href: '/services/web-development' },
@@ -156,6 +158,7 @@ export const SERVICE_MEGA_COLUMNS: ServiceMegaColumn[] = [
   {
     id: 'ai-data',
     title: 'AI & Data',
+    href: '/whatWeDo/ai-and-data',
     items: [
       { id: 'ai-ml', label: 'AI/ML Development', href: '/services/ai-solutions' },
       { id: 'data-science', label: 'Data Science & Analytics', href: '/services/analytics' },
@@ -165,6 +168,7 @@ export const SERVICE_MEGA_COLUMNS: ServiceMegaColumn[] = [
   {
     id: 'cloud-devops',
     title: 'Cloud & DevOps',
+    href: '/whatWeDo/cloud-and-devops',
     items: [
       { id: 'cloud', label: 'Cloud Solutions', href: '/services/cloud-services' },
       { id: 'devops', label: 'DevOps', href: '/services/devops' },
@@ -175,6 +179,7 @@ export const SERVICE_MEGA_COLUMNS: ServiceMegaColumn[] = [
   {
     id: 'team-extension',
     title: 'Team Extension',
+    href: '/whatWeDo/staffAugmentation',
     items: [
       { id: 'staff-augmentation', label: 'Staff Augmentation', href: '/#contact' },
       { id: 'engagement-models', label: 'Engagement Models', href: '/#contact' },

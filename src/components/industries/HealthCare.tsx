@@ -486,7 +486,7 @@ export default function IndustryHealthcare() {
             style={{ opacity: visibleSections[3] ? 1 : 0, transform: visibleSections[3] ? 'translateY(0)' : 'translateY(20px)', transition: 'all 0.6s ease 0.4s' }}
           >
             <Link
-              to="/case-studies/healthcare-modernization"
+              to="/our-work/healthcare-modernization"
               className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors group"
             >
               Read the full case study
@@ -587,7 +587,7 @@ export default function IndustryHealthcare() {
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              to="/case-studies"
+              to="/#case-studies"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-all duration-300"
             >
               View Case Studies

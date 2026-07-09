@@ -22,10 +22,9 @@ import {
   Server,
 
 } from 'lucide-react';
-import { ScrollTextReveal } from '../ScrollTextReveal';
-
-const HERO_BG_IMAGE =
-  'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1920&q=80';
+import { ScrollTextReveal, HeroTitleWaveGroup, getHeroLineLetterCounts, getHeroWaveStartDelay } from '../ScrollTextReveal';
+import { ServiceHeroBackground } from '../ServiceHeroBackground';
+import { HERO_IMAGES } from '../../data/heroImages';
 
 const HERO_TAGLINE = `AI that survives contact with production`;
 
@@ -263,30 +262,29 @@ export default function AiData() {
         className="webdev-hero relative border-b border-white/10 px-6"
         style={{ height: '100svh', maxHeight: '100svh' }}
       >
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <img
-            src={HERO_BG_IMAGE}
-            alt="AI and data visualization"
-            className="webdev-hero__img h-full w-full object-cover object-center"
-          />
-          <div className="webdev-hero__overlay webdev-hero__overlay--dark" aria-hidden="true" />
-        </div>
+        <ServiceHeroBackground image={HERO_IMAGES.aiAndData} />
 
         <div className="relative z-10 max-w-[1200px] mx-auto w-full">
           <div className="max-w-[58rem] text-left">
+            <HeroTitleWaveGroup
+              lineLetterCounts={getHeroLineLetterCounts(HERO_TITLE_LINES)}
+              waveStartDelay={getHeroWaveStartDelay(HERO_TITLE_LINES, 72)}
+            >
             <div
-              className="hero-outline-text a1 mb-3"
+              className="hero-outline-text hero-outline-text--pillar a1 mb-3"
               style={{ fontSize: 'clamp(2.5rem, 5.8vw, 4.25rem)' }}
               aria-hidden="true"
             >
-              {HERO_TITLE_LINES.map((line) => (
+              {HERO_TITLE_LINES.map((line, i) => (
                 <ScrollTextReveal
                   key={line.words.map((w) => w.text).join('-')}
                   tag="span"
                   align="left"
                   animate="words"
                   outlinedText
-                  strokeColor="#a78bfa"
+                  gradientStroke
+                  gradientFillWave
+                  waveLineIndex={i}
                   strokeWidth={3}
                   letterInterval={72}
                   startDelay={line.startDelay}
@@ -302,7 +300,7 @@ export default function AiData() {
                 />
               ))}
             </div>
-
+            </HeroTitleWaveGroup>
             <h1 className="webdev-hero__tagline a2 mb-3 w-full text-left">
               {HERO_TAGLINE}
             </h1>
@@ -313,8 +311,8 @@ export default function AiData() {
 
             <Link
               to="/#contact"
-              className="nav-cta-btn nav-cta-btn--cta a3 mt-5 inline-flex bg-gradient-to-b from-purple-400 via-purple-500 to-purple-600"
-              style={{ '--nav-cta-w': '14.75rem' } as React.CSSProperties}
+              className="nav-cta-btn nav-cta-btn--cta nav-cta-btn--blue a3 mt-5 inline-flex"
+              style={{ '--nav-cta-w': '18.5rem' } as React.CSSProperties}
             >
               <span className="nav-cta-btn__label">Book an AI Readiness Call</span>
               <span className="nav-cta-btn__icon">
@@ -614,7 +612,7 @@ export default function AiData() {
             </p>
             <Link
               to="/#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="pillar-cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105"
             >
               Book Your AI Readiness Call
               <ArrowRight size={18} />
@@ -684,7 +682,7 @@ export default function AiData() {
           </div>
           <Link
             to="/#contact"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-purple-600 text-white text-sm font-semibold hover:bg-purple-700 transition-all duration-300 hover:scale-105"
+            className="pillar-cta-btn inline-flex items-center gap-2 px-7 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:scale-105"
           >
             Book an AI Readiness Call
             <ArrowRight size={16} />

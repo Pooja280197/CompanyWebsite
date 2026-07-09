@@ -150,7 +150,7 @@ export default function DataPipeline() {
           >
             <Link to="/" className="hover:text-gray-600 transition-colors">Home</Link>
             <ChevronRight size={14} />
-            <Link to="/case-studies" className="hover:text-gray-600 transition-colors">Case Studies</Link>
+            <Link to="/#case-studies" className="hover:text-gray-600 transition-colors">Case Studies</Link>
             <ChevronRight size={14} />
             <span className="text-indigo-600 font-medium">Data Pipeline</span>
           </div>
@@ -795,7 +795,7 @@ export default function DataPipeline() {
                 <MoveRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to="/case-studies"
+                to="/#case-studies"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 hover:-translate-y-0.5"
               >
                 View All Case Studies
