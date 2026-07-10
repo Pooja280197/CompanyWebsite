@@ -1,21 +1,16 @@
-// IndustryHealthcare.tsx - Redesigned "What We Build" Section Only
+// IndustryEducation.tsx - Education Industry Page
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   Sparkles,
-  Heart,
-  Stethoscope,
-  TrendingUp,
-  Shield,
-  Zap,
-  MoveRight,
-  Award,
-  BarChart3,
+  GraduationCap,
+  BookOpen,
+  Users,
+  Calendar,
   Clock,
   Lock,
   Globe,
-  Users,
   Building2,
   ChevronRight,
   PlayCircle,
@@ -27,21 +22,21 @@ import {
   Database,
   Server,
   Rocket,
-  FileHeart,
-  Pill,
-
-  Microscope,
-  ClipboardCheck,
+  School,
+  Monitor,
+  Video,
+  Award,
+  TrendingUp,
+  Shield,
+  Gauge,
+  BarChart3,
   UserCheck,
   Activity,
   Scan,
-  Bone,
-  Droplet,
   Brain,
   Ambulance,
   Syringe,
   Bandage,
-  Calendar,
   Mail,
   Phone,
   MapPin,
@@ -55,15 +50,25 @@ import {
   ChevronLeft,
   ChevronRight as ChevronRightIcon,
   CalendarCheck2,
+  Laptop,
+  BookMarked,
+  PieChart,
+  Zap,
+  FileCheck,
+  RefreshCw,
+  Eye,
+  Key,
+  Network,
+  LayoutDashboard,
 } from 'lucide-react';
 
 const injectStyles = () => {
-  const id = 'healthcare-industry-premium';
+  const id = 'education-industry-premium';
   if (document.getElementById(id)) return;
   const style = document.createElement('style');
   style.id = id;
   style.textContent = `
-    .healthcare-premium {
+    .education-premium {
       background: #FAFBFC;
       color: #0F172A;
       overflow-x: hidden;
@@ -88,7 +93,6 @@ const injectStyles = () => {
       letter-spacing: -0.02em;
     }
 
-    /* ── Reveal ── */
     .reveal-up {
       opacity: 0;
       transform: translateY(40px);
@@ -129,7 +133,6 @@ const injectStyles = () => {
       transform: scale(1);
     }
 
-    /* ── Text Reveal ── */
     .text-reveal-line {
       overflow: hidden;
       display: block;
@@ -144,13 +147,12 @@ const injectStyles = () => {
     }
 
     .gradient-text {
-      background: linear-gradient(135deg, #2563EB 0%, #6366F1 50%, #06B6D4 100%);
+      background: linear-gradient(135deg, #D97706 0%, #F59E0B 50%, #FBBF24 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* ── REDESIGNED SERVICE CARD ── */
     .service-card-new {
       position: relative;
       background: white;
@@ -168,7 +170,7 @@ const injectStyles = () => {
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #2563EB, #6366F1, #06B6D4);
+      background: linear-gradient(90deg, #D97706, #F59E0B, #FBBF24);
       opacity: 0;
       transition: opacity 0.5s ease;
     }
@@ -192,7 +194,7 @@ const injectStyles = () => {
     }
     .service-card-new:hover .icon-wrap {
       transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(37,99,235,0.15);
+      box-shadow: 0 8px 24px rgba(217,119,6,0.15);
     }
     .service-card-new .card-number {
       position: absolute;
@@ -224,12 +226,11 @@ const injectStyles = () => {
       transition: all 0.3s ease;
     }
     .feature-tag:hover {
-      border-color: #2563EB;
-      color: #2563EB;
-      background: #eff6ff;
+      border-color: #D97706;
+      color: #D97706;
+      background: #fffbeb;
     }
 
-    /* ── FLOATING ELEMENTS ── */
     .float-el {
       animation: floatEl 6s ease-in-out infinite;
       position: absolute;
@@ -243,12 +244,24 @@ const injectStyles = () => {
       50% { transform: translateY(-16px) rotate(4deg); }
     }
 
-    /* ── DIVIDER ── */
     .divider-gradient {
       height: 2px;
-      background: linear-gradient(to right, transparent, rgba(37,99,235,0.1), transparent);
+      background: linear-gradient(to right, transparent, rgba(217,119,6,0.1), transparent);
       width: 80px;
       margin: 16px 0;
+    }
+
+    .credibility-pill {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #f1f5f9;
+      transition: all 0.3s ease;
+    }
+    .credibility-pill:hover {
+      border-color: #D97706;
+      box-shadow: 0 8px 24px rgba(217,119,6,0.08);
+      transform: translateY(-2px);
     }
 
     @keyframes fadeUp {
@@ -291,95 +304,97 @@ function TextReveal({ lines, className = '' }: { lines: string[]; className?: st
   );
 }
 
-export default function IndustryHealthcare() {
+export default function IndustryEducation() {
   const wrapperRef = useReveal();
   const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
-    document.title = 'Healthcare Software Development — NSS';
+    document.title = 'Education Software Development — NSS';
   }, []);
 
   const services = [
     { 
-      icon: ClipboardCheck, 
-      title: 'Patient Management Systems', 
-      desc: 'Registration to discharge on one record, with complete patient history and care coordination.', 
-      color: '#2563EB', 
-      bg: '#EFF6FF',
-      features: ['Unified Records', 'Care Coordination', 'Patient History'],
+      icon: BookOpen, 
+      title: 'E-Learning Platforms & LMS', 
+      desc: 'Courses, assessments, and progress tracking built for engagement — not just content delivery.', 
+      color: '#D97706', 
+      bg: '#FFFBEB',
+      features: ['Courses', 'Assessments', 'Progress Tracking'],
       number: '01'
     },
     { 
-      icon: CalendarCheck2, 
-      title: 'Hospital Operations Software', 
-      desc: 'Appointments, wards, billing, and inventory connected in a single operational system.', 
-      color: '#6366F1', 
-      bg: '#EEF2FF',
-      features: ['Appointments', 'Ward Management', 'Billing'],
-      number: '02'
+      icon: School, 
+      title: 'Campus Management (ERP)', 
+      desc: 'Our Education ERP covers admissions to exams — the entire student lifecycle in one system.', 
+      color: '#F59E0B', 
+      bg: '#FEF3C7',
+      features: ['Admissions', 'Exams', 'Student Lifecycle'],
+      number: '02',
+      link: '/erp-solutions-for-education'
     },
     { 
-      icon: Database, 
-      title: 'Health Data Engineering', 
-      desc: 'The pipelines that make clinical reporting trustworthy and data-driven decisions possible.', 
-      color: '#059669', 
-      bg: '#ECFDF5',
-      features: ['ETL Pipelines', 'Analytics', 'Reporting'],
+      icon: Video, 
+      title: 'Virtual Classrooms', 
+      desc: 'Live and recorded learning tied to the academic record — attendance, content, assessment.', 
+      color: '#2563EB', 
+      bg: '#EFF6FF',
+      features: ['Live Learning', 'Recorded Content', 'Academic Integration'],
       number: '03'
     },
     { 
-      icon: Globe, 
-      title: 'Telehealth & Patient Portals', 
-      desc: 'Access without the waiting room — secure virtual care and patient engagement.', 
-      color: '#D97706', 
-      bg: '#FFFBEB',
-      features: ['Virtual Visits', 'Patient Access', 'Secure Messaging'],
+      icon: Users, 
+      title: 'Student & Parent Portals', 
+      desc: 'The communication layer that empties the front-office queue — transparency at scale.', 
+      color: '#059669', 
+      bg: '#ECFDF5',
+      features: ['Student Access', 'Parent Communication', 'Transparency'],
       number: '04'
     },
     { 
-      icon: Lock, 
-      title: 'Compliance-Aware Architecture', 
-      desc: 'Encryption, access control, and audit trails designed for health-data regulation.', 
-      color: '#DC2626', 
-      bg: '#FEF2F2',
-      features: ['Encryption', 'Access Control', 'Audit Trails'],
-      number: '05'
+      icon: Rocket, 
+      title: 'EdTech Product Engineering', 
+      desc: 'For startups building the next platform — full product discipline from concept to scale.', 
+      color: '#7C3AED', 
+      bg: '#F5F3FF',
+      features: ['Product Strategy', 'Development', 'Scaling'],
+      number: '05',
+      link: '/product-engineering'
     },
   ];
 
   return (
-    <div className="healthcare-premium" ref={wrapperRef}>
+    <div className="education-premium" ref={wrapperRef}>
       
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#EEF2FF]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6366F1]/5 rounded-full blur-3xl" />
-          <Heart className="float-el top-[15%] right-[8%] text-[#2563EB]/10 w-20 h-20" />
-          <Stethoscope className="float-el bottom-[25%] right-[12%] text-[#6366F1]/10 w-16 h-16" />
-          <Pill className="float-el top-[35%] left-[85%] text-[#06B6D4]/10 w-14 h-14" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FFFBEB] via-white to-[#FEF3C7]" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D97706]/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#F59E0B]/5 rounded-full blur-3xl" />
+          <GraduationCap className="float-el top-[15%] right-[8%] text-[#D97706]/10 w-20 h-20" />
+          <BookOpen className="float-el bottom-[25%] right-[12%] text-[#F59E0B]/10 w-16 h-16" />
+          <Laptop className="float-el top-[35%] left-[85%] text-[#FBBF24]/10 w-14 h-14" />
         </div>
 
         <div className="max-w-5xl mx-auto w-full relative z-10">
           <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
-              <Heart size={16} className="text-[#2563EB]" />
+            <span className="w-10 h-10 rounded-full bg-[#D97706]/10 flex items-center justify-center">
+              <GraduationCap size={16} className="text-[#D97706]" />
             </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Healthcare</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Education</span>
             <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Software Development</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706]">Software Development</span>
           </div>
 
           <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            Software where the stakes are
+            Learning experiences that
             <br />
-            <span className="gradient-text">patients, not just deadlines</span>
+            <span className="gradient-text">outlast the login page</span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            Healthcare software development with the discipline the domain demands: patient data handled properly, workflows built around clinicians, systems that don't fail at 2 a.m.
+            Education software development from a team that ships its own campus product — e-learning platforms, digital classrooms, and the administrative backbone behind them.
           </p>
 
           <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
@@ -387,19 +402,19 @@ export default function IndustryHealthcare() {
               Discuss Your Project
               <ArrowRight size={18} />
             </a>
-            <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
+            <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#D97706] hover:text-[#D97706] transition-all duration-300">
               Explore Solutions
             </a>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
             {[
-              { value: '30%', label: 'Efficiency Gain', icon: TrendingUp, color: '#2563EB' },
-              { value: '99.9%', label: 'Data Integrity', icon: Shield, color: '#6366F1' },
-              { value: '24/7', label: 'System Uptime', icon: Clock, color: '#059669' },
-              { value: '100%', label: 'Compliance Ready', icon: Lock, color: '#D97706' },
+              { value: '100%', label: 'Student Lifecycle', icon: School, color: '#D97706' },
+              { value: '24/7', label: 'Learning Access', icon: Monitor, color: '#F59E0B' },
+              { value: 'Real-Time', label: 'Communication', icon: Users, color: '#059669' },
+              { value: 'Scalable', label: 'Exam Traffic', icon: Gauge, color: '#2563EB' },
             ].map((stat, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#2563EB] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#D97706] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
                 <div className="text-2xl font-bold text-[#0F172A]">{stat.value}</div>
                 <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
@@ -414,29 +429,29 @@ export default function IndustryHealthcare() {
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-12">
             <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
+                <span className="w-1 h-5 rounded-full bg-[#D97706]" />
                 The Challenge
               </span>
               <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                The fragmentation tax in care delivery
+                Digital education's real test
               </h2>
               <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Patient data scattered across registration, lab, pharmacy, and billing systems doesn't just waste staff time — it <span className="font-semibold text-[#0F172A]">delays care</span>.
+                  Anyone can stream a lecture. The hard part is everything around it.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Every duplicate entry is a chance for error; every system that won't talk to another is a hallway phone call.
+                  Enrollment that doesn't lose students, fee systems parents trust, attendance that syncs to academics, and platforms that <span className="font-semibold text-[#0F172A]">survive exam-day traffic</span>.
                 </p>
               </div>
             </div>
 
             <div className="lg:col-span-2 space-y-3 reveal-right" style={{ transitionDelay: '200ms' }}>
               {[
-                { label: 'Fragmented Patient Data' },
-                { label: 'Manual Workflows' },
-                { label: 'Compliance Risk' },
-                { label: 'Care Delays' },
+                { label: 'Enrollment Friction' },
+                { label: 'Fee Management Errors' },
+                { label: 'Disconnected Attendance' },
+                { label: 'Exam-Day Crashes' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 hover:shadow-md transition-all duration-300">
                   <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
@@ -450,22 +465,18 @@ export default function IndustryHealthcare() {
         </div>
       </section>
 
-      {/* ============================================================
-          REDESIGNED "WHAT WE BUILD" SECTION
-          ============================================================ */}
+      {/* ===== WHAT WE BUILD ===== */}
       <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC] relative overflow-hidden">
-        {/* Background Decoration */}
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#6366F1]/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#D97706]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#F59E0B]/5 rounded-full blur-3xl" />
 
         <div className="max-w-5xl mx-auto relative z-10">
-          {/* Section Header - New Style */}
           <div className="mb-16">
             <div className="flex items-center gap-3 mb-4 reveal-up">
-              <span className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center">
-                <Sparkles size={18} className="text-[#2563EB]" />
+              <span className="w-10 h-10 rounded-xl bg-[#D97706]/10 flex items-center justify-center">
+                <Sparkles size={18} className="text-[#D97706]" />
               </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Solutions</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706]">Solutions</span>
             </div>
             
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
@@ -473,14 +484,13 @@ export default function IndustryHealthcare() {
                 What we <span className="gradient-text">build</span>
               </h2>
               <p className="text-slate-400 text-sm reveal-up max-w-sm" style={{ transitionDelay: '150ms' }}>
-                5 core solutions engineered for healthcare — each one built with the discipline the domain demands.
+                5 core solutions engineered for education — built with the discipline of a live campus product.
               </p>
             </div>
             
             <div className="divider-gradient reveal-up" style={{ transitionDelay: '200ms' }} />
           </div>
 
-          {/* Cards - New Design */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => {
               const Icon = service.icon;
@@ -499,49 +509,47 @@ export default function IndustryHealthcare() {
                   onMouseEnter={() => setActiveService(i)}
                   onMouseLeave={() => setActiveService(null)}
                 >
-                  {/* Large Number */}
                   <span className="card-number">{service.number}</span>
 
-                  {/* Icon */}
                   <div className="icon-wrap" style={{ backgroundColor: service.bg, color: service.color }}>
                     <Icon size={24} strokeWidth={1.75} />
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-xl font-bold text-[#0F172A] pr-12">{service.title}</h3>
-
-                  {/* Description */}
                   <p className="text-sm text-slate-500 mt-2 leading-relaxed">{service.desc}</p>
 
-                  {/* Feature Tags */}
                   <div className="flex flex-wrap gap-2 mt-4">
                     {service.features.map((feature, idx) => (
                       <span key={idx} className="feature-tag">
-                        <Check size={10} className="text-[#2563EB]" />
+                        <Check size={10} className="text-[#D97706]" />
                         {feature}
                       </span>
                     ))}
                   </div>
 
-                  {/* Accent Line */}
                   <div 
                     className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
                     style={{ background: service.color }} 
                   />
 
-                  {/* Learn More Link */}
-                  <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
-                    Learn more
-                    <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
+                  {service.link ? (
+                    <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#D97706] transition-colors duration-300 flex items-center gap-1 group">
+                      Learn more
+                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </Link>
+                  ) : (
+                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#D97706] transition-colors duration-300 flex items-center gap-1 group">
+                      Learn more
+                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </button>
+                  )}
                 </div>
               );
             })}
           </div>
 
-          {/* Bottom CTA */}
           <div className="mt-12 text-center reveal-up">
-            <p className="text-sm text-slate-500 mb-4">Need a custom healthcare solution?</p>
+            <p className="text-sm text-slate-500 mb-4">Need a custom education solution?</p>
             <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
               Discuss Your Project
               <ArrowRight size={16} />
@@ -550,28 +558,73 @@ export default function IndustryHealthcare() {
         </div>
       </section>
 
-      {/* ===== PROOF ===== */}
+      {/* ===== PRODUCT-BACKED CREDIBILITY ===== */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
+              <span className="w-1 h-5 rounded-full bg-[#D97706]" />
+              Product-Backed Credibility
+            </span>
+            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
+              We ship what we <span className="gradient-text">sell</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="credibility-pill reveal-up">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#FFFBEB] flex items-center justify-center flex-shrink-0">
+                  <School size={24} className="text-[#D97706]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0F172A]">Education ERP Product</h4>
+                  <p className="text-sm text-slate-500 mt-1">
+                    We maintain a full Education ERP product — the domain's edge cases are already engineered, not discovered on your budget.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="credibility-pill reveal-up" style={{ transitionDelay: '100ms' }}>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] flex items-center justify-center flex-shrink-0">
+                  <Zap size={24} className="text-[#2563EB]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0F172A]">Production Proven</h4>
+                  <p className="text-sm text-slate-500 mt-1">
+                    Concession structures, batch progressions, transport routes, exam moderation — all built and battle-tested.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PROOF ===== */}
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
+                <span className="w-1 h-5 rounded-full bg-[#D97706]" />
                 Proof
               </span>
               <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                Real impact in healthcare
+                From campus to cloud
               </h2>
               <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  A healthcare provider faced care delays from fragmented patient data and outdated management systems.
+                  A multi-campus institution struggled with disconnected systems — admissions, fees, and attendance in separate silos.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  We modernized patient management with integrated database solutions and streamlined workflows — delivering <span className="font-semibold text-[#0F172A]">30% operational efficiency</span> and measurably better satisfaction.
+                  We deployed our Education ERP with integrated virtual classrooms and parent portals — <span className="font-semibold text-[#0F172A]">unifying the entire student lifecycle</span> and cutting front-office queries by 60%.
                 </p>
               </div>
               <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
-                <Link to="/case-studies/healthcare-modernization" className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                <Link to="/case-studies/education-erp" className="inline-flex items-center gap-2 text-sm font-semibold text-[#D97706] hover:text-[#B45309] transition-colors group">
                   Read the full case study
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -579,29 +632,28 @@ export default function IndustryHealthcare() {
             </div>
 
             <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
-              <div className="p-6 rounded-2xl bg-[#EFF6FF] border border-[#2563EB]/10 relative">
-                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#2563EB] flex items-center justify-center">
+              <div className="p-6 rounded-2xl bg-[#FFFBEB] border border-[#D97706]/10 relative">
+                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#D97706] flex items-center justify-center">
                   <Quote size={14} className="text-white" />
                 </div>
                 <p className="text-sm text-slate-600 leading-relaxed italic mt-2">
-                  "Our clinicians were spending more time navigating systems than caring for patients. This transformed everything."
+                  "Our parents used to call the office weekly. Now they check the portal. The difference is night and day."
                 </p>
                 <div className="mt-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-sm font-bold">
-                    CM
+                  <div className="w-10 h-10 rounded-full bg-[#D97706] flex items-center justify-center text-white text-sm font-bold">
+                    RK
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-[#0F172A]">Chief Medical Officer</div>
-                    <div className="text-xs text-slate-500">Healthcare Provider</div>
+                    <div className="text-sm font-semibold text-[#0F172A]">Principal</div>
+                    <div className="text-xs text-slate-500">Multi-Campus Institution</div>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {[
-                  { value: '30%', label: 'Efficiency', color: '#2563EB' },
-                  { value: '100%', label: 'Satisfaction', color: '#059669' },
-                  { value: '24/7', label: 'Uptime', color: '#6366F1' },
+                  { value: '60%', label: 'Less Queries', color: '#D97706' },
+                  { value: '100%', label: 'Unified Records', color: '#059669' },
                 ].map((item, i) => (
                   <div key={i} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center hover:border-slate-200 transition-all duration-300">
                     <div className="text-xl font-bold" style={{ color: item.color }}>{item.value}</div>
@@ -615,11 +667,11 @@ export default function IndustryHealthcare() {
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="mb-16">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-              <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
+              <span className="w-1 h-5 rounded-full bg-[#D97706]" />
               FAQ
             </span>
             <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
@@ -630,29 +682,29 @@ export default function IndustryHealthcare() {
           <div className="space-y-3">
             {[
               {
-                q: 'Do you build HIPAA-compliant systems?',
-                a: 'We build HIPAA-aware architecture — encryption, access controls, audit logging, BAA-compatible hosting — and work with your compliance officer on certification specifics.'
+                q: "Do you serve schools, colleges, or edtech startups?",
+                a: "All three — institutions typically start from Education ERP; startups engage product engineering for custom platforms."
               },
               {
-                q: 'Can you integrate with existing hospital systems?',
-                a: 'Usually yes — HL7/FHIR interfaces and database-level integration are standard scoping questions in healthcare engagements.'
+                q: "Can you handle exam-season traffic spikes?",
+                a: "That's a cloud-architecture problem we solve deliberately — auto-scaling designed for the calendar's known peaks. See /cloud-devops."
               },
               {
-                q: 'Do you work with clinics or only hospitals?',
-                a: 'Both, plus diagnostics, telehealth startups, and health-data companies — the discipline scales in both directions.'
+                q: "Does your platform support online learning?",
+                a: "Yes — virtual classrooms integrate with the academic backbone so attendance, content, and assessment stay one record."
               }
             ].map((faq, i) => (
               <div
                 key={i}
-                className="border border-slate-100 rounded-xl bg-white p-5 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
+                className="border border-slate-100 rounded-xl bg-[#FAFBFC] p-5 hover:border-[#D97706]/20 hover:shadow-sm transition-all duration-300"
                 style={{
                   opacity: 0,
                   animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
                 }}
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#2563EB]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[10px] font-bold text-[#2563EB]">Q</span>
+                  <div className="w-6 h-6 rounded-full bg-[#D97706]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-[10px] font-bold text-[#D97706]">Q</span>
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
@@ -669,16 +721,16 @@ export default function IndustryHealthcare() {
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-6">
-            <Heart size={14} className="text-[#2563EB]" />
-            <span className="text-xs font-bold text-white/80 tracking-widest">HEALTHCARE SOFTWARE</span>
+            <GraduationCap size={14} className="text-[#D97706]" />
+            <span className="text-xs font-bold text-white/80 tracking-widest">EDUCATION SOFTWARE</span>
           </div>
           <h2 className="heading-lg text-white">
-            Ready to build software where
+            Ready to build learning experiences
             <br />
-            <span className="gradient-text">patients matter most?</span>
+            <span className="gradient-text">that outlast the login?</span>
           </h2>
           <p className="text-lg text-slate-400 mt-4 max-w-xl mx-auto">
-            Let's discuss your healthcare project. We'll show you what's possible.
+            Let's discuss your education project. We'll show you what's possible.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
