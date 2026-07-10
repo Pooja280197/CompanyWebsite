@@ -5,133 +5,126 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
+  ChevronRight,
   Boxes,
   Users,
-  Cloud,
   Server,
   Database,
   Smartphone,
   Monitor,
-  Zap,
-  Award, 
+  Award,
   FileText,
   MessageSquare,
-  Layers, 
+  Layers,
   Network,
-  Settings, 
+  Settings,
   BookOpen,
-  
+  Code,
+  Rocket,
+  CreditCard,
+  CheckCircle,
+  Package,
+  ShoppingCart,
+  TrendingUp,
+  Factory,
+  Wallet,
+  Briefcase,
 } from 'lucide-react';
 import { ScrollTextReveal } from '../ScrollTextReveal';
+import { CleanPlanHeroBackground } from './CleanPlanHeroBackground';
+import { ProductHeroLaptop } from './ProductHeroLaptop';
+import { ProductProblemSection } from './ProductProblemSection';
+import { ProductModulesCarousel } from './ProductModulesCarousel';
 
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80';
+const HERO_LETTER_INTERVAL = 78;
 
-// const MODULES = [
-//   {
-//     icon: Package,
-//     title: 'Inventory Management',
-//     desc: 'Products, raw materials, BOM, material inwards (MRN), quality control, stock analysis, item ledger, inter-material transfer, automated alerts, live dashboard.',
-//     benefits: 'Lower storage overhead, less dead stock, full transparency.',
-//     accent: '#2563eb',
-//     bg: '#dbeafe',
-//   },
-//   {
-//     icon: ShoppingCart,
-//     title: 'Purchase Management',
-//     desc: 'Vendor management, purchase requests, RFQs, quotations, purchase orders, bill passing, pending orders, purchase planning.',
-//     benefits: 'Procurement efficiency and financial control with data-driven decisions.',
-//     accent: '#7c3aed',
-//     bg: '#ede9fe',
-//   },
-//   {
-//     icon: TrendingUp,
-//     title: 'Sales Management',
-//     desc: 'Sales orders and approvals, FG stock planning, dispatch advice, delivery notes, invoice management, automated alerts.',
-//     benefits: 'Optimal finished-goods planning and dispatch-to-invoice flow without gaps.',
-//     accent: '#059669',
-//     bg: '#d1fae5',
-//   },
-//   {
-//     icon: Factory,
-//     title: 'Production Management',
-//     desc: 'Batch planning, job cards, workstation and shop-floor management, process management, real-time cost analysis, FG management, job scheduling, maintenance.',
-//     benefits: 'Complete visual access to plant schedules, quality inspections enforced, demand forecasting.',
-//     accent: '#d97706',
-//     bg: '#fef3c7',
-//   },
-//   {
-//     icon: Users,
-//     title: 'Marketing & CRM',
-//     desc: 'Enquiry and lead management, funnel forecasting, team performance, quotation generation, follow-ups, lead analysis.',
-//     benefits: 'Lead-to-closure tracking and a better opportunity win ratio.',
-//     accent: '#dc2626',
-//     bg: '#fee2e2',
-//   },
-//   {
-//     icon: Wallet,
-//     title: 'Finance Management',
-//     desc: 'Accounts, cost centres, budget planning, cash book, petty cash, bank book, trial balance, P&L, balance sheet.',
-//     benefits: 'Reconcilable statements in real time, one set of books instead of parallel accounting.',
-//     accent: '#0891b2',
-//     bg: '#cffafe',
-//   },
-//   {
-//     icon: Briefcase,
-//     title: 'HR & Payroll (HRMS)',
-//     desc: 'Employee management, time and attendance, travel logs, recruitment, payroll and timesheets, compliance, leave management, government tax calculation.',
-//     benefits: 'Complete workforce management from hire to retire.',
-//     accent: '#8b5cf6',
-//     bg: '#ede9fe',
-//   },
-// ];
+const REXO_HERO_LINES = [
+  {
+    words: [{ text: 'Run' }, { text: 'the' }, { text: 'whole' }, { text: 'factory' }],
+    letterCount: 21,
+  },
+  {
+    words: [{ text: 'from' }, { text: 'one' }, { text: 'screen' }],
+    letterCount: 15,
+    gradient: true,
+  },
+].map((line, i, arr) => ({
+  ...line,
+  startDelay: arr.slice(0, i).reduce((sum, l) => sum + l.letterCount, 0) * HERO_LETTER_INTERVAL,
+}));
+
+const MODULES = [
+  {
+    icon: Package,
+    title: 'Inventory Management',
+    desc: 'Products, raw materials, BOM, material inwards (MRN), quality control, slow/fast-moving analysis, stock statements, item ledger, inter-material transfer, automated email/SMS alerts, and a live dashboard.',
+    benefits: 'Lower storage overhead, less dead stock, full transparency.',
+    color: '#2563eb',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Purchase Management',
+    desc: 'Vendor management, purchase requests, RFQs, vendor quotations, purchase orders, bill passing, pending orders, and purchase planning.',
+    benefits: 'Procurement efficiency and financial control with data-driven decisions.',
+    color: '#7c3aed',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Sales Management',
+    desc: 'Sales orders and approvals, FG stock planning, dispatch advice, delivery notes, invoice management, and automated alerts.',
+    benefits: 'Optimal finished-goods planning and dispatch-to-invoice flow without gaps.',
+    color: '#059669',
+  },
+  {
+    icon: Factory,
+    title: 'Production Management',
+    desc: 'Batch planning, job cards, workstation and shop-floor management, process management, real-time cost analysis, FG management, job scheduling, and maintenance management.',
+    benefits: 'Complete visual access to plant schedules, quality inspections enforced, demand forecasting.',
+    color: '#d97706',
+  },
+  {
+    icon: Users,
+    title: 'Marketing & CRM',
+    desc: 'Enquiry and lead management, funnel forecasting, team performance and daily activity, quotation generation, follow-ups, and lead analysis.',
+    benefits: 'Lead-to-closure tracking and a better opportunity win ratio.',
+    color: '#dc2626',
+  },
+  {
+    icon: Wallet,
+    title: 'Finance Management',
+    desc: 'Accounts, cost centres, budget planning, cash book, petty cash, bank book, trial balance, P&L, and balance sheet.',
+    benefits: 'Reconcilable statements in real time, one set of books instead of parallel accounting.',
+    color: '#0891b2',
+  },
+  {
+    icon: Briefcase,
+    title: 'HR & Payroll (HRMS)',
+    desc: 'Employee management, time and attendance, travel logs with expenses, recruitment, payroll and timesheets, compliance, leave and separation management, and government tax calculation.',
+    color: '#8b5cf6',
+  },
+];
 
 const TECH_SPECS = [
-  { icon: Monitor, label: 'Web-based application', value: 'Browser-based access' },
-  { icon: Smartphone, label: 'Mobile apps', value: 'iOS & Android' },
-  { icon: Settings, label: 'Customization', value: 'As per requirement' },
-  { icon: Users, label: 'Default licenses', value: '25 user licenses' },
-  { icon: Server, label: 'Platform', value: 'Windows or Linux' },
-  { icon: Database, label: 'Databases', value: 'MySQL, MSSQL, Oracle & more' },
-  { icon: FileText, label: 'Reports', value: 'PDF & Excel' },
-  { icon: MessageSquare, label: 'Alerts', value: 'SMS, Email & WhatsApp' },
-  { icon: CreditCard, label: 'Payments', value: 'Gateway integration' },
-  { icon: Network, label: 'IoT Integration', value: 'Device/shop-floor data' },
+  { icon: Monitor, title: 'Web Application', line: 'Web-based (browser) application', color: '#2563eb' },
+  { icon: Smartphone, title: 'Mobile Apps', line: 'Mobile apps for iOS & Android', color: '#7c3aed' },
+  { icon: Settings, title: 'Customization', line: 'Customization as per requirement', color: '#059669' },
+  { icon: Users, title: 'User Licenses', line: '25 default user licenses', color: '#d97706' },
+  { icon: Server, title: 'Platform', line: 'Platform independent (Windows or Linux)', color: '#dc2626' },
+  { icon: Database, title: 'Databases', line: 'Supported databases: MySQL, MSSQL, Oracle and more', color: '#0891b2' },
+  { icon: FileText, title: 'Reports', line: 'Reports in PDF & Excel', color: '#8b5cf6' },
+  { icon: MessageSquare, title: 'Alerts', line: 'SMS, Email & WhatsApp alerts', color: '#2563eb' },
+  { icon: CreditCard, title: 'Payments', line: 'Payment gateway integration', color: '#059669' },
+  { icon: Network, title: 'IoT Integration', line: 'Device/IoT integration for shop-floor data', color: '#7c3aed' },
 ];
 
 
 
-const DEPLOYMENT_PHASES = [
-  {
-    phase: 'Blueprint',
-    label: 'Delta requirements',
-    desc: 'Map your process, identify gaps, and define customizations.',
-    icon: BookOpen,
-  },
-  {
-    phase: 'SOW',
-    label: 'Scope of work',
-    desc: 'Fixed scope, timeline, and cost — signed before work begins.',
-    icon: FileText,
-  },
-  {
-    phase: 'Realization',
-    label: 'Customization',
-    desc: 'Screens, workflows, reports, and approvals configured to your process.',
-    icon: Settings,
-  },
-  {
-    phase: 'Final Preparation',
-    label: 'Data transfer',
-    desc: 'Migration, validation, and user training before go-live.',
-    icon: Database,
-  },
-  {
-    phase: 'Go-Live & Support',
-    label: 'Launch + ongoing',
-    desc: 'Live deployment with hands-on support and post-launch optimization.',
-    icon: Rocket,
-  },
+const DEPLOYMENT_STEPS = [
+  { name: 'Blueprint', detail: 'delta requirements', color: '#2563eb', icon: BookOpen },
+  { name: 'SOW', detail: 'scope of work', color: '#3b82f6', icon: FileText },
+  { name: 'Realization', detail: 'customization', color: '#7c3aed', icon: Settings },
+  { name: 'Final Preparation', detail: 'data transfer', color: '#059669', icon: Database },
+  { name: 'Go-Live & Support', color: '#d97706', icon: Rocket },
 ];
 
 
@@ -140,31 +133,135 @@ const WHY_REXO = [
   {
     icon: Settings,
     title: 'Customized to your process',
-    desc: 'Configured around your workflow, not a template you bend to.',
+    desc: 'A smart industry solution configured around your workflow, not a template you bend to.',
     accent: '#2563eb',
   },
   {
     icon: Award,
     title: 'SME-honest pricing',
-    desc: 'Enterprise capability without the licensing trap — 25 users included.',
+    desc: 'Enterprise capability without the enterprise licensing trap; 25 user licenses included by default.',
     accent: '#059669',
   },
   {
     icon: Users,
-    title: 'Local implementation',
+    title: 'Local implementation, direct support',
     desc: 'The team that customizes it is the team that answers the phone.',
     accent: '#7c3aed',
   },
   {
     icon: Code,
-    title: 'Built by engineers',
-    desc: 'When you need an integration, we call it a work order — not a roadmap.',
+    title: 'Built by engineers who also build custom software',
+    desc: "When you need an integration the big vendors call 'roadmap', we call it a work order.",
     accent: '#d97706',
   },
 ];
 
-import { Code, Rocket, CreditCard } from 'lucide-react';
-import SevenModules from './SevenModules';
+function RexoLaptopScreenContent() {
+  return (
+    <div className="cleanplan-laptop__panel">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-md bg-violet-500 flex items-center justify-center">
+            <Boxes size={10} className="text-white" />
+          </div>
+          <span className="text-[10px] font-bold text-gray-700">Rexo ERP</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span className="text-[7px] text-gray-500">Live</span>
+        </div>
+      </div>
+
+      <div className="space-y-2.5">
+        <div className="grid grid-cols-3 gap-1.5">
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-blue-600">1,247</div>
+            <div className="text-[7px] text-gray-400">Units in stock</div>
+          </div>
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-emerald-600">83</div>
+            <div className="text-[7px] text-gray-400">Orders today</div>
+          </div>
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-amber-600">12</div>
+            <div className="text-[7px] text-gray-400">In production</div>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-lg bg-blue-50 border border-blue-100">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-semibold text-blue-700">Production Queue</span>
+            <span className="text-[8px] text-blue-600">View All</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-700">Batch #1023</span>
+              <span className="text-emerald-600 font-medium">In progress</span>
+            </div>
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-700">Batch #1024</span>
+              <span className="text-amber-600 font-medium">QC pending</span>
+            </div>
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-700">Batch #1025</span>
+              <span className="text-blue-600 font-medium">Scheduled</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-lg bg-violet-50 border border-violet-100">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-semibold text-violet-700">Purchase & Dispatch</span>
+            <span className="text-[8px] text-violet-600">Today</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-700">PO #4589</span>
+              <span className="text-blue-600 font-medium">Shipped</span>
+            </div>
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-700">PO #4590</span>
+              <span className="text-emerald-600 font-medium">Received</span>
+            </div>
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-700">Invoice #1024</span>
+              <span className="text-amber-600 font-medium">Pending</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-1.5">
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-violet-600">7</div>
+            <div className="text-[7px] text-gray-400">Modules</div>
+          </div>
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-blue-600">25</div>
+            <div className="text-[7px] text-gray-400">Users</div>
+          </div>
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-emerald-600">99.9%</div>
+            <div className="text-[7px] text-gray-400">Uptime</div>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-100">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-semibold text-emerald-700">Finance Snapshot</span>
+            <span className="text-[8px] text-emerald-600">Live</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-white overflow-hidden">
+            <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-blue-500 to-emerald-500" />
+          </div>
+          <div className="mt-1.5 flex justify-between text-[8px] text-gray-500">
+            <span>Collections on track</span>
+            <span>78% closed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const FAQS = [
   {
@@ -290,287 +387,237 @@ export default function RexoERP() {
 
   return (
     <article className="min-h-screen bg-white">
-      {/* Hero - Full screen with gradient overlay and floating elements */}
-      <header className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={HERO_IMAGE}
-            alt="Modern manufacturing facility"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-blue-900/80" />
-        </div>
+      <header className="webdev-hero cleanplan-hero relative overflow-hidden px-6">
+        <CleanPlanHeroBackground />
 
-        {/* Floating decorative elements */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        </div>
-
-        <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6">
+        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
-                <Boxes size={16} className="text-blue-400" />
-                <span className="text-xs font-bold text-blue-200 tracking-widest">REXO ERP</span>
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-                Run the whole factory
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400">
-                  from one screen
-                </span>
+            <div>
+              <h1
+                className="a1 w-full"
+                style={{
+                  fontFamily: 'Inter,sans-serif',
+                  fontWeight: 600,
+                  fontSize: 'clamp(2rem, 4.5vw, 3.75rem)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.12,
+                  color: '#0f172a',
+                }}
+              >
+                {REXO_HERO_LINES.map((line, i) => (
+                  <span
+                    key={line.words.map((w) => w.text).join('-')}
+                    className="block w-fit max-w-full"
+                    style={{ marginBottom: i < REXO_HERO_LINES.length - 1 ? '0.08em' : undefined }}
+                  >
+                    <ScrollTextReveal
+                      tag="span"
+                      align="left"
+                      animate="words"
+                      textColor="#0f172a"
+                      letterInterval={HERO_LETTER_INTERVAL}
+                      startDelay={line.startDelay}
+                      gradientText={line.gradient}
+                      waveGradientStops={line.gradient ? ['#2563eb', '#8b5cf6', '#059669'] : undefined}
+                      style={{
+                        display: 'block',
+                        width: 'fit-content',
+                        maxWidth: '100%',
+                      }}
+                      words={[...line.words]}
+                    />
+                  </span>
+                ))}
               </h1>
 
-              <p className="text-lg text-slate-300 leading-relaxed max-w-lg mt-6">
-                Rexo ERP brings inventory, purchase, sales, production, CRM, finance, and payroll into one system —
-                customized to your process, live on web and mobile.
+              <p className="a2 text-lg text-slate-600 leading-relaxed max-w-lg mt-4">
+                Rexo ERP brings inventory, purchase, sales, production, CRM, finance, and payroll into one system — customized to your process, live on web and mobile. Built for manufacturing, trading, and services businesses.
               </p>
 
-              <div className="flex flex-wrap gap-4 mt-8">
+              <div className="a3 flex flex-wrap gap-4 mt-8">
                 <Link
                   to="/#contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-2xl hover:shadow-blue-500/35 transition-all duration-300"
                 >
                   Book a Free Demo
                   <ArrowRight size={18} />
                 </Link>
                 <Link
                   to="#modules"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold hover:bg-white/20 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-medium shadow-md shadow-slate-900/10 hover:bg-slate-50 hover:shadow-lg transition-all duration-300"
                 >
                   Explore Modules
                   <ChevronDown size={18} />
                 </Link>
               </div>
 
-              <div className="flex flex-wrap gap-6 mt-8 text-sm text-slate-400">
+              {/* <div className="a4 flex flex-wrap gap-6 mt-8 text-sm text-slate-500">
                 <span className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400" />
+                  <Check size={14} className="text-emerald-500" />
                   25 user licenses included
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400" />
+                  <Check size={14} className="text-emerald-500" />
                   Web + Mobile
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400" />
+                  <Check size={14} className="text-emerald-500" />
                   Customizable
                 </span>
-              </div>
+              </div> */}
             </div>
 
-            {/* Hero right - floating dashboard preview */}
-            <div className="hidden lg:block relative">
-              <div className="relative w-full aspect-[4/3] max-w-lg mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-3xl backdrop-blur-sm border border-white/20 p-6 shadow-2xl animate-float">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center gap-2">
-                      <Boxes size={20} className="text-blue-400" />
-                      <span className="text-white font-semibold text-sm">Rexo ERP</span>
-                    </div>
-                    <div className="flex gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
-                    </div>
+            <ProductHeroLaptop
+              contentKey="rexo-erp"
+              badge={(
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center">
+                    <Layers size={15} className="text-violet-600" />
                   </div>
-                  <div className="grid grid-cols-3 gap-3 mb-4">
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl font-bold text-blue-400">1,247</div>
-                      <div className="text-[10px] text-slate-400">Units in stock</div>
-                    </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl font-bold text-emerald-400">83</div>
-                      <div className="text-[10px] text-slate-400">Orders today</div>
-                    </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl font-bold text-amber-400">12</div>
-                      <div className="text-[10px] text-slate-400">In production</div>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
-                      <span className="text-xs text-slate-300">Batch #1023</span>
-                      <span className="text-xs text-emerald-400">In progress</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
-                      <span className="text-xs text-slate-300">PO #4589</span>
-                      <span className="text-xs text-blue-400">Shipped</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
-                      <span className="text-xs text-slate-300">Invoice #1024</span>
-                      <span className="text-xs text-amber-400">Pending</span>
-                    </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900">7 modules</div>
+                    <div className="text-[9px] text-gray-500">One integrated system</div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1">
-            <div className="w-1 h-2 rounded-full bg-white/50 animate-scroll-dot" />
+              )}
+            >
+              <RexoLaptopScreenContent />
+            </ProductHeroLaptop>
           </div>
         </div>
       </header>
 
-      {/* The spreadsheet ceiling - Split with visual */}
-      <section className="py-24 px-6 overflow-hidden" aria-labelledby="ceiling-heading">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="sr-from-left order-2 lg:order-1">
-              <div className="inline-block px-3 py-1 rounded-full bg-amber-100 border border-amber-200 mb-4">
-                <span className="text-xs font-bold text-amber-700 tracking-wider">THE PROBLEM</span>
-              </div>
-              <ScrollTextReveal
-                id="ceiling-heading"
-                tag="h2"
-                align="left"
-                className="w-full"
-                wordGap="0.2em"
-                style={{
-                  fontFamily: 'Inter,sans-serif',
-                  fontWeight: 600,
-                  fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-                  letterSpacing: '0.02em',
-                  lineHeight: 1.2,
-                  maxWidth: '100%',
-                }}
-                words={[
-                  { text: 'The' },
-                  { text: 'spreadsheet' },
-                  { text: 'ceiling' },
-                ]}
-              />
-              <p className="text-[#555] text-base leading-relaxed mt-4 max-w-lg">
-                Every growing manufacturer hits it: stock counted in one file, purchase orders in another,
-                production planned on a whiteboard, and accounts reconciled at month-end by someone who deserves better.
-              </p>
-              <p className="text-[#555] text-base leading-relaxed mt-3 max-w-lg">
-                The information exists — it just can't talk to itself. Orders slip, dead stock accumulates,
-                and decisions wait for reports that take days to assemble.
-              </p>
-              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-white border border-blue-100">
-                <p className="text-sm text-blue-800 font-medium flex items-start gap-2">
-                  <Zap size={18} className="text-blue-500 flex-shrink-0 mt-0.5" />
-                  <span>Rexo ERP replaces that patchwork with one integrated system and a 360-degree view.</span>
-                </p>
-              </div>
-            </div>
+      <ProductProblemSection
+        accent="blue"
+        heading="The spreadsheet ceiling"
+        paragraphs={[
+          'Every growing manufacturer hits it: stock counted in one file, purchase orders in another, production planned on a whiteboard, and accounts reconciled at month-end by someone who deserves better.',
+          "The information exists — it just can't talk to itself. Orders slip, dead stock accumulates, and decisions wait for reports that take days to assemble.",
+        ]}
+        solution="Rexo ERP replaces that patchwork with one integrated system and a 360-degree view: product planning, development, manufacturing, sales, marketing, and HR management connected — so a sales order updates stock, triggers production planning, and lands in the ledger without anyone re-typing it."
+        imageSrc="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
+        imageAlt="Spreadsheets and manual processes"
+      />
 
-            <div className="sr-from-right order-1 lg:order-2">
-              <div className="relative">
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl" />
-                <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
-                  alt="Spreadsheets and manual processes"
-                  className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]"
-                />
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl" />
-              </div>
+      {/* Seven modules */}
+      <section id="modules" className="bg-white py-24 px-6">
+        <div className="max-w-[1200px] mx-auto w-full">
+          <div className="text-center mb-10 md:mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4">
+              <CheckCircle size={12} className="text-blue-500" />
+              <span className="text-xs font-bold text-blue-700 tracking-wider">MODULES</span>
             </div>
+            <ScrollTextReveal
+              tag="h2"
+              align="center"
+              className="w-full"
+              wordGap="0.15em"
+              style={{
+                fontFamily: 'Inter,sans-serif',
+                fontWeight: 700,
+                fontSize: 'clamp(2rem, 3.5vw, 3rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+                maxWidth: '100%',
+              }}
+              words={[
+                { text: 'Seven' },
+                { text: 'modules,' },
+                { text: 'one' },
+                { text: 'truth' },
+              ]}
+            />
+            <p className="text-[#555] text-base leading-relaxed mt-4 max-w-[36rem] mx-auto">
+              Every module connected to the same live data — no re-entry, no reconciliation gaps.
+            </p>
+            {/* <p className="mt-2 text-xs text-gray-400" aria-hidden="true">
+              Drag, scroll, or use arrows to browse modules →
+            </p> */}
+          </div>
+
+          <div className="sr-from-bottom">
+            <ProductModulesCarousel modules={MODULES} />
           </div>
         </div>
       </section>
 
-      {/* Seven modules - Interactive grid with hover states */}
-   <SevenModules />
-
-      {/* Technical Specifications - Table layout */}
-      <section className="py-24 px-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" aria-labelledby="tech-heading">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-16">
-            <div className="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 mb-4">
-              <span className="text-xs font-bold text-blue-300 tracking-wider">SPECIFICATIONS</span>
+      {/* Technical specifications */}
+      <section className="bg-gray-50 px-6 py-24" aria-labelledby="tech-heading">
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="mb-14 text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1">
+              <Layers size={12} className="text-violet-600" />
+              <span className="text-xs font-bold tracking-wider text-violet-700">SPECIFICATIONS</span>
             </div>
             <ScrollTextReveal
               id="tech-heading"
               tag="h2"
               align="center"
               className="w-full"
-              wordGap="0.2em"
+              wordGap="0.15em"
               style={{
                 fontFamily: 'Inter,sans-serif',
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-                letterSpacing: '0.02em',
-                lineHeight: 1.2,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
                 maxWidth: '100%',
               }}
               words={[
                 { text: 'Technical' },
                 { text: 'specifications' },
               ]}
-              textColor="#ffffff"
             />
-            <p className="text-slate-400 text-base leading-relaxed mt-4 max-w-[40rem] mx-auto">
-              Enterprise-grade technology stack built for manufacturing.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-x-4 gap-y-10 pt-4 sm:grid-cols-2 lg:grid-cols-4">
             {TECH_SPECS.map((spec, i) => {
               const Icon = spec.icon;
+              const lastRowCenter =
+                i === 8 ? 'lg:col-start-2' : i === 9 ? 'lg:col-start-3' : '';
+
               return (
                 <div
-                  key={spec.label}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300"
-                  style={{ transitionDelay: `${i * 0.04}s` }}
+                  key={spec.title}
+                  className={`sr-from-bottom sr-d${Math.min(i + 1, 10)} group relative mx-auto flex h-full w-full max-w-[280px] flex-col ${lastRowCenter}`}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
-                    <Icon size={18} strokeWidth={1.5} />
+                  <div
+                    className="absolute -top-5 left-1/2 z-10 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-white to-slate-50 shadow-lg shadow-slate-300/50 transition-transform duration-300 group-hover:scale-105"
+                    style={{ color: spec.color }}
+                  >
+                    <Icon size={18} strokeWidth={1.75} />
                   </div>
-                  <div>
-                    <div className="text-xs font-medium text-slate-400">{spec.label}</div>
-                    <div className="text-sm text-white font-medium">{spec.value}</div>
+
+                  <div className="flex h-full min-h-[148px] flex-col rounded-2xl border border-slate-200/90 bg-white px-5 pb-5 pt-8 text-center shadow-md transition-all duration-500 group-hover:-translate-y-1">
+                    <h3 className="text-sm font-semibold text-gray-900">{spec.title}</h3>
+                    <div
+                      className="mx-auto mt-1.5 mb-2 h-0.5 w-8 shrink-0 rounded-full transition-all duration-300 group-hover:w-12"
+                      style={{ background: spec.color }}
+                    />
+                    <p className="flex-1 text-xs leading-relaxed text-gray-500">{spec.line}</p>
                   </div>
                 </div>
               );
             })}
           </div>
-
-          {/* Dashboard preview placeholder */}
-          <div className="mt-12 p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10">
-            <div className="flex items-center gap-3 mb-6">
-              <Boxes size={20} className="text-blue-400" />
-              <span className="text-white font-semibold">Rexo ERP Dashboard Preview</span>
-              <span className="text-xs text-slate-400 ml-auto">Production Management</span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <div className="text-2xl font-bold text-blue-400">1,247</div>
-                <div className="text-xs text-slate-400">Active Batches</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <div className="text-2xl font-bold text-emerald-400">83%</div>
-                <div className="text-xs text-slate-400">Machine Utilization</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <div className="text-2xl font-bold text-amber-400">12</div>
-                <div className="text-xs text-slate-400">Pending Jobs</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
-                <div className="text-2xl font-bold text-purple-400">98.7%</div>
-                <div className="text-xs text-slate-400">Quality Pass Rate</div>
-              </div>
-            </div>
-            <div className="mt-4 text-center text-xs text-slate-500">
-              Dashboard showing batch tracking, machine status, and quality metrics
-            </div>
-          </div>
         </div>
       </section>
 
       {/* Deployment your way */}
-      <section className="py-24 px-6" aria-labelledby="deploy-heading">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-16">
-            <div className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4">
-              <span className="text-xs font-bold text-emerald-700 tracking-wider">DEPLOYMENT</span>
+      <section className="relative overflow-hidden bg-gray-50 px-6 py-24" aria-labelledby="deploy-heading">
+        <div
+          className="pointer-events-none absolute -left-20 top-16 h-72 w-72 rounded-full bg-blue-100/40 blur-3xl"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -right-16 bottom-8 h-80 w-80 rounded-full bg-emerald-100/35 blur-3xl"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto w-full max-w-[1200px]">
+          <div className="mb-12 text-center md:mb-14">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-100 px-3 py-1">
+              <span className="text-xs font-bold tracking-wider text-emerald-700">DEPLOYMENT</span>
             </div>
             <ScrollTextReveal
               id="deploy-heading"
@@ -592,78 +639,84 @@ export default function RexoERP() {
                 { text: 'way' },
               ]}
             />
-            <p className="text-[#555] text-base leading-relaxed mt-4 max-w-[40rem] mx-auto">
-              On-premises, cloud, or hybrid — choose what fits your compliance and control needs.
+          </div>
+
+          <div className="sr-from-bottom rexo-deploy__panel mx-auto max-w-5xl">
+            <p className="rexo-deploy__intro">
+              <span className="font-semibold text-blue-600">On-premises</span> for full control,{' '}
+              <span className="font-semibold text-violet-600">cloud</span> for zero infrastructure, or{' '}
+              <span className="font-semibold text-emerald-600">hybrid</span> where compliance demands both.
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="sr-from-center p-8 rounded-3xl bg-white border-2 border-blue-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-center">
-              <Server size={40} className="text-blue-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">On-Premises</h3>
-              <p className="text-sm text-gray-600">Full control, your infrastructure, your security policies.</p>
+            <div className="rexo-deploy__divider" aria-hidden="true">
+              <span />
             </div>
-            <div className="sr-from-center p-8 rounded-3xl bg-white border-2 border-purple-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-center" style={{ transitionDelay: '0.1s' }}>
-              <Cloud size={40} className="text-purple-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Cloud</h3>
-              <p className="text-sm text-gray-600">Zero infrastructure, scale on demand, pay for what you use.</p>
-            </div>
-            <div className="sr-from-center p-8 rounded-3xl bg-white border-2 border-emerald-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 text-center" style={{ transitionDelay: '0.2s' }}>
-              <Layers size={40} className="text-emerald-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Hybrid</h3>
-              <p className="text-sm text-gray-600">Best of both — cloud elasticity with on-prem compliance.</p>
-            </div>
-          </div>
 
-          {/* Phases */}
-          <div className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-purple-400 to-emerald-400 hidden md:block" />
-            <div className="space-y-6">
-              {DEPLOYMENT_PHASES.map((phase, i) => {
-                const Icon = phase.icon;
-                return (
-                  <div
-                    key={phase.phase}
-                    className="sr-from-left flex flex-col md:flex-row gap-4 md:gap-8 p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-lg transition-all duration-300"
-                    style={{ transitionDelay: `${i * 0.08}s` }}
-                  >
-                    <div className="flex items-center gap-4 md:w-48 flex-shrink-0">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white flex-shrink-0">
-                        <Icon size={20} strokeWidth={1.5} />
+            <p className="rexo-deploy__phase-label">Implementation runs in five phases</p>
+
+            <div className="rexo-deploy__track">
+              <div className="rexo-deploy__track-line" aria-hidden="true" />
+              <div className="rexo-deploy__rail">
+                {DEPLOYMENT_STEPS.map((step, i) => {
+                  const Icon = step.icon;
+                  return (
+                    <div key={step.name} className="rexo-deploy__step-wrap">
+                      <div
+                        className="rexo-deploy__step"
+                        style={{ borderTopColor: step.color }}
+                      >
+                        <div
+                          className="rexo-deploy__step-icon"
+                          style={{
+                            color: step.color,
+                            background: `color-mix(in srgb, ${step.color} 10%, white)`,
+                            borderColor: `color-mix(in srgb, ${step.color} 22%, white)`,
+                          }}
+                        >
+                          <Icon size={18} strokeWidth={1.75} />
+                        </div>
+                        <span className="rexo-deploy__step-name">{step.name}</span>
+                        {step.detail && (
+                          <span className="rexo-deploy__step-detail">({step.detail})</span>
+                        )}
                       </div>
-                      <div>
-                        <div className="text-sm font-bold text-blue-600">{phase.phase}</div>
-                        <div className="text-xs text-gray-500">{phase.label}</div>
-                      </div>
+                      {i < DEPLOYMENT_STEPS.length - 1 && (
+                        <span className="rexo-deploy__arrow" aria-hidden="true">
+                          <ChevronRight size={16} strokeWidth={2.25} />
+                        </span>
+                      )}
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed flex-1">{phase.desc}</p>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
+
+            <p className="rexo-deploy__closing">
+              so you always know which phase your rollout is in and what comes next.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Why manufacturers pick Rexo */}
-      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white" aria-labelledby="why-heading">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-16">
-            <div className="inline-block px-3 py-1 rounded-full bg-purple-100 border border-purple-200 mb-4">
-              <span className="text-xs font-bold text-purple-700 tracking-wider">WHY REXO</span>
+      <section className="bg-white px-6 py-24" aria-labelledby="why-heading">
+        <div className="mx-auto w-full max-w-[1200px]">
+          <div className="mb-14 text-center md:mb-16">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-100 px-3 py-1">
+              <span className="text-xs font-bold tracking-wider text-purple-700">WHY REXO</span>
             </div>
             <ScrollTextReveal
               id="why-heading"
               tag="h2"
               align="center"
               className="w-full"
-              wordGap="0.2em"
+              wordGap="0.15em"
               style={{
                 fontFamily: 'Inter,sans-serif',
-                fontWeight: 600,
-                fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-                letterSpacing: '0.02em',
-                lineHeight: 1.2,
+                fontWeight: 700,
+                fontSize: 'clamp(1.85rem, 3.2vw, 2.85rem)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.15,
                 maxWidth: '100%',
               }}
               words={[
@@ -671,61 +724,94 @@ export default function RexoERP() {
                 { text: 'manufacturers' },
                 { text: 'pick' },
                 { text: 'Rexo' },
+                { text: 'over' },
+                { text: 'the' },
+                { text: 'giants' },
               ]}
             />
-            <p className="text-[#555] text-base leading-relaxed mt-4 max-w-[40rem] mx-auto">
-              Built for SMEs who need enterprise capability without the enterprise price tag.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {WHY_REXO.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="sr-from-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 text-center"
-                  style={{ transitionDelay: `${i * 0.08}s` }}
-                >
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-transform duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: `${item.accent}15`, color: item.accent }}
+          <div className="relative mx-auto max-w-4xl">
+            <div
+              className="pointer-events-none absolute bottom-6 left-[1.15rem] top-6 hidden w-px bg-gradient-to-b from-blue-200 via-violet-200 to-amber-200 md:block"
+              aria-hidden="true"
+            />
+
+            <ul className="space-y-0">
+              {WHY_REXO.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <li
+                    key={item.title}
+                    className={`sr-from-bottom sr-d${i + 1} group relative border-b border-slate-100 py-7 last:border-b-0 md:py-8`}
                   >
-                    <Icon size={28} strokeWidth={1.75} />
-                  </div>
-                  <h4 className="text-sm font-semibold text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
-                </div>
-              );
-            })}
+                    <span
+                      className="absolute left-3 top-9 hidden h-3.5 w-3.5 rounded-full border-2 border-white shadow-sm md:block"
+                      style={{ backgroundColor: item.accent }}
+                      aria-hidden="true"
+                    />
+
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5 md:pl-14">
+                      <div
+                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-105"
+                        style={{
+                          backgroundColor: `color-mix(in srgb, ${item.accent} 12%, white)`,
+                          color: item.accent,
+                        }}
+                      >
+                        <Icon size={22} strokeWidth={1.75} />
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <p className="text-base leading-relaxed text-slate-600 md:text-[1.02rem]">
+                          <span className="font-semibold text-slate-900">{item.title}</span>
+                          <span className="mx-2 text-slate-300" aria-hidden="true">
+                            —
+                          </span>
+                          {item.desc}
+                        </p>
+                      </div>
+
+                      <div
+                        className="hidden h-px w-16 shrink-0 self-center opacity-60 lg:block"
+                        style={{
+                          background: `linear-gradient(90deg, ${item.accent}, transparent)`,
+                        }}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-slate-900" />
+      <section className="relative overflow-hidden px-6 py-24">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-emerald-600 to-blue-700" />
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-blue-400/30 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-emerald-400/30 blur-3xl" />
         </div>
 
-        <div className="relative z-10 max-w-[900px] mx-auto w-full text-center">
+        <div className="relative z-10 mx-auto w-full max-w-[900px] text-center">
           <div className="sr">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+            <h2 className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               Ready to run your factory from one screen?
             </h2>
-            <p className="text-lg text-blue-200 leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-blue-100">
               See Rexo ERP in action. Walk through your process, see the modules that matter to you, and get a fixed quote.
             </p>
             <Link
               to="/#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-slate-900 font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             >
               Book a Free Demo
               <ArrowRight size={18} />
             </Link>
-            <p className="text-sm text-blue-300 mt-4">Live demo. No commitment. Just clarity.</p>
+            <p className="mt-4 text-sm text-blue-200">Live demo. No commitment. Just clarity.</p>
           </div>
         </div>
       </section>
@@ -759,13 +845,14 @@ export default function RexoERP() {
 
           <div className="flex flex-col gap-3">
             {FAQS.map((faq, i) => (
-              <FaqItem
-                key={faq.q}
-                question={faq.q}
-                answer={faq.a}
-                isOpen={faqOpen === i}
-                onToggle={() => setFaqOpen((prev) => (prev === i ? null : i))}
-              />
+              <div key={faq.q} className={`sr-from-bottom sr-d${Math.min(i + 1, 10)}`}>
+                <FaqItem
+                  question={faq.q}
+                  answer={faq.a}
+                  isOpen={faqOpen === i}
+                  onToggle={() => setFaqOpen((prev) => (prev === i ? null : i))}
+                />
+              </div>
             ))}
           </div>
         </div>
