@@ -1,21 +1,16 @@
-// IndustryHealthcare.tsx - Redesigned "What We Build" Section Only
+// IndustryRealEstate.tsx - Real Estate Industry Page
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   Sparkles,
-  Heart,
-  Stethoscope,
-  TrendingUp,
-  Shield,
-  Zap,
-  MoveRight,
-  Award,
-  BarChart3,
+  Building,
+  Home,
+  Users,
+  Calendar,
   Clock,
   Lock,
   Globe,
-  Users,
   Building2,
   ChevronRight,
   PlayCircle,
@@ -27,24 +22,11 @@ import {
   Database,
   Server,
   Rocket,
-  FileHeart,
-  Pill,
-
-  Microscope,
-  ClipboardCheck,
-  UserCheck,
-  Activity,
-  Scan,
-  Bone,
-  Droplet,
-  Brain,
-  Ambulance,
-  Syringe,
-  Bandage,
-  Calendar,
-  Mail,
-  Phone,
+  Key,
   MapPin,
+  Search,
+  Phone,
+  Mail,
   Check,
   ArrowUpRight,
   Circle,
@@ -55,15 +37,42 @@ import {
   ChevronLeft,
   ChevronRight as ChevronRightIcon,
   CalendarCheck2,
+  TrendingUp,
+  Award,
+  Shield,
+  Gauge,
+  BarChart3,
+  UserCheck,
+  Activity,
+  Scan,
+  Brain,
+  Ambulance,
+  Syringe,
+  Bandage,
+  MapPin as MapPinIcon,
+  Eye,
+  FileCheck,
+  RefreshCw,
+  DollarSign,
+  HomeIcon,
+  Grid,
+  List,
+  Filter,
+  Zap,
+  Crown,
+  Hotel,
+  Warehouse,
+  Store,
+  Armchair,
 } from 'lucide-react';
 
 const injectStyles = () => {
-  const id = 'healthcare-industry-premium';
+  const id = 'realestate-industry-premium';
   if (document.getElementById(id)) return;
   const style = document.createElement('style');
   style.id = id;
   style.textContent = `
-    .healthcare-premium {
+    .realestate-premium {
       background: #FAFBFC;
       color: #0F172A;
       overflow-x: hidden;
@@ -88,7 +97,6 @@ const injectStyles = () => {
       letter-spacing: -0.02em;
     }
 
-    /* ── Reveal ── */
     .reveal-up {
       opacity: 0;
       transform: translateY(40px);
@@ -129,7 +137,6 @@ const injectStyles = () => {
       transform: scale(1);
     }
 
-    /* ── Text Reveal ── */
     .text-reveal-line {
       overflow: hidden;
       display: block;
@@ -144,13 +151,12 @@ const injectStyles = () => {
     }
 
     .gradient-text {
-      background: linear-gradient(135deg, #2563EB 0%, #6366F1 50%, #06B6D4 100%);
+      background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #06B6D4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* ── REDESIGNED SERVICE CARD ── */
     .service-card-new {
       position: relative;
       background: white;
@@ -168,7 +174,7 @@ const injectStyles = () => {
       left: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, #2563EB, #6366F1, #06B6D4);
+      background: linear-gradient(90deg, #2563EB, #7C3AED, #06B6D4);
       opacity: 0;
       transition: opacity 0.5s ease;
     }
@@ -229,7 +235,6 @@ const injectStyles = () => {
       background: #eff6ff;
     }
 
-    /* ── FLOATING ELEMENTS ── */
     .float-el {
       animation: floatEl 6s ease-in-out infinite;
       position: absolute;
@@ -243,12 +248,24 @@ const injectStyles = () => {
       50% { transform: translateY(-16px) rotate(4deg); }
     }
 
-    /* ── DIVIDER ── */
     .divider-gradient {
       height: 2px;
       background: linear-gradient(to right, transparent, rgba(37,99,235,0.1), transparent);
       width: 80px;
       margin: 16px 0;
+    }
+
+    .pillar-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #f1f5f9;
+      transition: all 0.3s ease;
+    }
+    .pillar-card:hover {
+      border-color: #2563EB;
+      box-shadow: 0 8px 24px rgba(37,99,235,0.08);
+      transform: translateY(-2px);
     }
 
     @keyframes fadeUp {
@@ -291,100 +308,101 @@ function TextReveal({ lines, className = '' }: { lines: string[]; className?: st
   );
 }
 
-export default function IndustryHealthcare() {
+export default function IndustryRealEstate() {
   const wrapperRef = useReveal();
   const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
-    document.title = 'Healthcare Software Development — NSS';
+    document.title = 'Real Estate Software Development — NSS';
   }, []);
 
   const services = [
     { 
-      icon: ClipboardCheck, 
-      title: 'Patient Management Systems', 
-      desc: 'Registration to discharge on one record, with complete patient history and care coordination.', 
+      icon: Building, 
+      title: 'Property Management Platforms', 
+      desc: 'Units, availability, pricing, and possession status in real time — one source of truth.', 
       color: '#2563EB', 
       bg: '#EFF6FF',
-      features: ['Unified Records', 'Care Coordination', 'Patient History'],
+      features: ['Unit Tracking', 'Availability', 'Pricing'],
       number: '01'
     },
     { 
-      icon: CalendarCheck2, 
-      title: 'Hospital Operations Software', 
-      desc: 'Appointments, wards, billing, and inventory connected in a single operational system.', 
-      color: '#6366F1', 
-      bg: '#EEF2FF',
-      features: ['Appointments', 'Ward Management', 'Billing'],
+      icon: Search, 
+      title: 'Listing Portals & Search', 
+      desc: 'Fast, filtered, map-aware property discovery — search that actually works.', 
+      color: '#7C3AED', 
+      bg: '#F5F3FF',
+      features: ['Fast Search', 'Filters', 'Map-Aware'],
       number: '02'
     },
     { 
-      icon: Database, 
-      title: 'Health Data Engineering', 
-      desc: 'The pipelines that make clinical reporting trustworthy and data-driven decisions possible.', 
+      icon: Users, 
+      title: 'Real Estate CRM', 
+      desc: 'Inquiry to booking with follow-up automation — the pipeline that closes.', 
       color: '#059669', 
       bg: '#ECFDF5',
-      features: ['ETL Pipelines', 'Analytics', 'Reporting'],
-      number: '03'
+      features: ['Lead Tracking', 'Follow-Up Automation', 'Pipeline'],
+      number: '03',
+      link: '/salesforce-development'
     },
     { 
-      icon: Globe, 
-      title: 'Telehealth & Patient Portals', 
-      desc: 'Access without the waiting room — secure virtual care and patient engagement.', 
+      icon: DollarSign, 
+      title: 'Payment & Milestone Tracking', 
+      desc: 'Booking to registration with automated reminders — no milestone missed.', 
       color: '#D97706', 
       bg: '#FFFBEB',
-      features: ['Virtual Visits', 'Patient Access', 'Secure Messaging'],
+      features: ['Payment Tracking', 'Milestones', 'Automated Reminders'],
       number: '04'
     },
     { 
-      icon: Lock, 
-      title: 'Compliance-Aware Architecture', 
-      desc: 'Encryption, access control, and audit trails designed for health-data regulation.', 
+      icon: Home, 
+      title: 'Owner & Tenant Portals', 
+      desc: 'Statements, requests, and documents self-served — communication at scale.', 
       color: '#DC2626', 
       bg: '#FEF2F2',
-      features: ['Encryption', 'Access Control', 'Audit Trails'],
+      features: ['Self-Service', 'Documents', 'Communication'],
       number: '05'
     },
   ];
 
   return (
-    <div className="healthcare-premium" ref={wrapperRef}>
+    <div className="realestate-premium" ref={wrapperRef}>
       
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#EEF2FF]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#F5F3FF]" />
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6366F1]/5 rounded-full blur-3xl" />
-          <Heart className="float-el top-[15%] right-[8%] text-[#2563EB]/10 w-20 h-20" />
-          <Stethoscope className="float-el bottom-[25%] right-[12%] text-[#6366F1]/10 w-16 h-16" />
-          <Pill className="float-el top-[35%] left-[85%] text-[#06B6D4]/10 w-14 h-14" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-3xl" />
+          <Building className="float-el top-[15%] right-[8%] text-[#2563EB]/10 w-20 h-20" />
+          <Key className="float-el bottom-[25%] right-[12%] text-[#7C3AED]/10 w-16 h-16" />
+          <Home className="float-el top-[35%] left-[85%] text-[#06B6D4]/10 w-14 h-14" />
         </div>
 
         <div className="max-w-5xl mx-auto w-full relative z-10">
           <div className="flex items-center gap-3 mb-8 reveal-up">
             <span className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
-              <Heart size={16} className="text-[#2563EB]" />
+              <Building size={16} className="text-[#2563EB]" />
             </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Healthcare</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Real Estate</span>
             <span className="text-xs text-slate-300">/</span>
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Software Development</span>
           </div>
 
           <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            Software where the stakes are
+            From first inquiry to key handover,
             <br />
-            <span className="gradient-text">patients, not just deadlines</span>
+            <span className="gradient-text">one system of record</span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            Healthcare software development with the discipline the domain demands: patient data handled properly, workflows built around clinicians, systems that don't fail at 2 a.m.
+            Real estate software development for a business that runs on follow-ups: listings, leads, site visits, bookings, and payments finally connected.
           </p>
 
           <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
             <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-105">
-              Discuss Your Project
+              Discuss Your Build
               <ArrowRight size={18} />
             </a>
             <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
@@ -394,10 +412,10 @@ export default function IndustryHealthcare() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
             {[
-              { value: '30%', label: 'Efficiency Gain', icon: TrendingUp, color: '#2563EB' },
-              { value: '99.9%', label: 'Data Integrity', icon: Shield, color: '#6366F1' },
-              { value: '24/7', label: 'System Uptime', icon: Clock, color: '#059669' },
-              { value: '100%', label: 'Compliance Ready', icon: Lock, color: '#D97706' },
+              { value: 'Real-Time', label: 'Availability', icon: Building, color: '#2563EB' },
+              { value: 'Automated', label: 'Follow-Ups', icon: Users, color: '#7C3AED' },
+              { value: 'Accurate', label: 'Listings', icon: Search, color: '#059669' },
+              { value: 'Self-Serve', label: 'Portals', icon: Home, color: '#D97706' },
             ].map((stat, i) => (
               <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#2563EB] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
@@ -419,24 +437,24 @@ export default function IndustryHealthcare() {
                 The Challenge
               </span>
               <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                The fragmentation tax in care delivery
+                The follow-up business
               </h2>
               <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Patient data scattered across registration, lab, pharmacy, and billing systems doesn't just waste staff time — it <span className="font-semibold text-[#0F172A]">delays care</span>.
+                  Real estate deals die quietly — a lead uncontacted for a week, a site visit never logged, a payment milestone nobody chased.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Every duplicate entry is a chance for error; every system that won't talk to another is a hallway phone call.
+                  The inventory is properties, but the business is <span className="font-semibold text-[#0F172A]">pipeline discipline</span>.
                 </p>
               </div>
             </div>
 
             <div className="lg:col-span-2 space-y-3 reveal-right" style={{ transitionDelay: '200ms' }}>
               {[
-                { label: 'Fragmented Patient Data' },
-                { label: 'Manual Workflows' },
-                { label: 'Compliance Risk' },
-                { label: 'Care Delays' },
+                { label: 'Leads Lost to Inaction' },
+                { label: 'Unlogged Site Visits' },
+                { label: 'Missed Payment Milestones' },
+                { label: 'Stale Listings' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 hover:shadow-md transition-all duration-300">
                   <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
@@ -450,16 +468,12 @@ export default function IndustryHealthcare() {
         </div>
       </section>
 
-      {/* ============================================================
-          REDESIGNED "WHAT WE BUILD" SECTION
-          ============================================================ */}
+      {/* ===== WHAT WE BUILD ===== */}
       <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC] relative overflow-hidden">
-        {/* Background Decoration */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#6366F1]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#7C3AED]/5 rounded-full blur-3xl" />
 
         <div className="max-w-5xl mx-auto relative z-10">
-          {/* Section Header - New Style */}
           <div className="mb-16">
             <div className="flex items-center gap-3 mb-4 reveal-up">
               <span className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center">
@@ -473,14 +487,13 @@ export default function IndustryHealthcare() {
                 What we <span className="gradient-text">build</span>
               </h2>
               <p className="text-slate-400 text-sm reveal-up max-w-sm" style={{ transitionDelay: '150ms' }}>
-                5 core solutions engineered for healthcare — each one built with the discipline the domain demands.
+                5 core solutions engineered for real estate — built to keep the pipeline moving.
               </p>
             </div>
             
             <div className="divider-gradient reveal-up" style={{ transitionDelay: '200ms' }} />
           </div>
 
-          {/* Cards - New Design */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => {
               const Icon = service.icon;
@@ -499,21 +512,15 @@ export default function IndustryHealthcare() {
                   onMouseEnter={() => setActiveService(i)}
                   onMouseLeave={() => setActiveService(null)}
                 >
-                  {/* Large Number */}
                   <span className="card-number">{service.number}</span>
 
-                  {/* Icon */}
                   <div className="icon-wrap" style={{ backgroundColor: service.bg, color: service.color }}>
                     <Icon size={24} strokeWidth={1.75} />
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-xl font-bold text-[#0F172A] pr-12">{service.title}</h3>
-
-                  {/* Description */}
                   <p className="text-sm text-slate-500 mt-2 leading-relaxed">{service.desc}</p>
 
-                  {/* Feature Tags */}
                   <div className="flex flex-wrap gap-2 mt-4">
                     {service.features.map((feature, idx) => (
                       <span key={idx} className="feature-tag">
@@ -523,35 +530,84 @@ export default function IndustryHealthcare() {
                     ))}
                   </div>
 
-                  {/* Accent Line */}
                   <div 
                     className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
                     style={{ background: service.color }} 
                   />
 
-                  {/* Learn More Link */}
-                  <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
-                    Learn more
-                    <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
+                  {service.link ? (
+                    <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
+                      Learn more
+                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </Link>
+                  ) : (
+                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
+                      Learn more
+                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </button>
+                  )}
                 </div>
               );
             })}
           </div>
 
-          {/* Bottom CTA */}
           <div className="mt-12 text-center reveal-up">
-            <p className="text-sm text-slate-500 mb-4">Need a custom healthcare solution?</p>
+            <p className="text-sm text-slate-500 mb-4">Need a custom real estate solution?</p>
             <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
-              Discuss Your Project
+              Discuss Your Build
               <ArrowRight size={16} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* ===== PROOF ===== */}
+      {/* ===== ENGINEERING MATTERS ===== */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
+              <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
+              Engineering Matters
+            </span>
+            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
+              Why <span className="gradient-text">performance</span> here is different
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="pillar-card reveal-up">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] flex items-center justify-center flex-shrink-0">
+                  <Search size={24} className="text-[#2563EB]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0F172A]">Search Performance</h4>
+                  <p className="text-sm text-slate-500 mt-1">
+                    A slow search costs the lead. We engineer property discovery with Core Web Vitals discipline — fast, filtered, map-aware.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pillar-card reveal-up" style={{ transitionDelay: '100ms' }}>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] flex items-center justify-center flex-shrink-0">
+                  <Shield size={24} className="text-[#7C3AED]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0F172A]">Data Accuracy</h4>
+                  <p className="text-sm text-slate-500 mt-1">
+                    A stale listing costs trust. We keep availability, pricing, and status in real time — one system of record.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== PROOF ===== */}
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -560,18 +616,18 @@ export default function IndustryHealthcare() {
                 Proof
               </span>
               <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                Real impact in healthcare
+                Pipeline discipline in action
               </h2>
               <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  A healthcare provider faced care delays from fragmented patient data and outdated management systems.
+                  A real estate developer with multiple projects tracked everything in spreadsheets — leads, site visits, bookings, payments. Nothing connected.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  We modernized patient management with integrated database solutions and streamlined workflows — delivering <span className="font-semibold text-[#0F172A]">30% operational efficiency</span> and measurably better satisfaction.
+                  We built a unified platform with property management, CRM, and milestone tracking — <span className="font-semibold text-[#0F172A]">cutting lead response time from days to minutes</span> and ensuring no payment milestone went unchased.
                 </p>
               </div>
               <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
-                <Link to="/case-studies/healthcare-modernization" className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
+                <Link to="/case-studies/real-estate-platform" className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
                   Read the full case study
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -584,24 +640,23 @@ export default function IndustryHealthcare() {
                   <Quote size={14} className="text-white" />
                 </div>
                 <p className="text-sm text-slate-600 leading-relaxed italic mt-2">
-                  "Our clinicians were spending more time navigating systems than caring for patients. This transformed everything."
+                  "We used to lose leads because nobody followed up. Now the system does it for us. Game changer."
                 </p>
                 <div className="mt-4 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-sm font-bold">
-                    CM
+                    AV
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-[#0F172A]">Chief Medical Officer</div>
-                    <div className="text-xs text-slate-500">Healthcare Provider</div>
+                    <div className="text-sm font-semibold text-[#0F172A]">VP Sales</div>
+                    <div className="text-xs text-slate-500">Real Estate Developer</div>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {[
-                  { value: '30%', label: 'Efficiency', color: '#2563EB' },
-                  { value: '100%', label: 'Satisfaction', color: '#059669' },
-                  { value: '24/7', label: 'Uptime', color: '#6366F1' },
+                  { value: 'Minutes', label: 'Lead Response', color: '#2563EB' },
+                  { value: '100%', label: 'Milestone Tracking', color: '#059669' },
                 ].map((item, i) => (
                   <div key={i} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center hover:border-slate-200 transition-all duration-300">
                     <div className="text-xl font-bold" style={{ color: item.color }}>{item.value}</div>
@@ -615,7 +670,7 @@ export default function IndustryHealthcare() {
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="mb-16">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
@@ -630,21 +685,21 @@ export default function IndustryHealthcare() {
           <div className="space-y-3">
             {[
               {
-                q: 'Do you build HIPAA-compliant systems?',
-                a: 'We build HIPAA-aware architecture — encryption, access controls, audit logging, BAA-compatible hosting — and work with your compliance officer on certification specifics.'
+                q: "Do you build for brokers, builders, or property managers?",
+                a: "All three — the modules differ (listings vs. project milestones vs. tenancy), the pipeline discipline doesn't."
               },
               {
-                q: 'Can you integrate with existing hospital systems?',
-                a: 'Usually yes — HL7/FHIR interfaces and database-level integration are standard scoping questions in healthcare engagements.'
+                q: "Can it integrate with listing sites?",
+                a: "Yes — feed syndication and portal APIs are standard scope where the platforms allow it."
               },
               {
-                q: 'Do you work with clinics or only hospitals?',
-                a: 'Both, plus diagnostics, telehealth startups, and health-data companies — the discipline scales in both directions.'
+                q: "Do you handle rental/tenancy management?",
+                a: "Yes — leases, renewals, rent schedules, maintenance requests, and owner statements in one flow."
               }
             ].map((faq, i) => (
               <div
                 key={i}
-                className="border border-slate-100 rounded-xl bg-white p-5 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
+                className="border border-slate-100 rounded-xl bg-[#FAFBFC] p-5 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
                 style={{
                   opacity: 0,
                   animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
@@ -669,20 +724,20 @@ export default function IndustryHealthcare() {
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-6">
-            <Heart size={14} className="text-[#2563EB]" />
-            <span className="text-xs font-bold text-white/80 tracking-widest">HEALTHCARE SOFTWARE</span>
+            <Building size={14} className="text-[#2563EB]" />
+            <span className="text-xs font-bold text-white/80 tracking-widest">REAL ESTATE SOFTWARE</span>
           </div>
           <h2 className="heading-lg text-white">
-            Ready to build software where
+            Ready to turn inquiries into
             <br />
-            <span className="gradient-text">patients matter most?</span>
+            <span className="gradient-text">keys handed over?</span>
           </h2>
           <p className="text-lg text-slate-400 mt-4 max-w-xl mx-auto">
-            Let's discuss your healthcare project. We'll show you what's possible.
+            Let's discuss your real estate project. We'll show you what's possible.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
-              Discuss Your Project
+              Discuss Your Build
               <ArrowRight size={18} />
             </a>
             <a href="/case-studies" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/10 transition-all duration-300">

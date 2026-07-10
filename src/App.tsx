@@ -34,6 +34,15 @@ import RetailAiTeam from './components/caseStudies/RetailAiTeam';
 import HealthcareModernization from './components/caseStudies/HealthcareModernization';
 import IndustryHealthcare from './components/industries/HealthCare';
 import ManufacturingDevOps from './components/caseStudies/ManufacturingDevops';
+import AboutUs from './components/AboutUs';
+import IndustryManufacturing from './components/industries/Manufacturing';
+import IndustryFinance from './components/industries/Finance';
+import IndustryEcommerce from './components/industries/Ecommerce';
+import IndustryRealEstate from './components/industries/RealEstate';
+import IndustryTravel from './components/industries/Travel';
+import Contact from './components/ContactUs';
+import Blog from './components/Blog';
+import Career from './components/Career';
 
 export default function App() {
   return (
@@ -76,6 +85,15 @@ export default function App() {
           <Route path="/our-work/healthcare-modernization" element={<HealthcareModernization />} />
           
           <Route path="/industries/healthcare-software-development" element={<IndustryHealthcare />} />
+          <Route path="/industries/manufacturing-software-solutions" element={<IndustryManufacturing />} />
+          <Route path="/industries/fintech-software-development" element={<IndustryFinance />} />
+          <Route path="/industries/ecommerce-development" element={<IndustryEcommerce />} />
+          <Route path="/industries/real-estate-software-development" element={<IndustryRealEstate />} />
+          <Route path="/industries/travel-software-development" element={<IndustryTravel/>} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/contactUs" element={<Contact />} />
+          <Route path="/blog" element={<Blog/>} />
+          <Route path="/careers" element={<Career/>} />
         </Routes>
       </SiteLayout>
     </BrowserRouter>
