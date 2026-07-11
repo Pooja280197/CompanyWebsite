@@ -43,6 +43,7 @@ import IndustryTravel from './components/industries/Travel';
 import Contact from './components/ContactUs';
 import Blog from './components/Blog';
 import Career from './components/Career';
+import OurWorkHub from './components/caseStudies/OurWorkHub';
 
 export default function App() {
   return (
@@ -76,6 +77,7 @@ export default function App() {
           <Route path="/product/education-erp" element={<EducationERP />} />
           <Route path="/our-products" element={<OurProducts />} />
 
+          <Route path="/our-work" element={<OurWorkHub />} />
           <Route path="/our-work/smart-factory-iot" element={<CaseStudySmartFactory />} />
           <Route path="/our-work/diamond-similarity-ai" element={<DiamondSimilarity />} />
           <Route path="/our-work/cloud-optimization" element={<CloudOptimization />} />
