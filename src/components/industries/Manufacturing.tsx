@@ -319,7 +319,7 @@ export default function IndustryManufacturing() {
       bg: '#F0FDFA',
       features: ['Inventory', 'BOM', 'Payroll'],
       number: '02',
-      link: '/rexo-erp'
+      link: '/product/rexo-erp'
     },
     { 
       icon: GanttChart, 

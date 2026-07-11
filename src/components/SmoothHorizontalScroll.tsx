@@ -1,4 +1,12 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  type MutableRefObject,
+  type ReactNode,
+  type Ref,
+} from 'react';
 
 interface Props {
   children: ReactNode;
@@ -6,11 +14,31 @@ interface Props {
   ariaLabel?: string;
 }
 
-export function SmoothHorizontalScroll({ children, className = '', ariaLabel }: Props) {
-  const trackRef = useRef<HTMLDivElement>(null);
+function assignRef<T>(ref: Ref<T> | undefined, value: T | null) {
+  if (!ref) return;
+  if (typeof ref === 'function') {
+    ref(value);
+    return;
+  }
+  (ref as MutableRefObject<T | null>).current = value;
+}
+
+export const SmoothHorizontalScroll = forwardRef<HTMLDivElement, Props>(function SmoothHorizontalScroll(
+  { children, className = '', ariaLabel },
+  ref,
+) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
   const scrollStart = useRef(0);
+
+  const setTrackRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      trackRef.current = node;
+      assignRef(ref, node);
+    },
+    [ref],
+  );
 
   useEffect(() => {
     const el = trackRef.current;
@@ -66,7 +94,7 @@ export function SmoothHorizontalScroll({ children, className = '', ariaLabel }: 
 
   return (
     <div
-      ref={trackRef}
+      ref={setTrackRef}
       className={`method-rail__track ${className}`.trim()}
       role="region"
       aria-label={ariaLabel}
@@ -78,4 +106,4 @@ export function SmoothHorizontalScroll({ children, className = '', ariaLabel }: 
       {children}
     </div>
   );
-}
+});
