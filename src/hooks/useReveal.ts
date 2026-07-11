@@ -22,31 +22,36 @@ export function useReveal() {
   const location = useLocation();
 
   useEffect(() => {
-    const defaultObs = observeReveal('.sr', {
-      threshold: 0.06,
-      rootMargin: '0px 0px -30px 0px',
-    });
+    let observers: IntersectionObserver[] = [];
 
-    const sideObs = observeReveal('.sr-from-left, .sr-from-right', {
-      threshold: 0.06,
-      rootMargin: '0px 0px -20px 0px',
-    });
+    const connect = () => {
+      observers = [
+        observeReveal('.sr', {
+          threshold: 0.06,
+          rootMargin: '0px 0px -30px 0px',
+        }),
+        observeReveal('.sr-from-left, .sr-from-right', {
+          threshold: 0.06,
+          rootMargin: '0px 0px -20px 0px',
+        }),
+        observeReveal('.sr-from-center', {
+          threshold: 0,
+          rootMargin: '-40% 0px -40% 0px',
+        }),
+        observeReveal('.sr-from-bottom', {
+          threshold: 0.05,
+          rootMargin: '0px 0px -10px 0px',
+        }),
+      ];
+    };
 
-    const centerObs = observeReveal('.sr-from-center', {
-      threshold: 0,
-      rootMargin: '-40% 0px -40% 0px',
-    });
-
-    const bottomObs = observeReveal('.sr-from-bottom', {
-      threshold: 0.05,
-      rootMargin: '0px 0px -10px 0px',
+    const frame = requestAnimationFrame(() => {
+      connect();
     });
 
     return () => {
-      defaultObs.disconnect();
-      sideObs.disconnect();
-      centerObs.disconnect();
-      bottomObs.disconnect();
+      cancelAnimationFrame(frame);
+      observers.forEach((obs) => obs.disconnect());
     };
   }, [location.pathname]);
 }

@@ -1,7 +1,11 @@
 // CaseStudyCloudOptimization.tsx
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { CaseStudyHero } from './CaseStudyHero';
+import { CaseStudyOverview } from './CaseStudyOverview';
+import { CaseStudyProblem } from './CaseStudyProblem';
+import { CaseStudySolution } from './CaseStudySolution';
+import { CaseStudyResults } from './CaseStudyResults';
+import { CaseStudyCta } from './CaseStudyCta';
 import {
 
     Sparkles,
@@ -10,21 +14,16 @@ import {
 
     Shield,
     Zap,
-    MoveRight,
 
     Database,
-    Cloud as CloudIcon,
 
     Activity,
-    Target,
 
     ChevronRight,
 
     FileText,
 
-    Layers,
     Quote,
-    X,
 
     Server,
 
@@ -32,18 +31,13 @@ import {
     GitBranch,
     RefreshCw,
     DollarSign,
+    Unlink,
+    Gauge,
 
 } from 'lucide-react';
 
 const HERO_IMAGE =
     'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80';
-
-const STATS = [
-    { value: '99.99%', label: 'Uptime', icon: Shield, color: '#2563eb', bg: 'bg-blue-50', border: 'border-blue-200' },
-    { value: '40%', label: 'Faster Performance', icon: Zap, color: '#7c3aed', bg: 'bg-purple-50', border: 'border-purple-200' },
-    { value: '35%', label: 'Cost Savings', icon: DollarSign, color: '#059669', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-    { value: '0', label: 'Downtime Deployments', icon: RefreshCw, color: '#d97706', bg: 'bg-amber-50', border: 'border-amber-200' },
-];
 
 const TECHNOLOGIES = [
     { icon: Server, name: 'Load Balancing', color: '#2563eb', bg: 'bg-blue-50' },
@@ -54,72 +48,7 @@ const TECHNOLOGIES = [
     { icon: GitBranch, name: 'CI/CD Automation', color: '#0891b2', bg: 'bg-cyan-50' },
 ];
 
-const TIMELINE = [
-    { phase: 'Assessment', desc: 'Audited infrastructure, performance, and costs', duration: '2 weeks', icon: Target, color: '#2563eb' },
-    { phase: 'Architecture', desc: 'Designed scalable, secure cloud architecture', duration: '3 weeks', icon: Layers, color: '#7c3aed' },
-    { phase: 'Implementation', desc: 'Deployed load balancing, security, and optimization', duration: '6 weeks', icon: CloudIcon, color: '#059669' },
-    { phase: 'Automation', desc: 'Built CI/CD pipeline with zero-downtime deployments', duration: '3 weeks', icon: GitBranch, color: '#d97706' },
-    { phase: 'Monitoring', desc: '24/7 monitoring and continuous optimization', duration: 'Ongoing', icon: Activity, color: '#dc2626' },
-];
-
-function useScrollAnimation() {
-    const [refs, setRefs] = useState<(HTMLElement | null)[]>([]);
-    const [visibleStates, setVisibleStates] = useState<boolean[]>([]);
-
-    useEffect(() => {
-        const observers: IntersectionObserver[] = [];
-
-        refs.forEach((ref, index) => {
-            if (!ref) return;
-
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            setVisibleStates(prev => {
-                                const newStates = [...prev];
-                                newStates[index] = true;
-                                return newStates;
-                            });
-                        }
-                    });
-                },
-                { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-            );
-
-            observer.observe(ref);
-            observers.push(observer);
-        });
-
-        return () => {
-            observers.forEach(obs => obs.disconnect());
-        };
-    }, [refs]);
-
-    const registerRef = (el: HTMLElement | null, index: number) => {
-        if (el && !refs.includes(el)) {
-            setRefs(prev => {
-                const newRefs = [...prev];
-                newRefs[index] = el;
-                return newRefs;
-            });
-            setVisibleStates(prev => {
-                const newStates = [...prev];
-                newStates[index] = false;
-                return newStates;
-            });
-        }
-    };
-
-    return { registerRef, visibleStates };
-}
-
 export default function CloudOptimization() {
-    const [activeStat, setActiveStat] = useState<number | null>(null);
-    const [activeTimeline, setActiveTimeline] = useState<number | null>(null);
-
-    const { registerRef, visibleStates } = useScrollAnimation();
-
     useEffect(() => {
         document.title = 'Cloud Optimization — NSS Case Study';
         window.scrollTo(0, 0);
@@ -130,609 +59,122 @@ export default function CloudOptimization() {
             <CaseStudyHero
                 title="Cloud Optimization"
                 subtitle="99.99% uptime on a cloud bill 35% smaller"
-                tags={"Cloud & IT Infrastructure", "Project Value: $80,000"}
+                tags={['Cloud & IT Infrastructure', 'Project Value: $80,000']}
                 image={HERO_IMAGE}
             />
 
-            {/* Overview Section */}
-            <section
-                ref={(el) => registerRef(el, 0)}
-                className="py-16 px-6 bg-white border-t border-gray-100"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-                        <div className="lg:col-span-3">
-                            <div
-                                className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                                }}
-                            >
-                                <span className="text-xs font-bold text-blue-700 tracking-wider">OVERVIEW</span>
-                            </div>
-                            <h2
-                                className="text-3xl font-bold text-gray-900"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateY(0)' : 'translateY(30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                                }}
-                            >
-                                The client
-                            </h2>
-                            <p
-                                className="text-gray-600 text-lg leading-relaxed mt-4"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                                }}
-                            >
-                                A high-traffic enterprise application whose growth had outrun its infrastructure: traffic spikes it couldn't absorb, performance bottlenecks users felt, and security exposure nobody could ignore.
-                            </p>
-                            <div
-                                className="mt-6 flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateX(0)' : 'translateX(-30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-                                }}
-                            >
-                                <Quote size={24} className="text-blue-500 flex-shrink-0 mt-1" />
-                                <div>
-                                    <p className="text-sm text-gray-700 italic">
-                                        "Our infrastructure was holding us back. We needed to scale without breaking the bank."
-                                    </p>
-                                    <p className="text-xs text-gray-500 mt-2">— VP of Engineering</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="lg:col-span-2">
-                            <div
-                                className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateX(0)' : 'translateX(30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                                }}
-                            >
-                                <h3 className="text-sm font-semibold text-gray-700 mb-4">At a Glance</h3>
-                                <div className="space-y-2">
-                                    {[
+            <CaseStudyOverview
+                sectionId="cloud-overview-heading"
+                lead="A high-traffic enterprise application whose growth had outrun its infrastructure: traffic spikes it couldn't absorb, performance bottlenecks users felt, and security exposure nobody could ignore."
+                quote="Our infrastructure was holding us back. We needed to scale without breaking the bank."
+                quoteAuthor="VP of Engineering"
+                glanceItems={[
                                         { label: 'Industry', value: 'Enterprise SaaS' },
                                         { label: 'Technology', value: 'Cloud · DevOps' },
                                         { label: 'Duration', value: '~3.5 months' },
                                         { label: 'Impact', value: '99.99% Uptime', highlight: true },
-                                    ].map((item, i) => (
-                                        <div
-                                            key={item.label}
-                                            className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-sm"
-                                            style={{
-                                                opacity: visibleStates[0] ? 1 : 0,
-                                                transform: visibleStates[0] ? 'translateX(0)' : 'translateX(20px)',
-                                                transition: `all 0.4s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.08 + 0.35}s`,
-                                            }}
-                                        >
-                                            <span className="text-sm text-gray-500">{item.label}</span>
-                                            <span className={`text-sm font-medium ${item.highlight ? 'text-blue-600' : 'text-gray-900'}`}>
-                                                {item.value}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                ]}
+            />
 
-            {/* Problem Section */}
-            <section
-                ref={(el) => registerRef(el, 1)}
-                className="py-16 px-6 bg-gray-50/50 border-y border-gray-100"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-                        <div className="lg:col-span-2">
-                            <div
-                                className="inline-block px-3 py-1 rounded-full bg-red-100 border border-red-200 mb-4"
-                                style={{
-                                    opacity: visibleStates[1] ? 1 : 0,
-                                    transform: visibleStates[1] ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                                }}
-                            >
-                                <span className="text-xs font-bold text-red-700 tracking-wider">THE PROBLEM</span>
-                            </div>
-                            <h2
-                                className="text-3xl font-bold text-gray-900"
-                                style={{
-                                    opacity: visibleStates[1] ? 1 : 0,
-                                    transform: visibleStates[1] ? 'translateY(0)' : 'translateY(30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                                }}
-                            >
-                                Infrastructure couldn't keep up with growth
-                            </h2>
-                        </div>
-                        <div className="lg:col-span-3 space-y-4">
-                            {[
-                                { icon: X, title: 'Unpredictable Traffic', desc: 'Traffic surges the architecture couldn\'t scale for', color: '#dc2626' },
-                                { icon: X, title: 'Performance Bottlenecks', desc: 'Query inefficiencies delaying user interactions', color: '#dc2626' },
-                                { icon: X, title: 'Security Exposure', desc: 'DDoS vulnerability demanding serious network security', color: '#dc2626' },
-                                { icon: X, title: 'Rising Costs', desc: 'Unoptimized instances quietly inflating the monthly bill', color: '#dc2626' },
-                            ].map((item, i) => (
-                                <div
-                                    key={item.title}
-                                    className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-200"
-                                    style={{
-                                        opacity: visibleStates[1] ? 1 : 0,
-                                        transform: visibleStates[1] ? 'translateX(0)' : 'translateX(30px)',
-                                        transition: `all 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.08 + 0.25}s`,
-                                    }}
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 animate-pulse-soft">
-                                        <X size={16} className="text-red-500" />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-semibold text-gray-900">{item.title}</div>
-                                        <div className="text-sm text-gray-500">{item.desc}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <CaseStudyProblem
+                sectionId="cloud-problem-heading"
+                eyebrow="The Problem"
+                title="Infrastructure couldn't keep up with growth"
+                centerIcon={Unlink}
+                centerLabel="Legacy stack"
+                centerStatus="Overloaded"
+                nodes={[
+                    { label: 'Traffic', icon: Activity },
+                    { label: 'Queries', icon: Gauge },
+                    { label: 'Security', icon: Shield },
+                ]}
+                metrics={[
+                    { label: 'Scalability', value: 'Low' },
+                    { label: 'Query latency', value: 'High' },
+                    { label: 'Monthly cost', value: 'Rising' },
+                ]}
+                painPoints={[
+                    {
+                        icon: Activity,
+                        text: 'Unpredictable traffic surges the architecture couldn\'t scale for.',
+                    },
+                    {
+                        icon: Server,
+                        text: 'Query inefficiencies delaying user interactions.',
+                    },
+                    {
+                        icon: Lock,
+                        text: 'DDoS exposure demanding serious DNS and network security. And unoptimized instances quietly inflating the monthly bill.',
+                    },
+                ]}
+            />
 
-            {/* Solution Section */}
-            <section
-                ref={(el) => registerRef(el, 2)}
-                className="py-16 px-6 bg-white"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="text-center mb-12">
-                        <div
-                            className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4"
-                            style={{
-                                opacity: visibleStates[2] ? 1 : 0,
-                                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                            }}
-                        >
-                            <span className="text-xs font-bold text-emerald-700 tracking-wider">SOLUTION</span>
-                        </div>
-                        <h2
-                            className="text-3xl font-bold text-gray-900"
-                            style={{
-                                opacity: visibleStates[2] ? 1 : 0,
-                                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(30px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                            }}
-                        >
-                            What we built
-                        </h2>
-                        <p
-                            className="text-gray-500 mt-2 max-w-2xl mx-auto"
-                            style={{
-                                opacity: visibleStates[2] ? 1 : 0,
-                                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                            }}
-                        >
-                            A complete cloud infrastructure transformation
-                        </p>
-                    </div>
+            <CaseStudySolution
+                sectionId="cloud-optimization-solution-heading"
+                pillars={[
+                    {
+                        icon: Server,
+                        title: 'Load balancing & database tuning',
+                        text: 'Load balancing with auto-scaling to absorb surges automatically. Database tuning that improved query speed 30%.',
+                        tag: 'Auto-scale',
+                        tone: 'blue',
+                    },
+                    {
+                        icon: Shield,
+                        title: 'Security overhaul',
+                        text: 'A security overhaul: DDoS protection, DNS hardening, zero-trust access.',
+                        tag: 'Hardened',
+                        tone: 'violet',
+                    },
+                    {
+                        icon: GitBranch,
+                        title: 'Cost & deployment automation',
+                        text: 'Cost optimization across the instance fleet. And CI/CD automation so deployments stopped being risk events.',
+                        tag: 'CI/CD',
+                        tone: 'emerald',
+                    },
+                ]}
+                technologies={TECHNOLOGIES}
+            />
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            { icon: Server, title: 'Load Balancing & Auto-Scaling', desc: 'Absorb traffic surges automatically without manual intervention', color: '#2563eb', bg: 'bg-blue-50' },
-                            { icon: Database, title: 'Database Tuning', desc: 'Improved query speed 30% through optimization and indexing', color: '#7c3aed', bg: 'bg-purple-50' },
-                            { icon: Shield, title: 'Security Overhaul', desc: 'DDoS protection, DNS hardening, zero-trust access', color: '#059669', bg: 'bg-emerald-50' },
-                            { icon: DollarSign, title: 'Cost Optimization', desc: 'Smart resource allocation across the instance fleet', color: '#d97706', bg: 'bg-amber-50' },
-                            { icon: GitBranch, title: 'CI/CD Automation', desc: 'Deployments stopped being risk events — zero downtime', color: '#dc2626', bg: 'bg-red-50' },
-                            { icon: Activity, title: 'Continuous Monitoring', desc: '24/7 threat monitoring and performance tracking', color: '#0891b2', bg: 'bg-cyan-50' },
-                        ].map((item, i) => {
-                            const Icon = item.icon;
-                            return (
-                                <div
-                                    key={item.title}
-                                    className="group p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                                    style={{
-                                        opacity: visibleStates[2] ? 1 : 0,
-                                        transform: visibleStates[2] ? 'translateY(0)' : 'translateY(40px)',
-                                        transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.08 + 0.3}s`,
-                                    }}
-                                >
-                                    <div
-                                        className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                                        style={{ color: item.color }}
-                                    >
-                                        <Icon size={26} strokeWidth={1.75} />
-                                    </div>
-                                    <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
-                                    <p className="text-sm text-gray-600 mt-2">{item.desc}</p>
-                                    <div className="mt-4 w-10 h-0.5 rounded-full bg-gray-200 group-hover:w-16 transition-all duration-300" style={{ background: item.color }} />
-                                </div>
-                            );
-                        })}
-                    </div>
+            <CaseStudyResults
+                sectionId="cloud-optimization-results-heading"
+                title="The impact"
+                metrics={[
+                    {
+                        icon: Shield,
+                        value: '99.99%',
+                        label: 'Uptime',
+                        text: 'Reliable under peak load — enterprise-grade',
+                        tone: 'blue',
+                    },
+                    {
+                        icon: Zap,
+                        value: '40%',
+                        label: 'Faster performance',
+                        text: 'Users felt the difference immediately',
+                        tone: 'violet',
+                    },
+                    {
+                        icon: DollarSign,
+                        value: '35%',
+                        label: 'Cost savings',
+                        text: 'Smart resource allocation paid for itself',
+                        tone: 'emerald',
+                    },
+                ]}
+                outcome="99.99% uptime, 40% faster, 35% lower costs. Continuous threat monitoring in place, zero-downtime deployments ever since."
+                outcomeIcon={Cloud}
+            />
 
-                    <div
-                        className="mt-10 p-6 rounded-2xl bg-gray-50 border border-gray-100"
-                        style={{
-                            opacity: visibleStates[2] ? 1 : 0,
-                            transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                            transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.8s',
-                        }}
-                    >
-                        <h4 className="text-sm font-semibold text-gray-700 mb-4 text-center">Technology Stack</h4>
-                        <div className="flex flex-wrap justify-center gap-3">
-                            {TECHNOLOGIES.map((tech, i) => {
-                                const Icon = tech.icon;
-                                return (
-                                    <span
-                                        key={tech.name}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-full ${tech.bg} border border-gray-200 text-sm text-gray-700 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5`}
-                                        style={{
-                                            opacity: visibleStates[2] ? 1 : 0,
-                                            transform: visibleStates[2] ? 'scale(1)' : 'scale(0.8)',
-                                            transition: `all 0.4s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05 + 0.85}s`,
-                                        }}
-                                    >
-                                        <Icon size={16} style={{ color: tech.color }} />
-                                        {tech.name}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Results Section */}
-            <section
-                ref={(el) => registerRef(el, 3)}
-                className="py-16 px-6 bg-gradient-to-br from-cyan-50 via-white to-blue-50"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="text-center mb-12">
-                        <div
-                            className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4"
-                            style={{
-                                opacity: visibleStates[3] ? 1 : 0,
-                                transform: visibleStates[3] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                            }}
-                        >
-                            <span className="text-xs font-bold text-emerald-700 tracking-wider">RESULTS</span>
-                        </div>
-                        <h2
-                            className="text-3xl font-bold text-gray-900"
-                            style={{
-                                opacity: visibleStates[3] ? 1 : 0,
-                                transform: visibleStates[3] ? 'translateY(0)' : 'translateY(30px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                            }}
-                        >
-                            The impact
-                        </h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {STATS.slice(0, 3).map((stat, i) => (
-                            <div
-                                key={stat.label}
-                                className="group p-8 rounded-2xl bg-white border border-gray-100 text-center hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                                style={{
-                                    opacity: visibleStates[3] ? 1 : 0,
-                                    transform: visibleStates[3] ? 'scale(1)' : 'scale(0.85)',
-                                    transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.12 + 0.3}s`,
-                                }}
-                                onMouseEnter={() => setActiveStat(i)}
-                                onMouseLeave={() => setActiveStat(null)}
-                            >
-                                <div
-                                    className={`text-5xl font-bold transition-all duration-300 ${activeStat === i ? 'scale-110' : ''}`}
-                                    style={{ color: stat.color }}
-                                >
-                                    {stat.value}
-                                </div>
-                                <div className="text-lg font-semibold text-gray-900 mt-2">{stat.label}</div>
-                                <div className="text-sm text-gray-500 mt-1">
-                                    {i === 0 && 'Reliable under peak load — enterprise-grade'}
-                                    {i === 1 && 'Users felt the difference immediately'}
-                                    {i === 2 && 'Smart resource allocation paid for itself'}
-                                </div>
-                                <div className="mt-4 h-1 w-12 mx-auto rounded-full bg-gray-200 group-hover:w-20 transition-all duration-300" style={{ background: stat.color }} />
-                            </div>
-                        ))}
-                    </div>
-
-                    <div
-                        className="mt-8 p-6 rounded-2xl bg-white border border-gray-100 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                        style={{
-                            opacity: visibleStates[3] ? 1 : 0,
-                            transform: visibleStates[3] ? 'translateY(0)' : 'translateY(20px)',
-                            transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s',
-                        }}
-                    >
-                        <p className="text-gray-700">
-                            <span className="font-semibold text-gray-900">99.99% uptime, 40% faster, 35% lower costs.</span>
-                            {' '}Continuous threat monitoring in place, zero-downtime deployments ever since.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Timeline Section */}
-            <section
-                ref={(el) => registerRef(el, 4)}
-                className="py-16 px-6 bg-white border-t border-gray-100 overflow-hidden"
-            >
-                <div className="max-w-[900px] mx-auto">
-                    <div className="text-center mb-12">
-                        <div
-                            className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                            }}
-                        >
-                            <span className="text-xs font-bold text-blue-700 tracking-wider">TIMELINE</span>
-                        </div>
-                        <h2
-                            className="text-3xl font-bold text-gray-900"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(30px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                            }}
-                        >
-                            How we delivered
-                        </h2>
-                        <p
-                            className="text-gray-500 mt-2"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                            }}
-                        >
-                            A systematic approach to cloud transformation
-                        </p>
-                    </div>
-
-                    <div className="relative">
-                        <div
-                            className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 overflow-hidden"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transition: 'opacity 0.8s ease 0.4s',
-                            }}
-                        >
-                            <div
-                                className="h-full w-full bg-gradient-to-b from-cyan-400 via-blue-400 to-indigo-400"
-                                style={{
-                                    transform: visibleStates[4] ? 'scaleY(1)' : 'scaleY(0)',
-                                    transformOrigin: 'top',
-                                    transition: 'transform 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s',
-                                }}
-                            />
-                        </div>
-
-                        {TIMELINE.map((item, index) => {
-                            const Icon = item.icon;
-                            const delay = index * 0.12 + 0.6;
-                            const isEven = index % 2 === 0;
-
-                            return (
-                                <div
-                                    key={item.phase}
-                                    className={`relative flex items-start gap-6 mb-6 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                                        }`}
-                                    onMouseEnter={() => setActiveTimeline(index)}
-                                    onMouseLeave={() => setActiveTimeline(null)}
-                                    style={{
-                                        opacity: visibleStates[4] ? 1 : 0,
-                                        transform: visibleStates[4]
-                                            ? 'translateX(0)'
-                                            : `translateX(${isEven ? '-30px' : '30px'})`,
-                                        transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-                                    }}
-                                >
-                                    <div className="absolute left-5 md:left-1/2 -translate-x-1/2 z-10">
-                                        <div
-                                            className={`w-4 h-4 rounded-full bg-white border-4 transition-all duration-500 ${activeTimeline === index ? 'scale-150 shadow-lg' : ''
-                                                }`}
-                                            style={{
-                                                borderColor: activeTimeline === index ? '#6366f1' : item.color,
-                                                animation: visibleStates[4] ? `dotPulse 2s ease-in-out ${index * 0.2}s infinite` : 'none',
-                                            }}
-                                        >
-                                            <div
-                                                className={`w-2 h-2 rounded-full mx-auto mt-0.5 transition-all duration-500 ${activeTimeline === index ? 'scale-150' : ''
-                                                    }`}
-                                                style={{ background: item.color }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className={`w-full md:w-[42%] pl-12 md:pl-0 ${isEven ? 'md:pr-8 md:text-right' : 'md:pl-8'}`}>
-                                        <div
-                                            className={`p-5 rounded-xl bg-white border transition-all duration-500 ${activeTimeline === index
-                                                    ? 'shadow-xl border-cyan-300 -translate-y-1'
-                                                    : 'border-gray-100 hover:shadow-md hover:-translate-y-1'
-                                                }`}
-                                        >
-                                            <div className="flex items-center gap-3 mb-1" style={{ justifyContent: isEven ? 'flex-start' : 'flex-end' }}>
-                                                <Icon
-                                                    size={16}
-                                                    style={{ color: item.color }}
-                                                    className={`transition-all duration-500 ${activeTimeline === index ? 'scale-125 rotate-12' : ''}`}
-                                                />
-                                                <span className="text-sm font-bold" style={{ color: item.color }}>{item.phase}</span>
-                                                <span className="text-xs text-gray-400 ml-auto">{item.duration}</span>
-                                            </div>
-                                            <p className="text-sm text-gray-600">{item.desc}</p>
-                                            <div
-                                                className={`mt-3 h-0.5 rounded-full transition-all duration-1000 ${activeTimeline === index ? 'w-full' : 'w-0'
-                                                    }`}
-                                                style={{ background: item.color }}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section */}
-            <section
-                ref={(el) => registerRef(el, 5)}
-                className="py-16 px-6 relative overflow-hidden"
-            >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 via-white to-blue-50" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-100/30 rounded-full blur-2xl animate-float-slow" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-100/30 rounded-full blur-2xl animate-float-slow" style={{ animationDelay: '2s' }} />
-
-                <div className="relative z-10 max-w-[700px] mx-auto text-center">
-                    <div
-                        className="p-8 rounded-3xl bg-white shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
-                        style={{
-                            opacity: visibleStates[5] ? 1 : 0,
-                            transform: visibleStates[5] ? 'translateY(0)' : 'translateY(40px)',
-                            transition: 'all 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-                        }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 border border-cyan-200 mb-4">
-                            <Cloud size={12} className="text-cyan-600" />
-                            <span className="text-xs font-bold text-cyan-700 tracking-wider">FREE ASSESSMENT</span>
-                        </div>
-
-                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                            Bill climbing while performance falls?
-                        </h2>
-                        <p className="text-gray-600 mt-3 max-w-lg mx-auto">
-                            Get a free cloud assessment. We'll show you exactly where you're wasting money and what needs to change.
-                        </p>
-                        <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-                            <Link
-                                to="/cloud-devops"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105"
-                            >
-                                Get Free Cloud Assessment
-                                <MoveRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <Link
-                                to="/#case-studies"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 hover:-translate-y-0.5"
-                            >
-                                View All Case Studies
-                            </Link>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-3">No obligation. Just clarity on what's possible.</p>
-                    </div>
-                </div>
-            </section>
-
-            <style>{`
-        @keyframes scrollDot {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(4px); opacity: 0.3; }
-        }
-        .animate-scrollDot {
-          animation: scrollDot 2s ease-in-out infinite;
-        }
-
-        @keyframes fadeSlide {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideLeft {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideRight {
-          from { opacity: 0; transform: translateX(40px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeDown {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float-slow {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(20px, -20px) scale(1.1); }
-        }
-        .animate-float-slow {
-          animation: float-slow 8s ease-in-out infinite;
-        }
-
-        @keyframes bounce-soft {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-        .animate-bounce-soft {
-          animation: bounce-soft 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-soft {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.6; }
-        }
-        .animate-pulse-soft {
-          animation: pulse-soft 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.5); opacity: 0.6; }
-        }
-
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 4s ease-in-out infinite;
-          background-size: 200% auto;
-        }
-
-        @keyframes dotPulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.2); }
-        }
-      `}</style>
+            <CaseStudyCta
+                sectionId="cloud-optimization-cta-heading"
+                title="Bill climbing while performance falls?"
+                subtitle="Get a free cloud assessment. We'll show you exactly where you're wasting money and what needs to change."
+                primaryHref="/cloud-devops"
+                primaryLabel="Get Free Cloud Assessment"
+                footnote="No obligation. Just clarity on what's possible."
+            />
         </article>
     );
 }

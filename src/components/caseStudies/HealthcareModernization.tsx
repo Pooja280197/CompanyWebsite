@@ -1,7 +1,11 @@
 // CaseStudyHealthcareModernization.tsx
-import { useEffect,  useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { CaseStudyHero } from './CaseStudyHero';
+import { CaseStudyOverview } from './CaseStudyOverview';
+import { CaseStudyProblem } from './CaseStudyProblem';
+import { CaseStudySolution } from './CaseStudySolution';
+import { CaseStudyResults } from './CaseStudyResults';
+import { CaseStudyCta } from './CaseStudyCta';
 import {
   
   Sparkles,
@@ -9,13 +13,10 @@ import {
   TrendingUp,
   Clock,
   Shield,
-  
-  MoveRight,
  
   Cloud,
  
   Activity,
-  Target,
 
   ChevronRight,
 
@@ -23,7 +24,6 @@ import {
 
   Layers,
   Quote,
-  X,
 
   Heart,
   Stethoscope,
@@ -31,25 +31,12 @@ import {
   Database,
   Server,
   Lock,
- 
+  Unlink,
+  Users,
 } from 'lucide-react';
 
 const HERO_IMAGE =
   'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&q=80';
-
-const STATS = [
-  { value: '30%', label: 'More Efficient Care', icon: TrendingUp, color: '#2563eb', bg: 'bg-blue-50', border: 'border-blue-200' },
-  { value: 'One', label: 'Unified Platform', icon: Database, color: '#7c3aed', bg: 'bg-purple-50', border: 'border-purple-200' },
-  { value: 'Faster', label: 'Patient Access', icon: Shield, color: '#059669', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-  { value: 'Higher', label: 'Satisfaction', icon: Heart, color: '#d97706', bg: 'bg-amber-50', border: 'border-amber-200' },
-];
-
-const SOLUTION_CARDS = [
-  { icon: Database, title: 'Advanced Database Solutions', desc: 'Integrating fragmented patient records into one system', color: '#2563eb', bg: 'bg-blue-50' },
-  { icon: Layers, title: 'Streamlined Workflows', desc: 'Built around how staff actually move and work', color: '#7c3aed', bg: 'bg-purple-50' },
-  { icon: Clock, title: 'Faster Patient Access', desc: 'Quick access to complete patient information', color: '#059669', bg: 'bg-emerald-50' },
-  { icon: Shield, title: 'Smoother Operations', desc: 'Fewer workarounds, more focus on care', color: '#d97706', bg: 'bg-amber-50' },
-];
 
 const TECHNOLOGIES = [
   { icon: Database, name: 'Data Integration', color: '#2563eb', bg: 'bg-blue-50' },
@@ -60,72 +47,7 @@ const TECHNOLOGIES = [
   { icon: Activity, name: 'Analytics & Reporting', color: '#0891b2', bg: 'bg-cyan-50' },
 ];
 
-const TIMELINE = [
-  { phase: 'Assessment', desc: 'Audited existing systems and data fragmentation', duration: '3 weeks', icon: Target, color: '#2563eb' },
-  { phase: 'Architecture', desc: 'Designed unified patient management platform', duration: '4 weeks', icon: Layers, color: '#7c3aed' },
-  { phase: 'Integration', desc: 'Merged fragmented patient records', duration: '6 weeks', icon: Database, color: '#059669' },
-  { phase: 'Workflow Design', desc: 'Streamlined clinical workflows', duration: '4 weeks', icon: Stethoscope, color: '#d97706' },
-  { phase: 'Deployment', desc: 'Rolled out with staff training', duration: 'Ongoing', icon: Heart, color: '#dc2626' },
-];
-
-function useScrollAnimation() {
-  const [refs, setRefs] = useState<(HTMLElement | null)[]>([]);
-  const [visibleStates, setVisibleStates] = useState<boolean[]>([]);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    refs.forEach((ref, index) => {
-      if (!ref) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setVisibleStates(prev => {
-                const newStates = [...prev];
-                newStates[index] = true;
-                return newStates;
-              });
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-      );
-
-      observer.observe(ref);
-      observers.push(observer);
-    });
-
-    return () => {
-      observers.forEach(obs => obs.disconnect());
-    };
-  }, [refs]);
-
-  const registerRef = (el: HTMLElement | null, index: number) => {
-    if (el && !refs.includes(el)) {
-      setRefs(prev => {
-        const newRefs = [...prev];
-        newRefs[index] = el;
-        return newRefs;
-      });
-      setVisibleStates(prev => {
-        const newStates = [...prev];
-        newStates[index] = false;
-        return newStates;
-      });
-    }
-  };
-
-  return { registerRef, visibleStates };
-}
-
 export default function HealthcareModernization() {
-  const [activeStat, setActiveStat] = useState<number | null>(null);
-  const [activeTimeline, setActiveTimeline] = useState<number | null>(null);
-  
-  const { registerRef, visibleStates } = useScrollAnimation();
-
   useEffect(() => {
     document.title = 'Healthcare Modernization — NSS Case Study';
     window.scrollTo(0, 0);
@@ -136,606 +58,122 @@ export default function HealthcareModernization() {
             <CaseStudyHero
                 title="Healthcare Modernization"
                 subtitle="Modernizing patient management: 30% more efficient care operations"
-                tags={"Healthcare", "Custom Software", "Data Integration"}
+                tags={['Healthcare', 'Custom Software', 'Data Integration']}
                 image={HERO_IMAGE}
             />
 
-      {/* Overview Section */}
-      <section 
-        ref={(el) => registerRef(el, 0)}
-        className="py-16 px-6 bg-white border-t border-gray-100"
-      >
-        <div className="max-w-[1100px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-            <div className="lg:col-span-3">
-              <div 
-                className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4"
-                style={{
-                  opacity: visibleStates[0] ? 1 : 0,
-                  transform: visibleStates[0] ? 'translateY(0)' : 'translateY(20px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                }}
-              >
-                <span className="text-xs font-bold text-blue-700 tracking-wider">OVERVIEW</span>
-              </div>
-              <h2 
-                className="text-3xl font-bold text-gray-900"
-                style={{
-                  opacity: visibleStates[0] ? 1 : 0,
-                  transform: visibleStates[0] ? 'translateY(0)' : 'translateY(30px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                }}
-              >
-                The client
-              </h2>
-              <p 
-                className="text-gray-600 text-lg leading-relaxed mt-4"
-                style={{
-                  opacity: visibleStates[0] ? 1 : 0,
-                  transform: visibleStates[0] ? 'translateY(0)' : 'translateY(20px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                }}
-              >
-                A healthcare provider whose care delivery was slowed by its own systems: fragmented patient data and outdated management software creating delays clinicians felt daily.
-              </p>
-              <div 
-                className="mt-6 flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  opacity: visibleStates[0] ? 1 : 0,
-                  transform: visibleStates[0] ? 'translateX(0)' : 'translateX(-30px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-                }}
-              >
-                <Quote size={24} className="text-blue-500 flex-shrink-0 mt-1" />
-                <div>
-                  <p className="text-sm text-gray-700 italic">
-                    "Our clinicians were spending more time navigating systems than caring for patients. That had to change."
-                  </p>
-                  <p className="text-xs text-gray-500 mt-2">— Chief Medical Officer</p>
-                </div>
-              </div>
-            </div>
+      <CaseStudyOverview
+          sectionId="healthcare-overview-heading"
+          lead="A healthcare provider whose care delivery was slowed by its own systems: fragmented patient data and outdated management software creating delays clinicians felt daily."
+          quote="Our clinicians were spending more time navigating systems than caring for patients. That had to change."
+          quoteAuthor="Chief Medical Officer"
+          glanceItems={[
+          { label: 'Industry', value: 'Healthcare' },
+          { label: 'Solution', value: 'Custom Software + Data' },
+          { label: 'Focus', value: 'Patient Management' },
+          { label: 'Impact', value: '30% More Efficient', highlight: true },
+          ]}
+      />
 
-            <div className="lg:col-span-2">
-              <div 
-                className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  opacity: visibleStates[0] ? 1 : 0,
-                  transform: visibleStates[0] ? 'translateX(0)' : 'translateX(30px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                }}
-              >
-                <h3 className="text-sm font-semibold text-gray-700 mb-4">At a Glance</h3>
-                <div className="space-y-2">
-                  {[
-                    { label: 'Industry', value: 'Healthcare' },
-                    { label: 'Solution', value: 'Custom Software + Data' },
-                    { label: 'Focus', value: 'Patient Management' },
-                    { label: 'Impact', value: '30% More Efficient', highlight: true },
-                  ].map((item, i) => (
-                    <div 
-                      key={item.label} 
-                      className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-sm"
-                      style={{
-                        opacity: visibleStates[0] ? 1 : 0,
-                        transform: visibleStates[0] ? 'translateX(0)' : 'translateX(20px)',
-                        transition: `all 0.4s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.08 + 0.35}s`,
-                      }}
-                    >
-                      <span className="text-sm text-gray-500">{item.label}</span>
-                      <span className={`text-sm font-medium ${item.highlight ? 'text-blue-600' : 'text-gray-900'}`}>
-                        {item.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CaseStudyProblem
+        sectionId="healthcare-problem-heading"
+        eyebrow="The Problem"
+        title="Fragmented systems, delayed care"
+        centerIcon={Unlink}
+        centerLabel="Patient data"
+        centerStatus="Fragmented"
+        nodes={[
+          { label: 'Records', icon: FileText },
+          { label: 'Departments', icon: Users },
+          { label: 'Care delivery', icon: Heart },
+        ]}
+        metrics={[
+          { label: 'Lookup time', value: 'High' },
+          { label: 'Duplicate risk', value: 'Elevated' },
+          { label: 'Care delays', value: 'Costly' },
+        ]}
+        painPoints={[
+          {
+            icon: Stethoscope,
+            text: 'Patient information scattered across systems meant every lookup cost time, every duplicate entry risked error',
+          },
+          {
+            icon: Activity,
+            text: 'operational inefficiency compounded across departments',
+          },
+          {
+            icon: Clock,
+            text: 'delays in care delivery being the cost that mattered most.',
+          },
+        ]}
+      />
 
-      {/* Problem Section */}
-      <section 
-        ref={(el) => registerRef(el, 1)}
-        className="py-16 px-6 bg-gray-50/50 border-y border-gray-100"
-      >
-        <div className="max-w-[1100px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-            <div className="lg:col-span-2">
-              <div 
-                className="inline-block px-3 py-1 rounded-full bg-red-100 border border-red-200 mb-4"
-                style={{
-                  opacity: visibleStates[1] ? 1 : 0,
-                  transform: visibleStates[1] ? 'translateY(0)' : 'translateY(20px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                }}
-              >
-                <span className="text-xs font-bold text-red-700 tracking-wider">THE PROBLEM</span>
-              </div>
-              <h2 
-                className="text-3xl font-bold text-gray-900"
-                style={{
-                  opacity: visibleStates[1] ? 1 : 0,
-                  transform: visibleStates[1] ? 'translateY(0)' : 'translateY(30px)',
-                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                }}
-              >
-                Fragmented systems, delayed care
-              </h2>
-            </div>
-            <div className="lg:col-span-3 space-y-4">
-              {[
-                { icon: X, title: 'Fragmented Patient Data', desc: 'Patient information scattered across systems — every lookup cost time', color: '#dc2626' },
-                { icon: X, title: 'Outdated Software', desc: 'Management software creating delays clinicians felt daily', color: '#dc2626' },
-                { icon: X, title: 'Operational Inefficiency', desc: 'Compounded across departments — delays in care delivery being the cost that mattered most', color: '#dc2626' },
-              ].map((item, i) => (
-                <div
-                  key={item.title}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-200"
-                  style={{
-                    opacity: visibleStates[1] ? 1 : 0,
-                    transform: visibleStates[1] ? 'translateX(0)' : 'translateX(30px)',
-                    transition: `all 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.1 + 0.25}s`,
-                  }}
-                >
-                  <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 animate-pulse-soft">
-                    <X size={16} className="text-red-500" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">{item.title}</div>
-                    <div className="text-sm text-gray-500">{item.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <CaseStudySolution
+        sectionId="healthcare-modernization-solution-heading"
+        pillars={[
+          {
+            icon: Heart,
+            title: 'Integrated patient platform',
+            text: 'A modernized patient management platform: advanced database solutions integrating the fragmented records',
+            tag: 'Unified records',
+            tone: 'blue',
+          },
+          {
+            icon: Layers,
+            title: 'Staff-first workflows',
+            text: 'streamlined workflows built around how staff actually move.',
+            tag: 'Workflows',
+            tone: 'violet',
+          },
+          {
+            icon: Activity,
+            title: 'Faster, smoother care',
+            text: 'Faster access to patient information, smoother operations, fewer workarounds.',
+            tag: 'Better care',
+            tone: 'emerald',
+          },
+        ]}
+        technologies={TECHNOLOGIES}
+      />
 
-      {/* Solution Section */}
-      <section 
-        ref={(el) => registerRef(el, 2)}
-        className="py-16 px-6 bg-white"
-      >
-        <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-12">
-            <div 
-              className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4"
-              style={{
-                opacity: visibleStates[2] ? 1 : 0,
-                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-              }}
-            >
-              <span className="text-xs font-bold text-emerald-700 tracking-wider">SOLUTION</span>
-            </div>
-            <h2 
-              className="text-3xl font-bold text-gray-900"
-              style={{
-                opacity: visibleStates[2] ? 1 : 0,
-                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(30px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-              }}
-            >
-              What we built
-            </h2>
-            <p 
-              className="text-gray-500 mt-2 max-w-2xl mx-auto"
-              style={{
-                opacity: visibleStates[2] ? 1 : 0,
-                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-              }}
-            >
-              A modernized patient management platform
-            </p>
-          </div>
+      <CaseStudyResults
+        sectionId="healthcare-modernization-results-heading"
+        title="The impact"
+        metrics={[
+          {
+            icon: TrendingUp,
+            value: '30%',
+            label: 'More efficient care',
+            text: 'Streamlined operations and workflows',
+            tone: 'blue',
+          },
+          {
+            icon: Database,
+            value: 'One',
+            label: 'Unified platform',
+            text: 'All patient data in one place',
+            tone: 'violet',
+          },
+          {
+            icon: Shield,
+            value: 'Faster',
+            label: 'Patient access',
+            text: 'Clinicians spend less time on systems',
+            tone: 'emerald',
+          },
+        ]}
+        outcome="30% more efficient care operations. Care delivery got faster and more accurate. Satisfaction rose measurably — for staff and for patients."
+        outcomeIcon={Heart}
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SOLUTION_CARDS.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="group p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                  style={{
-                    opacity: visibleStates[2] ? 1 : 0,
-                    transform: visibleStates[2] ? 'translateY(0)' : 'translateY(40px)',
-                    transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.08 + 0.3}s`,
-                  }}
-                >
-                  <div
-                    className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                    style={{ color: item.color }}
-                  >
-                    <Icon size={26} strokeWidth={1.75} />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
-                  <p className="text-sm text-gray-600 mt-2">{item.desc}</p>
-                  <div className="mt-4 w-10 h-0.5 rounded-full bg-gray-200 group-hover:w-16 transition-all duration-300" style={{ background: item.color }} />
-                </div>
-              );
-            })}
-          </div>
-
-          <div 
-            className="mt-10 p-6 rounded-2xl bg-gray-50 border border-gray-100"
-            style={{
-              opacity: visibleStates[2] ? 1 : 0,
-              transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s',
-            }}
-          >
-            <h4 className="text-sm font-semibold text-gray-700 mb-4 text-center">Technology Stack</h4>
-            <div className="flex flex-wrap justify-center gap-3">
-              {TECHNOLOGIES.map((tech, i) => {
-                const Icon = tech.icon;
-                return (
-                  <span
-                    key={tech.name}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full ${tech.bg} border border-gray-200 text-sm text-gray-700 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5`}
-                    style={{
-                      opacity: visibleStates[2] ? 1 : 0,
-                      transform: visibleStates[2] ? 'scale(1)' : 'scale(0.8)',
-                      transition: `all 0.4s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05 + 0.75}s`,
-                    }}
-                  >
-                    <Icon size={16} style={{ color: tech.color }} />
-                    {tech.name}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      <section 
-        ref={(el) => registerRef(el, 3)}
-        className="py-16 px-6 bg-gradient-to-br from-blue-50 via-white to-cyan-50"
-      >
-        <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-12">
-            <div 
-              className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4"
-              style={{
-                opacity: visibleStates[3] ? 1 : 0,
-                transform: visibleStates[3] ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-              }}
-            >
-              <span className="text-xs font-bold text-emerald-700 tracking-wider">RESULTS</span>
-            </div>
-            <h2 
-              className="text-3xl font-bold text-gray-900"
-              style={{
-                opacity: visibleStates[3] ? 1 : 0,
-                transform: visibleStates[3] ? 'translateY(0)' : 'translateY(30px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-              }}
-            >
-              The impact
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {STATS.slice(0, 3).map((stat, i) => (
-              <div
-                key={stat.label}
-                className="group p-8 rounded-2xl bg-white border border-gray-100 text-center hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                style={{
-                  opacity: visibleStates[3] ? 1 : 0,
-                  transform: visibleStates[3] ? 'scale(1)' : 'scale(0.85)',
-                  transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.12 + 0.3}s`,
-                }}
-                onMouseEnter={() => setActiveStat(i)}
-                onMouseLeave={() => setActiveStat(null)}
-              >
-                <div
-                  className={`text-5xl font-bold transition-all duration-300 ${activeStat === i ? 'scale-110' : ''}`}
-                  style={{ color: stat.color }}
-                >
-                  {stat.value}
-                </div>
-                <div className="text-lg font-semibold text-gray-900 mt-2">{stat.label}</div>
-                <div className="text-sm text-gray-500 mt-1">
-                  {i === 0 && 'Streamlined operations and workflows' }
-                  {i === 1 && 'All patient data in one place' }
-                  {i === 2 && 'Clinicians spend less time on systems' }
-                </div>
-                <div className="mt-4 h-1 w-12 mx-auto rounded-full bg-gray-200 group-hover:w-20 transition-all duration-300" style={{ background: stat.color }} />
-              </div>
-            ))}
-          </div>
-
-          <div 
-            className="mt-8 p-6 rounded-2xl bg-white border border-gray-100 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            style={{
-              opacity: visibleStates[3] ? 1 : 0,
-              transform: visibleStates[3] ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s',
-            }}
-          >
-            <p className="text-gray-700">
-              <span className="font-semibold text-gray-900">30% more efficient care operations.</span>
-              { ' ' }Care delivery got faster and more accurate. Satisfaction rose measurably — for staff and for patients.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Section */}
-      <section 
-        ref={(el) => registerRef(el, 4)}
-        className="py-16 px-6 bg-white border-t border-gray-100 overflow-hidden"
-      >
-        <div className="max-w-[900px] mx-auto">
-          <div className="text-center mb-12">
-            <div 
-              className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4"
-              style={{
-                opacity: visibleStates[4] ? 1 : 0,
-                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-              }}
-            >
-              <span className="text-xs font-bold text-blue-700 tracking-wider">TIMELINE</span>
-            </div>
-            <h2 
-              className="text-3xl font-bold text-gray-900"
-              style={{
-                opacity: visibleStates[4] ? 1 : 0,
-                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(30px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-              }}
-            >
-              How we delivered
-            </h2>
-            <p 
-              className="text-gray-500 mt-2"
-              style={{
-                opacity: visibleStates[4] ? 1 : 0,
-                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-              }}
-            >
-              A methodical approach to healthcare modernization
-            </p>
-          </div>
-
-          <div className="relative">
-            <div 
-              className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 overflow-hidden"
-              style={{
-                opacity: visibleStates[4] ? 1 : 0,
-                transition: 'opacity 0.8s ease 0.4s',
-              }}
-            >
-              <div 
-                className="h-full w-full bg-gradient-to-b from-blue-400 via-cyan-400 to-indigo-400"
-                style={{
-                  transform: visibleStates[4] ? 'scaleY(1)' : 'scaleY(0)',
-                  transformOrigin: 'top',
-                  transition: 'transform 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s',
-                }}
-              />
-            </div>
-
-            {TIMELINE.map((item, index) => {
-              const Icon = item.icon;
-              const delay = index * 0.12 + 0.6;
-              const isEven = index % 2 === 0;
-
-              return (
-                <div
-                  key={item.phase}
-                  className={`relative flex items-start gap-6 mb-6 ${
-                    isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
-                  onMouseEnter={() => setActiveTimeline(index)}
-                  onMouseLeave={() => setActiveTimeline(null)}
-                  style={{
-                    opacity: visibleStates[4] ? 1 : 0,
-                    transform: visibleStates[4] 
-                      ? 'translateX(0)' 
-                      : `translateX(${isEven ? '-30px' : '30px'})`,
-                    transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-                  }}
-                >
-                  <div className="absolute left-5 md:left-1/2 -translate-x-1/2 z-10">
-                    <div 
-                      className={`w-4 h-4 rounded-full bg-white border-4 transition-all duration-500 ${
-                        activeTimeline === index ? 'scale-150 shadow-lg' : ''
-                      }`}
-                      style={{ 
-                        borderColor: activeTimeline === index ? '#2563eb' : item.color,
-                        animation: visibleStates[4] ? `dotPulse 2s ease-in-out ${index * 0.2}s infinite` : 'none',
-                      }}
-                    >
-                      <div 
-                        className={`w-2 h-2 rounded-full mx-auto mt-0.5 transition-all duration-500 ${
-                          activeTimeline === index ? 'scale-150' : ''
-                        }`}
-                        style={{ background: item.color }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className={`w-full md:w-[42%] pl-12 md:pl-0 ${isEven ? 'md:pr-8 md:text-right' : 'md:pl-8'}`}>
-                    <div
-                      className={`p-5 rounded-xl bg-white border transition-all duration-500 ${
-                        activeTimeline === index 
-                          ? 'shadow-xl border-blue-300 -translate-y-1' 
-                          : 'border-gray-100 hover:shadow-md hover:-translate-y-1'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 mb-1" style={{ justifyContent: isEven ? 'flex-start' : 'flex-end' }}>
-                        <Icon 
-                          size={16} 
-                          style={{ color: item.color }}
-                          className={`transition-all duration-500 ${activeTimeline === index ? 'scale-125 rotate-12' : ''}`}
-                        />
-                        <span className="text-sm font-bold" style={{ color: item.color }}>{item.phase}</span>
-                        <span className="text-xs text-gray-400 ml-auto">{item.duration}</span>
-                      </div>
-                      <p className="text-sm text-gray-600">{item.desc}</p>
-                      <div 
-                        className={`mt-3 h-0.5 rounded-full transition-all duration-1000 ${
-                          activeTimeline === index ? 'w-full' : 'w-0'
-                        }`}
-                        style={{ background: item.color }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section 
-        ref={(el) => registerRef(el, 5)}
-        className="py-16 px-6 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-cyan-50" />
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/30 rounded-full blur-2xl animate-float-slow" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-100/30 rounded-full blur-2xl animate-float-slow" style={{ animationDelay: '2s' }} />
-
-        <div className="relative z-10 max-w-[700px] mx-auto text-center">
-          <div 
-            className="p-8 rounded-3xl bg-white shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
-            style={{
-              opacity: visibleStates[5] ? 1 : 0,
-              transform: visibleStates[5] ? 'translateY(0)' : 'translateY(40px)',
-              transition: 'all 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-            }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4">
-              <Heart size={12} className="text-blue-600" />
-              <span className="text-xs font-bold text-blue-700 tracking-wider">HEALTHCARE SOLUTIONS</span>
-            </div>
-            
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              Systems slowing your clinicians?
-            </h2>
-            <p className="text-gray-600 mt-3 max-w-lg mx-auto">
-              Let's modernize your patient management. Faster access, better care, happier staff.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-              <Link
-                to="/industries/healthcare-software-development"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105"
-              >
-                Explore Healthcare Solutions
-                <MoveRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/#case-studies"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                View All Case Studies
-              </Link>
-            </div>
-            <p className="text-xs text-gray-400 mt-3">No obligation. Just a conversation about what's possible.</p>
-          </div>
-        </div>
-      </section>
-
-      <style>{`
-        @keyframes scrollDot {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(4px); opacity: 0.3; }
-        }
-        .animate-scrollDot {
-          animation: scrollDot 2s ease-in-out infinite;
-        }
-
-        @keyframes fadeSlide {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideLeft {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideRight {
-          from { opacity: 0; transform: translateX(40px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeDown {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float-slow {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(20px, -20px) scale(1.1); }
-        }
-        .animate-float-slow {
-          animation: float-slow 8s ease-in-out infinite;
-        }
-
-        @keyframes bounce-soft {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-        .animate-bounce-soft {
-          animation: bounce-soft 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-soft {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.6; }
-        }
-        .animate-pulse-soft {
-          animation: pulse-soft 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.5); opacity: 0.6; }
-        }
-
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 4s ease-in-out infinite;
-          background-size: 200% auto;
-        }
-
-        @keyframes dotPulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.2); }
-        }
-      `}</style>
+      <CaseStudyCta
+        sectionId="healthcare-modernization-cta-heading"
+        title="Systems slowing your clinicians?"
+        subtitle="Let's modernize your patient management. Faster access, better care, happier staff."
+        primaryHref="/industries/healthcare-software-development"
+        primaryLabel="Explore Healthcare Solutions"
+        footnote="No obligation. Just a conversation about what's possible."
+      />
     </article>
   );
 }

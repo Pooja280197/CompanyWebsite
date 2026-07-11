@@ -122,8 +122,8 @@ export default function Hero() {
       <div className="a4 max-w-[900px] mx-auto w-full mt-24 px-2">
         <div className="flex items-center gap-4 w-full mb-3">
           <span className="flex-1 h-px bg-black/30" />
-          <p className="text-gray-600 text-sm shrink-0 text-center">
-            Loved by 100,000+ big and small brands around the world
+          <p className="text-gray-700 text-md shrink-0 text-center">
+          Trusted by government research institutions, data companies, and growing enterprises worldwide.
           </p>
           <span className="flex-1 h-px bg-black/30" />
         </div>

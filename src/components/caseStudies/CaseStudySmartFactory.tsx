@@ -1,50 +1,32 @@
-// CaseStudySmartFactory.tsx - Full Page Scroll Animations
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+// CaseStudySmartFactory.tsx
+import { useEffect } from 'react';
 import { CaseStudyHero } from './CaseStudyHero';
+import { CaseStudyOverview } from './CaseStudyOverview';
+import { CaseStudyProblem } from './CaseStudyProblem';
+import { CaseStudySolution } from './CaseStudySolution';
+import { CaseStudyResults } from './CaseStudyResults';
+import { CaseStudyCta } from './CaseStudyCta';
 import {
 
     TrendingUp,
 
     Shield,
     Zap,
-    MoveRight,
-    Award,
     BarChart3,
-    Gauge,
     Cpu,
     Database,
     Cloud,
-
     Activity,
-    Target,
-
-    Layers,
-    Quote,
-    X,
-
-    Timer,
-    Rocket,
-    Binary,
+    GitBranch,
+    Factory,
+    MapPin,
+    Cog,
+    Unlink,
+    Gauge,
 } from 'lucide-react';
 
 const HERO_IMAGE =
     'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1920&q=80';
-
-const STATS = [
-    { value: '30%', label: 'Faster Operations', icon: Zap, color: '#2563eb', bg: 'bg-blue-50', border: 'border-blue-200' },
-    { value: '50%', label: 'Quicker Decisions', icon: TrendingUp, color: '#7c3aed', bg: 'bg-purple-50', border: 'border-purple-200' },
-    { value: '40%', label: 'Cost Savings', icon: Shield, color: '#059669', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-    { value: '100+', label: 'Years of Heritage', icon: Award, color: '#d97706', bg: 'bg-amber-50', border: 'border-amber-200' },
-];
-
-const TIMELINE = [
-    { phase: 'Discovery', desc: 'Audited operations, machines, and data gaps', duration: '2 weeks', icon: Target, color: '#2563eb' },
-    { phase: 'Architecture', desc: 'Designed cloud-based multi-level system', duration: '3 weeks', icon: Layers, color: '#7c3aed' },
-    { phase: 'Development', desc: 'Built platform with real-time dashboards', duration: '10 weeks', icon: Binary, color: '#059669' },
-    { phase: 'Deployment', desc: 'Rolled out across all divisions', duration: '4 weeks', icon: Rocket, color: '#d97706' },
-    { phase: 'Optimization', desc: 'Fine-tuned predictive models', duration: 'Ongoing', icon: Timer, color: '#dc2626' },
-];
 
 const TECHNOLOGIES = [
     { icon: Cloud, name: 'Cloud Platform', color: '#2563eb', bg: 'bg-blue-50' },
@@ -55,671 +37,136 @@ const TECHNOLOGIES = [
     { icon: Shield, name: 'Security Framework', color: '#0891b2', bg: 'bg-cyan-50' },
 ];
 
-// Custom hook for scroll animations
-function useScrollAnimation() {
-    const [refs, setRefs] = useState<(HTMLElement | null)[]>([]);
-    const [visibleStates, setVisibleStates] = useState<boolean[]>([]);
-
-    useEffect(() => {
-        const observers: IntersectionObserver[] = [];
-
-        refs.forEach((ref, index) => {
-            if (!ref) return;
-
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            setVisibleStates(prev => {
-                                const newStates = [...prev];
-                                newStates[index] = true;
-                                return newStates;
-                            });
-                        }
-                    });
-                },
-                { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-            );
-
-            observer.observe(ref);
-            observers.push(observer);
-        });
-
-        return () => {
-            observers.forEach(obs => obs.disconnect());
-        };
-    }, [refs]);
-
-    const registerRef = (el: HTMLElement | null, index: number) => {
-        if (el && !refs.includes(el)) {
-            setRefs(prev => {
-                const newRefs = [...prev];
-                newRefs[index] = el;
-                return newRefs;
-            });
-            setVisibleStates(prev => {
-                const newStates = [...prev];
-                newStates[index] = false;
-                return newStates;
-            });
-        }
-    };
-
-    return { registerRef, visibleStates };
-}
-
 export default function SmartFactory() {
-    const [activeStat, setActiveStat] = useState<number | null>(null);
-    const [activeTimeline, setActiveTimeline] = useState<number | null>(null);
-    const sectionRef = useRef<HTMLElement>(null);
-
-    // Setup scroll animations for each section
-    const { registerRef, visibleStates } = useScrollAnimation();
-
     useEffect(() => {
         document.title = 'Smart Factory IoT — NSS Case Study';
         window.scrollTo(0, 0);
     }, []);
 
     return (
-        <article className="min-h-screen bg-white" ref={sectionRef}>
+        <article className="min-h-screen bg-white">
             <CaseStudyHero
                 title="Smart Factory IoT"
                 subtitle="How a 100-year-old manufacturer cut costs 40% with a connected factory"
-                tags="Manufacturing & Industrial Automation,Project Value: $250,000"
+                tags={['Manufacturing & Industrial Automation', 'Project Value: $250,000']}
                 image={HERO_IMAGE}
             />
 
-            {/* Overview Section */}
-            <section
-                ref={(el) => registerRef(el, 0)}
-                className="py-16 px-6 bg-white"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-                        <div className="lg:col-span-3">
-                            <div
-                                className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                                }}
-                            >
-                                <span className="text-xs font-bold text-blue-700 tracking-wider">OVERVIEW</span>
-                            </div>
-                            <h2
-                                className="text-3xl font-bold text-gray-900"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateY(0)' : 'translateY(30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                                }}
-                            >
-                                The client
-                            </h2>
-                            <p
-                                className="text-gray-600 text-lg leading-relaxed mt-4"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                                }}
-                            >
-                                A shipping manufacturing company with a century of operating history — and a tracking system that hadn't aged as well: divisions, locations, and machines managed manually, with no centralized view of operations.
-                            </p>
-                            <div
-                                className="mt-6 flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateX(0)' : 'translateX(-30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-                                }}
-                            >
-                                <Quote size={24} className="text-blue-500 flex-shrink-0 mt-1" />
-                                <div>
-                                    <p className="text-sm text-gray-700 italic">
-                                        "We were running a modern factory with paper and spreadsheets. The data existed — it just couldn't talk to itself."
-                                    </p>
-                                    <p className="text-xs text-gray-500 mt-2">— Operations Director</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="lg:col-span-2">
-                            <div
-                                className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                                style={{
-                                    opacity: visibleStates[0] ? 1 : 0,
-                                    transform: visibleStates[0] ? 'translateX(0)' : 'translateX(30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                                }}
-                            >
-                                <h3 className="text-sm font-semibold text-gray-700 mb-4">At a Glance</h3>
-                                <div className="space-y-2">
-                                    {[
+            <CaseStudyOverview
+                sectionId="smart-factory-overview-heading"
+                lead="A shipping manufacturing company with a century of operating history — and a tracking system that hadn't aged as well: divisions, locations, and machines managed manually, with no centralized view of operations."
+                quote="We were running a modern factory with paper and spreadsheets. The data existed — it just couldn't talk to itself."
+                quoteAuthor="Operations Director"
+                glanceItems={[
                                         { label: 'Industry', value: 'Manufacturing' },
                                         { label: 'Technology', value: 'IoT · Cloud · Data' },
                                         { label: 'Duration', value: '~5 months' },
                                         { label: 'Impact', value: '40% Cost Reduction', highlight: true },
-                                    ].map((item, i) => (
-                                        <div
-                                            key={item.label}
-                                            className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-sm"
-                                            style={{
-                                                opacity: visibleStates[0] ? 1 : 0,
-                                                transform: visibleStates[0] ? 'translateX(0)' : 'translateX(20px)',
-                                                transition: `all 0.4s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.08 + 0.35}s`,
-                                            }}
-                                        >
-                                            <span className="text-sm text-gray-500">{item.label}</span>
-                                            <span className={`text-sm font-medium ${item.highlight ? 'text-emerald-600' : 'text-gray-900'}`}>
-                                                {item.value}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                ]}
+            />
 
-            {/* Problem Section */}
-            <section
-                ref={(el) => registerRef(el, 1)}
-                className="py-16 px-6 bg-gray-50/50 border-y border-gray-100"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-                        <div className="lg:col-span-2">
-                            <div
-                                className="inline-block px-3 py-1 rounded-full bg-red-100 border border-red-200 mb-4"
-                                style={{
-                                    opacity: visibleStates[1] ? 1 : 0,
-                                    transform: visibleStates[1] ? 'translateY(0)' : 'translateY(20px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                                }}
-                            >
-                                <span className="text-xs font-bold text-red-700 tracking-wider">THE PROBLEM</span>
-                            </div>
-                            <h2
-                                className="text-3xl font-bold text-gray-900"
-                                style={{
-                                    opacity: visibleStates[1] ? 1 : 0,
-                                    transform: visibleStates[1] ? 'translateY(0)' : 'translateY(30px)',
-                                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                                }}
-                            >
-                                Manual tracking created inefficiencies at every level
-                            </h2>
-                        </div>
-                        <div className="lg:col-span-3 space-y-4">
-                            {[
-                                { icon: X, title: 'No Streamlined Process', desc: 'Divisions, locations, and machines managed manually with no centralized view', color: '#dc2626' },
-                                { icon: X, title: 'No Real-time Monitoring', desc: 'Zero insight into machine performance or maintenance needs — breakdowns announced themselves', color: '#dc2626' },
-                                { icon: X, title: 'Unstructured Data', desc: 'No framework for turning existing data into decisions', color: '#dc2626' },
-                            ].map((item, i) => (
-                                <div
-                                    key={item.title}
-                                    className="flex items-start gap-4 p-4 rounded-xl bg-white border border-gray-200 hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-200"
-                                    style={{
-                                        opacity: visibleStates[1] ? 1 : 0,
-                                        transform: visibleStates[1] ? 'translateX(0)' : 'translateX(30px)',
-                                        transition: `all 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.1 + 0.25}s`,
-                                    }}
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 animate-pulse-soft">
-                                        <X size={16} className="text-red-500" />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-semibold text-gray-900">{item.title}</div>
-                                        <div className="text-sm text-gray-500">{item.desc}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <CaseStudyProblem
+                sectionId="smart-factory-problem-heading"
+                eyebrow="The Problem"
+                title="Manual tracking created inefficiencies at every level"
+                centerIcon={Unlink}
+                centerLabel="Manual tracking"
+                centerStatus="Disconnected"
+                nodes={[
+                    { label: 'Divisions', icon: Factory },
+                    { label: 'Locations', icon: MapPin },
+                    { label: 'Machines', icon: Cog },
+                ]}
+                metrics={[
+                    { label: 'Real-time visibility', value: '0%' },
+                    { label: 'Centralized view', value: 'None' },
+                    { label: 'Decision framework', value: 'Missing' },
+                ]}
+                painPoints={[
+                    {
+                        icon: GitBranch,
+                        text: 'No streamlined process for managing divisions, locations, or machines.',
+                    },
+                    {
+                        icon: Activity,
+                        text: 'No real-time monitoring meant zero insight into machine performance or maintenance needs — breakdowns announced themselves.',
+                    },
+                    {
+                        icon: Database,
+                        text: 'The data that did exist was unstructured, with no framework for turning it into decisions.',
+                    },
+                ]}
+            />
 
-            {/* Solution Section */}
-            <section
-                ref={(el) => registerRef(el, 2)}
-                className="py-16 px-6 bg-white"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="text-center mb-12">
-                        <div
-                            className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4"
-                            style={{
-                                opacity: visibleStates[2] ? 1 : 0,
-                                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                            }}
-                        >
-                            <span className="text-xs font-bold text-emerald-700 tracking-wider">SOLUTION</span>
-                        </div>
-                        <h2
-                            className="text-3xl font-bold text-gray-900"
-                            style={{
-                                opacity: visibleStates[2] ? 1 : 0,
-                                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(30px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                            }}
-                        >
-                            What we built
-                        </h2>
-                        <p
-                            className="text-gray-500 mt-2 max-w-2xl mx-auto"
-                            style={{
-                                opacity: visibleStates[2] ? 1 : 0,
-                                transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                            }}
-                        >
-                            A complete digital transformation on a cloud-based, multi-level system
-                        </p>
-                    </div>
+            <CaseStudySolution
+                sectionId="smart-factory-solution-heading"
+                lead="A connected factory stack — from cloud foundation to predictive intelligence, built as one system instead of scattered tools."
+                pillars={[
+                    {
+                        icon: Cloud,
+                        title: 'Unified cloud platform',
+                        text: 'A complete digital transformation on a cloud-based, multi-level system: every division, location, and machine managed in one platform.',
+                        tag: 'One platform',
+                        tone: 'blue',
+                    },
+                    {
+                        icon: Activity,
+                        title: 'Real-time dashboards',
+                        text: 'Real-time dashboards and alerts brought live monitoring to factory assets for the first time.',
+                        tag: 'Live monitoring',
+                        tone: 'violet',
+                    },
+                    {
+                        icon: Gauge,
+                        title: 'Predictive maintenance',
+                        text: 'Predictive maintenance models watched machine patterns and scheduled service before failures — turning breakdowns from surprises into calendar entries.',
+                        tag: 'Scheduled care',
+                        tone: 'emerald',
+                    },
+                ]}
+                technologies={TECHNOLOGIES}
+            />
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            { icon: Cloud, title: 'Cloud-Based Platform', desc: 'Multi-level system managing every division, location, and machine in one platform', color: '#2563eb', bg: 'bg-blue-50' },
-                            { icon: Activity, title: 'Real-Time Dashboards', desc: 'Live monitoring and alerts brought factory asset visibility for the first time', color: '#7c3aed', bg: 'bg-purple-50' },
-                            { icon: Gauge, title: 'Predictive Maintenance', desc: 'Machine patterns watched and service scheduled before failures — breakdowns became calendar entries', color: '#059669', bg: 'bg-emerald-50' },
-                        ].map((item, i) => {
-                            const Icon = item.icon;
-                            return (
-                                <div
-                                    key={item.title}
-                                    className="group p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                                    style={{
-                                        opacity: visibleStates[2] ? 1 : 0,
-                                        transform: visibleStates[2] ? 'translateY(0)' : 'translateY(40px)',
-                                        transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.12 + 0.3}s`,
-                                    }}
-                                >
-                                    <div
-                                        className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                                        style={{ color: item.color }}
-                                    >
-                                        <Icon size={26} strokeWidth={1.75} />
-                                    </div>
-                                    <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
-                                    <p className="text-sm text-gray-600 mt-2">{item.desc}</p>
-                                    <div className="mt-4 w-10 h-0.5 rounded-full bg-gray-200 group-hover:w-16 transition-all duration-300" style={{ background: item.color }} />
-                                </div>
-                            );
-                        })}
-                    </div>
+            <CaseStudyResults
+                sectionId="smart-factory-results-heading"
+                metrics={[
+                    {
+                        icon: Zap,
+                        value: '30%',
+                        label: 'Faster operations',
+                        text: '30% faster operations from automated workflows.',
+                        tone: 'blue',
+                        progress: 30,
+                    },
+                    {
+                        icon: TrendingUp,
+                        value: '50%',
+                        label: 'Quicker decisions',
+                        text: '50% quicker decision-making on real-time analytics.',
+                        tone: 'violet',
+                        progress: 50,
+                    },
+                    {
+                        icon: Shield,
+                        value: '40%',
+                        label: 'Cost savings',
+                        text: '40% cost savings as predictive maintenance eliminated unexpected failures.',
+                        tone: 'emerald',
+                        progress: 40,
+                    },
+                ]}
+                outcome="The platform now runs daily operations for the whole plant."
+                outcomeIcon={Factory}
+            />
 
-                    <div
-                        className="mt-10 p-6 rounded-2xl bg-gray-50 border border-gray-100"
-                        style={{
-                            opacity: visibleStates[2] ? 1 : 0,
-                            transform: visibleStates[2] ? 'translateY(0)' : 'translateY(20px)',
-                            transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s',
-                        }}
-                    >
-                        <h4 className="text-sm font-semibold text-gray-700 mb-4 text-center">Technology Stack</h4>
-                        <div className="flex flex-wrap justify-center gap-3">
-                            {TECHNOLOGIES.map((tech, i) => {
-                                const Icon = tech.icon;
-                                return (
-                                    <span
-                                        key={tech.name}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-full ${tech.bg} border border-gray-200 text-sm text-gray-700 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5`}
-                                        style={{
-                                            opacity: visibleStates[2] ? 1 : 0,
-                                            transform: visibleStates[2] ? 'scale(1)' : 'scale(0.8)',
-                                            transition: `all 0.4s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05 + 0.8}s`,
-                                        }}
-                                    >
-                                        <Icon size={16} style={{ color: tech.color }} />
-                                        {tech.name}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Results Section */}
-            <section
-                ref={(el) => registerRef(el, 3)}
-                className="py-16 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50"
-            >
-                <div className="max-w-[1100px] mx-auto">
-                    <div className="text-center mb-12">
-                        <div
-                            className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4"
-                            style={{
-                                opacity: visibleStates[3] ? 1 : 0,
-                                transform: visibleStates[3] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                            }}
-                        >
-                            <span className="text-xs font-bold text-emerald-700 tracking-wider">RESULTS</span>
-                        </div>
-                        <h2
-                            className="text-3xl font-bold text-gray-900"
-                            style={{
-                                opacity: visibleStates[3] ? 1 : 0,
-                                transform: visibleStates[3] ? 'translateY(0)' : 'translateY(30px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                            }}
-                        >
-                            The impact
-                        </h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {STATS.slice(0, 3).map((stat, i) => (
-                            <div
-                                key={stat.label}
-                                className="group p-8 rounded-2xl bg-white border border-gray-100 text-center hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-                                style={{
-                                    opacity: visibleStates[3] ? 1 : 0,
-                                    transform: visibleStates[3] ? 'scale(1)' : 'scale(0.85)',
-                                    transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.12 + 0.3}s`,
-                                }}
-                                onMouseEnter={() => setActiveStat(i)}
-                                onMouseLeave={() => setActiveStat(null)}
-                            >
-                                <div
-                                    className={`text-5xl font-bold transition-all duration-300 ${activeStat === i ? 'scale-110' : ''}`}
-                                    style={{ color: stat.color }}
-                                >
-                                    {stat.value}
-                                </div>
-                                <div className="text-lg font-semibold text-gray-900 mt-2">{stat.label}</div>
-                                <div className="text-sm text-gray-500 mt-1">
-                                    {i === 0 && 'Automated workflows eliminated manual bottlenecks'}
-                                    {i === 1 && 'Real-time analytics replaced guesswork'}
-                                    {i === 2 && 'Predictive maintenance eliminated unexpected failures'}
-                                </div>
-                                <div className="mt-4 h-1 w-12 mx-auto rounded-full bg-gray-200 group-hover:w-20 transition-all duration-300" style={{ background: stat.color }} />
-                            </div>
-                        ))}
-                    </div>
-
-                    <div
-                        className="mt-8 p-6 rounded-2xl bg-white border border-gray-100 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                        style={{
-                            opacity: visibleStates[3] ? 1 : 0,
-                            transform: visibleStates[3] ? 'translateY(0)' : 'translateY(20px)',
-                            transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s',
-                        }}
-                    >
-                        <p className="text-gray-700">
-                            <span className="font-semibold text-gray-900">The platform now runs daily operations for the whole plant.</span>
-                            {' '}From manual tracking to connected factory — in 5 months.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Timeline Section */}
-            <section
-                ref={(el) => registerRef(el, 4)}
-                className="py-16 px-6 bg-white border-t border-gray-100 overflow-hidden"
-            >
-                <div className="max-w-[900px] mx-auto">
-                    <div className="text-center mb-12">
-                        <div
-                            className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
-                            }}
-                        >
-                            <span className="text-xs font-bold text-blue-700 tracking-wider">TIMELINE</span>
-                        </div>
-                        <h2
-                            className="text-3xl font-bold text-gray-900"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(30px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s',
-                            }}
-                        >
-                            How we delivered
-                        </h2>
-                        <p
-                            className="text-gray-500 mt-2"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transform: visibleStates[4] ? 'translateY(0)' : 'translateY(20px)',
-                                transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s',
-                            }}
-                        >
-                            A structured approach from discovery to optimization
-                        </p>
-                    </div>
-
-                    <div className="relative">
-                        <div
-                            className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 overflow-hidden"
-                            style={{
-                                opacity: visibleStates[4] ? 1 : 0,
-                                transition: 'opacity 0.8s ease 0.4s',
-                            }}
-                        >
-                            <div
-                                className="h-full w-full bg-gradient-to-b from-blue-400 via-purple-400 to-emerald-400"
-                                style={{
-                                    transform: visibleStates[4] ? 'scaleY(1)' : 'scaleY(0)',
-                                    transformOrigin: 'top',
-                                    transition: 'transform 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s',
-                                }}
-                            />
-                        </div>
-
-                        {TIMELINE.map((item, index) => {
-                            const Icon = item.icon;
-                            const delay = index * 0.12 + 0.6;
-                            const isEven = index % 2 === 0;
-
-                            return (
-                                <div
-                                    key={item.phase}
-                                    className={`relative flex items-start gap-6 mb-6 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                                        }`}
-                                    onMouseEnter={() => setActiveTimeline(index)}
-                                    onMouseLeave={() => setActiveTimeline(null)}
-                                    style={{
-                                        opacity: visibleStates[4] ? 1 : 0,
-                                        transform: visibleStates[4]
-                                            ? 'translateX(0)'
-                                            : `translateX(${isEven ? '-30px' : '30px'})`,
-                                        transition: `all 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-                                    }}
-                                >
-                                    <div className="absolute left-5 md:left-1/2 -translate-x-1/2 z-10">
-                                        <div
-                                            className={`w-4 h-4 rounded-full bg-white border-4 transition-all duration-500 ${activeTimeline === index ? 'scale-150 shadow-lg' : ''
-                                                }`}
-                                            style={{
-                                                borderColor: activeTimeline === index ? '#6366f1' : item.color,
-                                                animation: visibleStates[4] ? `dotPulse 2s ease-in-out ${index * 0.2}s infinite` : 'none',
-                                            }}
-                                        >
-                                            <div
-                                                className={`w-2 h-2 rounded-full mx-auto mt-0.5 transition-all duration-500 ${activeTimeline === index ? 'scale-150' : ''
-                                                    }`}
-                                                style={{ background: item.color }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className={`w-full md:w-[42%] pl-12 md:pl-0 ${isEven ? 'md:pr-8 md:text-right' : 'md:pl-8'}`}>
-                                        <div
-                                            className={`p-5 rounded-xl bg-white border transition-all duration-500 ${activeTimeline === index
-                                                    ? 'shadow-xl border-blue-300 -translate-y-1'
-                                                    : 'border-gray-100 hover:shadow-md hover:-translate-y-1'
-                                                }`}
-                                        >
-                                            <div className="flex items-center gap-3 mb-1" style={{ justifyContent: isEven ? 'flex-start' : 'flex-end' }}>
-                                                <Icon
-                                                    size={16}
-                                                    style={{ color: item.color }}
-                                                    className={`transition-all duration-500 ${activeTimeline === index ? 'scale-125 rotate-12' : ''}`}
-                                                />
-                                                <span className="text-sm font-bold" style={{ color: item.color }}>{item.phase}</span>
-                                                <span className="text-xs text-gray-400 ml-auto">{item.duration}</span>
-                                            </div>
-                                            <p className="text-sm text-gray-600">{item.desc}</p>
-                                            <div
-                                                className={`mt-3 h-0.5 rounded-full transition-all duration-1000 ${activeTimeline === index ? 'w-full' : 'w-0'
-                                                    }`}
-                                                style={{ background: item.color }}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section */}
-            <section
-                ref={(el) => registerRef(el, 5)}
-                className="py-16 px-6 relative overflow-hidden"
-            >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/30 rounded-full blur-2xl animate-float-slow" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-100/30 rounded-full blur-2xl animate-float-slow" style={{ animationDelay: '2s' }} />
-
-                <div className="relative z-10 max-w-[700px] mx-auto text-center">
-                    <div
-                        className="p-8 rounded-3xl bg-white shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
-                        style={{
-                            opacity: visibleStates[5] ? 1 : 0,
-                            transform: visibleStates[5] ? 'translateY(0)' : 'translateY(40px)',
-                            transition: 'all 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-                        }}
-                    >
-                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                            Running a plant on spreadsheets and memory?
-                        </h2>
-                        <p className="text-gray-600 mt-3 max-w-lg mx-auto">
-                            Let's discuss your factory. We'll show you what's possible.
-                        </p>
-                        <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-                            <Link
-                                to="/industries/manufacturing-software-solutions"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105"
-                            >
-                                Discuss Your Factory
-                                <MoveRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <Link
-                                to="/#case-studies"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 hover:-translate-y-0.5"
-                            >
-                                View All Case Studies
-                            </Link>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-3">No obligation. Just a conversation about what's possible.</p>
-                    </div>
-                </div>
-            </section>
-
-            <style>{`
-        @keyframes scrollDot {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(4px); opacity: 0.3; }
-        }
-        .animate-scrollDot {
-          animation: scrollDot 2s ease-in-out infinite;
-        }
-
-        @keyframes fadeSlide {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideLeft {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideRight {
-          from { opacity: 0; transform: translateX(40px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeDown {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes scaleIn {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float-slow {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(20px, -20px) scale(1.1); }
-        }
-        .animate-float-slow {
-          animation: float-slow 8s ease-in-out infinite;
-        }
-
-        @keyframes bounce-soft {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-        .animate-bounce-soft {
-          animation: bounce-soft 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-soft {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.6; }
-        }
-        .animate-pulse-soft {
-          animation: pulse-soft 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.5); opacity: 0.6; }
-        }
-
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient-shift {
-          animation: gradient-shift 4s ease-in-out infinite;
-          background-size: 200% auto;
-        }
-
-        @keyframes dotPulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.2); }
-        }
-      `}</style>
+            <CaseStudyCta
+                sectionId="smart-factory-cta-heading"
+                title="Running a plant on spreadsheets and memory?"
+                subtitle="Let's discuss your factory. We'll show you what's possible."
+                primaryHref="/industries/manufacturing-software-solutions"
+                primaryLabel="Discuss Your Factory"
+                footnote="No obligation. Just a conversation about what's possible."
+            />
         </article>
     );
 }
