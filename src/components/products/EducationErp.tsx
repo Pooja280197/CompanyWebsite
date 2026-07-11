@@ -8,31 +8,45 @@ import {
   GraduationCap,
   Users,
   Calendar,
-  BookOpen,
   Building2,
-  Zap,
   Award,
-  Play,
-  Pause,
-  Clock,
-  UserCheck,
-  FileText,
   CreditCard,
   BarChart3,
   Globe,
-  Smartphone,
   CheckCircle,
-  XCircle,
   UserPlus,
   BookMarked,
   Video,
   Bell,
   PlayCircle,
+  Handshake,
+  Layers,
+  Smartphone,
+  SlidersHorizontal,
+  ShieldCheck,
 } from 'lucide-react';
 import { ScrollTextReveal } from '../ScrollTextReveal';
+import { CleanPlanHeroBackground } from './CleanPlanHeroBackground';
+import { ProductHeroLaptop } from './ProductHeroLaptop';
+import { ProductProblemSection } from './ProductProblemSection';
+import { ProductLivePreviewSection } from './ProductLivePreviewSection';
 
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1920&q=80';
+const HERO_LETTER_INTERVAL = 78;
+
+const EDUCATION_HERO_LINES = [
+  {
+    words: [{ text: 'One' }, { text: 'platform' }, { text: 'from' }],
+    letterCount: 15,
+  },
+  {
+    words: [{ text: 'enrollment' }, { text: 'to' }, { text: 'exam' }, { text: 'day' }],
+    letterCount: 19,
+    gradient: true,
+  },
+].map((line, i, arr) => ({
+  ...line,
+  startDelay: arr.slice(0, i).reduce((sum, l) => sum + l.letterCount, 0) * HERO_LETTER_INTERVAL,
+}));
 
 const FEATURES = [
   {
@@ -86,21 +100,17 @@ const FEATURES = [
   },
 ];
 
-const STATS = [
-  { value: '100%', label: 'Paperless operations', icon: FileText },
-  { value: '70%', label: 'Less admin time', icon: Clock },
-  { value: '24/7', label: 'Parent access', icon: Globe },
-  { value: 'One', label: 'System, not five', icon: CheckCircle },
+const PLATFORM_TRAITS = [
+  { icon: Globe, label: 'Web-based', desc: 'Access from any browser, any campus office', color: '#2563eb' },
+  { icon: Smartphone, label: 'Mobile-ready', desc: 'Field updates and parent access on the go', color: '#7c3aed' },
+  { icon: SlidersHorizontal, label: 'Customizable', desc: 'Mapped to your institution\'s structure', color: '#059669' },
+  { icon: ShieldCheck, label: 'Role-based access', desc: 'Permissions that match real responsibilities', color: '#d97706' },
 ];
 
-const MODULES = [
-  { name: 'Admissions', icon: UserPlus, color: '#2563eb' },
-  { name: 'Fees', icon: CreditCard, color: '#7c3aed' },
-  { name: 'Attendance', icon: Calendar, color: '#059669' },
-  { name: 'Exams', icon: BookMarked, color: '#d97706' },
-  { name: 'Academics', icon: BookOpen, color: '#dc2626' },
-  { name: 'Communication', icon: Bell, color: '#0891b2' },
-  { name: 'Administration', icon: Building2, color: '#8b5cf6' },
+const ACCESS_ROLES = [
+  { icon: Building2, label: 'Administrators', desc: 'Campus-wide control & reporting', color: '#2563eb' },
+  { icon: GraduationCap, label: 'Teachers', desc: 'Classroom tools & academic records', color: '#7c3aed' },
+  { icon: Users, label: 'Parents', desc: 'Fees, attendance & updates in one place', color: '#059669' },
 ];
 
 const SCREENS = [
@@ -152,6 +162,104 @@ const FAQS = [
     a: 'Priced by institution size and modules. The demo ends with a clear, itemized quote — the same pricing honesty we apply everywhere.',
   },
 ];
+
+function EducationPhoneScreenContent() {
+  return (
+    <div className="cleanplan-laptop__panel">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-md bg-indigo-500 flex items-center justify-center">
+            <GraduationCap size={10} className="text-white" />
+          </div>
+          <span className="text-[10px] font-bold text-gray-700">EduERP</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span className="text-[7px] text-gray-500">Live</span>
+        </div>
+      </div>
+
+      <div className="space-y-2.5">
+        <div className="grid grid-cols-3 gap-1.5">
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-indigo-600">1,247</div>
+            <div className="text-[7px] text-gray-400">Students</div>
+          </div>
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-emerald-600">94%</div>
+            <div className="text-[7px] text-gray-400">Attendance</div>
+          </div>
+          <div className="p-1.5 rounded-lg bg-white border border-gray-100 text-center">
+            <div className="text-sm font-bold text-amber-600">87</div>
+            <div className="text-[7px] text-gray-400">Staff</div>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-lg bg-indigo-50 border border-indigo-100">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-semibold text-indigo-700">Recent Activity</span>
+            <span className="text-[8px] text-indigo-600">View All</span>
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-600">New admission: A. Sharma</span>
+              <span className="text-gray-400">2m</span>
+            </div>
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-600">Fee paid: R. Patel</span>
+              <span className="text-gray-400">15m</span>
+            </div>
+            <div className="flex items-center justify-between p-1.5 rounded-md bg-white text-[8px]">
+              <span className="text-gray-600">Exam results published</span>
+              <span className="text-gray-400">1h</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-1.5">
+          <div className="flex-1 p-1.5 rounded-md bg-indigo-500 text-white text-center text-[8px] font-medium">
+            + Student
+          </div>
+          <div className="flex-1 p-1.5 rounded-md bg-emerald-500 text-white text-center text-[8px] font-medium">
+            Attendance
+          </div>
+          <div className="flex-1 p-1.5 rounded-md bg-violet-500 text-white text-center text-[8px] font-medium">
+            Fee Report
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-lg bg-purple-50 border border-purple-100">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-semibold text-purple-700">Fee Dues</span>
+            <span className="text-[8px] text-purple-600">12 pending</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center justify-between text-[8px] text-gray-600 p-1.5 rounded-md bg-white">
+              <span>Class 10-A • Term 2</span>
+              <span className="text-amber-600 font-medium">₹4,200</span>
+            </div>
+            <div className="flex items-center justify-between text-[8px] text-gray-600 p-1.5 rounded-md bg-white">
+              <span>Class 8-B • Transport</span>
+              <span className="text-amber-600 font-medium">₹1,800</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-100">
+          <div className="text-[10px] font-semibold text-amber-700 mb-1.5">Parent Alerts</div>
+          <div className="space-y-1.5">
+            <div className="p-1.5 rounded-md bg-white text-[8px] text-gray-600">
+              PTM scheduled for Class 9 — Friday 3:00 PM
+            </div>
+            <div className="p-1.5 rounded-md bg-white text-[8px] text-gray-600">
+              Bus route 4 delayed by 10 minutes
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function FaqItem({
   question,
@@ -216,7 +324,7 @@ export default function EducationERP() {
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
   const [activeScreen, setActiveScreen] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayRef = useRef<number | null>(null);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     document.title = 'Education ERP — NSS';
@@ -271,259 +379,132 @@ export default function EducationERP() {
   return (
     <article className="min-h-screen bg-white">
       {/* Hero */}
-      <header className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={HERO_IMAGE}
-            alt="Education ERP - Modern campus management"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/95 via-slate-900/85 to-blue-900/75" />
-        </div>
+      <header className="webdev-hero cleanplan-hero relative overflow-hidden px-6">
+        <CleanPlanHeroBackground />
 
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-20 right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        </div>
-
-        <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6">
+        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
-                <GraduationCap size={14} className="text-indigo-400" />
-                <span className="text-xs font-bold text-indigo-200 tracking-widest">PRODUCT</span>
-                <span className="text-xs text-white/30">•</span>
-                <span className="text-xs font-semibold text-white/80">Education ERP</span>
-              </div>
+              {/* <div className="a1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200/80 mb-6 shadow-sm">
+                <GraduationCap size={14} className="text-indigo-500" />
+                <span className="text-xs font-bold text-indigo-600 tracking-widest">PRODUCT</span>
+                <span className="text-xs text-slate-300">•</span>
+                <span className="text-xs font-semibold text-slate-600">Education ERP</span>
+              </div> */}
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-                One platform from
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-purple-400">
-                  enrollment to exam day
-                </span>
+              <h1
+                className="a1 w-full"
+                style={{
+                  fontFamily: 'Inter,sans-serif',
+                  fontWeight: 600,
+                  fontSize: 'clamp(2rem, 4.5vw, 3.75rem)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.12,
+                  color: '#0f172a',
+                }}
+              >
+                {EDUCATION_HERO_LINES.map((line, i) => (
+                  <span
+                    key={line.words.map((w) => w.text).join('-')}
+                    className="block w-fit max-w-full"
+                    style={{ marginBottom: i < EDUCATION_HERO_LINES.length - 1 ? '0.08em' : undefined }}
+                  >
+                    <ScrollTextReveal
+                      tag="span"
+                      align="left"
+                      animate="words"
+                      textColor="#0f172a"
+                      letterInterval={HERO_LETTER_INTERVAL}
+                      startDelay={line.startDelay}
+                      gradientText={line.gradient}
+                      waveGradientStops={line.gradient ? ['#4f46e5', '#8b5cf6', '#2563eb'] : undefined}
+                      style={{
+                        display: 'block',
+                        width: 'fit-content',
+                        maxWidth: '100%',
+                      }}
+                      words={[...line.words]}
+                    />
+                  </span>
+                ))}
               </h1>
 
-              <p className="text-lg text-slate-300 leading-relaxed max-w-lg mt-4">
+              <p className="a2 text-lg text-slate-600 leading-relaxed max-w-lg mt-4">
                 Education ERP connects admissions, fees, attendance, academics, and communication — so administrators stop re-entering the same student into five systems.
               </p>
 
-              <div className="flex flex-wrap gap-4 mt-8">
+              <div className="a3 flex flex-wrap gap-4 mt-8">
                 <Link
                   to="/#contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-2xl hover:shadow-blue-500/35 transition-all duration-300"
                 >
                   Book a Free Demo
                   <ArrowRight size={18} />
                 </Link>
-                <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium hover:bg-white/20 transition-all duration-300">
+                <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-medium shadow-md shadow-slate-900/10 hover:bg-slate-50 hover:shadow-lg transition-all duration-300">
                   <PlayCircle size={18} />
                   Watch Demo
                 </button>
               </div>
 
-              <div className="flex flex-wrap gap-6 mt-8 text-sm text-slate-400">
+              {/* <div className="a4 flex flex-wrap gap-6 mt-8 text-sm text-slate-500">
                 <span className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400" />
+                  <Check size={14} className="text-emerald-500" />
                   Web + Mobile
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400" />
+                  <Check size={14} className="text-emerald-500" />
                   Parent Portal
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400" />
+                  <Check size={14} className="text-emerald-500" />
                   Customizable
                 </span>
-              </div>
+              </div> */}
             </div>
 
-            {/* Hero Right - Tablet Mockup */}
-            <div className="hidden lg:block relative">
-              <div className="relative mx-auto max-w-[420px]">
-                <div className="relative rounded-[32px] bg-gradient-to-br from-slate-800 to-slate-900 p-2 shadow-2xl">
-                  <div className="rounded-[24px] overflow-hidden bg-white">
-                    <div className="p-3 bg-gradient-to-r from-indigo-50 to-blue-50">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center">
-                            <GraduationCap size={16} className="text-white" />
-                          </div>
-                          <span className="text-sm font-bold text-gray-700">EduERP</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                          <span className="text-[10px] text-gray-500">Live</span>
-                        </div>
-                      </div>
-
-                      {/* Dashboard Grid */}
-                      <div className="grid grid-cols-3 gap-2 mb-4">
-                        <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                          <div className="text-xl font-bold text-indigo-600">1,247</div>
-                          <div className="text-[10px] text-gray-400">Students</div>
-                        </div>
-                        <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                          <div className="text-xl font-bold text-emerald-600">94%</div>
-                          <div className="text-[10px] text-gray-400">Attendance</div>
-                        </div>
-                        <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                          <div className="text-xl font-bold text-amber-600">87</div>
-                          <div className="text-[10px] text-gray-400">Staff</div>
-                        </div>
-                      </div>
-
-                      {/* Recent Activity */}
-                      <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-semibold text-gray-700">Recent Activity</span>
-                          <span className="text-[10px] text-indigo-600">View All</span>
-                        </div>
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-600">New admission: A. Sharma</span>
-                            <span className="text-[10px] text-gray-400">2 min ago</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-600">Fee paid: R. Patel</span>
-                            <span className="text-[10px] text-gray-400">15 min ago</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-600">Exam results published</span>
-                            <span className="text-[10px] text-gray-400">1 hour ago</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Quick Actions */}
-                      <div className="flex gap-2 mt-3">
-                        <div className="flex-1 p-2 rounded-xl bg-indigo-500 text-white text-center text-xs font-medium">
-                          + Add Student
-                        </div>
-                        <div className="flex-1 p-2 rounded-xl bg-emerald-500 text-white text-center text-xs font-medium">
-                          Mark Attendance
-                        </div>
-                        <div className="flex-1 p-2 rounded-xl bg-purple-500 text-white text-center text-xs font-medium">
-                          Fee Report
-                        </div>
-                      </div>
-                    </div>
+            <ProductHeroLaptop
+              contentKey="education-erp"
+              glowAClassName="bg-indigo-500/10"
+              glowBClassName="bg-blue-500/10"
+              badge={(
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+                    <Award size={15} className="text-indigo-600" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900">5K+</div>
+                    <div className="text-[9px] text-gray-500">Students managed</div>
                   </div>
                 </div>
-
-                {/* Floating badges */}
-                <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl p-3 animate-float">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-                      <Award size={18} className="text-indigo-600" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-gray-900">5K+</div>
-                      <div className="text-[10px] text-gray-500">Students managed</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl p-3 animate-float" style={{ animationDelay: '1s' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-                      <UserCheck size={18} className="text-emerald-600" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-gray-900">100%</div>
-                      <div className="text-[10px] text-gray-500">Paperless</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              )}
+            >
+              <EducationPhoneScreenContent />
+            </ProductHeroLaptop>
           </div>
         </div>
       </header>
 
-      {/* Stats Bar */}
-      <section className="py-12 px-6 border-b border-gray-100 bg-white">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {STATS.map((stat) => {
-              const Icon = stat.icon;
-              return (
-                <div key={stat.label} className="text-center group">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Icon size={20} className="text-indigo-500" />
-                    <span className="text-2xl md:text-3xl font-bold text-gray-900">{stat.value}</span>
-                  </div>
-                  <div className="text-sm text-gray-500">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* The Five-Register Problem */}
-      <section className="py-24 px-6 overflow-hidden">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="sr-from-left order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 border border-red-200 mb-4">
-                <XCircle size={12} className="text-red-500" />
-                <span className="text-xs font-bold text-red-700 tracking-wider">THE PROBLEM</span>
-              </div>
-              <ScrollTextReveal
-                tag="h2"
-                align="left"
-                className="w-full"
-                wordGap="0.15em"
-                style={{
-                  fontFamily: 'Inter,sans-serif',
-                  fontWeight: 700,
-                  fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.1,
-                }}
-                words={[
-                  { text: 'The' },
-                  { text: 'five-register' },
-                  { text: 'problem' },
-                ]}
-              />
-              <p className="text-[#555] text-base leading-relaxed mt-4 max-w-lg">
-                A student exists in the admissions file, the fee register, the attendance sheet, the exam roster, and the transport list — and none of them agree.
-              </p>
-              <p className="text-[#555] text-base leading-relaxed mt-3 max-w-lg">
-                Every reconciliation costs staff hours; every mismatch costs a parent's trust. Campus management isn't complicated because education is complicated; it's complicated because the systems never met.
-              </p>
-              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100">
-                <p className="text-sm text-indigo-800 font-medium flex items-start gap-2">
-                  <Zap size={18} className="text-indigo-500 flex-shrink-0 mt-0.5" />
-                  <span>Education ERP brings everything together — one system, one truth, one place.</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="sr-from-right order-1 lg:order-2">
-              <div className="relative">
-                <div className="absolute -top-4 -right-4 w-32 h-32 bg-red-500/10 rounded-full blur-2xl" />
-                <img
-                  src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80"
-                  alt="Paper-based campus management"
-                  className="rounded-3xl shadow-2xl w-full object-cover aspect-[4/3]"
-                />
-                <div className="absolute -bottom-4 -left-4 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProductProblemSection
+        accent="indigo"
+        heading="The five-register problem"
+        paragraphs={[
+          'A student exists in the admissions file, the fee register, the attendance sheet, the exam roster, and the transport list — and none of them agree.',
+          "Every reconciliation costs staff hours; every mismatch costs a parent's trust. Campus management isn't complicated because education is complicated; it's complicated because the systems never met.",
+        ]}
+        solution="Education ERP brings everything together — one system, one truth, one place."
+        imageSrc="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=85&auto=format&fit=crop"
+        imageAlt="School administrator managing student records across multiple systems"
+        imageCaption="Five registers. One student. Zero alignment."
+      />
 
       {/* Features Grid */}
       <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-[1200px] mx-auto w-full">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 border border-indigo-200 mb-4">
-              <CheckCircle size={12} className="text-indigo-500" />
-              <span className="text-xs font-bold text-indigo-700 tracking-wider">FEATURES</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4">
+              <CheckCircle size={12} className="text-blue-500" />
+              <span className="text-xs font-bold text-blue-700 tracking-wider">FEATURES</span>
             </div>
             <ScrollTextReveal
               tag="h2"
@@ -536,6 +517,7 @@ export default function EducationERP() {
                 fontSize: 'clamp(2rem, 3.5vw, 3rem)',
                 letterSpacing: '-0.03em',
                 lineHeight: 1.1,
+                maxWidth: '100%',
               }}
               words={[
                 { text: 'Everything' },
@@ -555,8 +537,10 @@ export default function EducationERP() {
               return (
                 <div
                   key={feature.title}
-                  className="group p-6 rounded-2xl bg-white border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                  style={{ transitionDelay: `${i * 0.06}s` }}
+                  className={`sr-from-bottom sr-d${i + 1} group rounded-2xl border border-gray-100 border-l-4 bg-white p-6 shadow-lg shadow-slate-200/70 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-slate-300/80`}
+                  style={{
+                    borderLeftColor: feature.color,
+                  }}
                 >
                   <div
                     className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
@@ -577,326 +561,299 @@ export default function EducationERP() {
         </div>
       </section>
 
-      {/* Module Circle - Visual */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="text-center mb-14">
-            <ScrollTextReveal
-              tag="h2"
-              align="center"
-              className="w-full"
-              wordGap="0.15em"
-              style={{
-                fontFamily: 'Inter,sans-serif',
-                fontWeight: 700,
-                fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-              }}
-              words={[
-                { text: 'Seven' },
-                { text: 'modules,' },
-                { text: 'one' },
-                { text: 'ecosystem' },
-              ]}
-            />
-            <p className="text-[#555] text-base leading-relaxed mt-4 max-w-[36rem] mx-auto">
-              All connected. All working together. No data entry twice.
-            </p>
-          </div>
+      {/* Built with education partners */}
+      <section className="relative overflow-hidden bg-gray-50 px-6 py-24">
+        <div
+          className="pointer-events-none absolute -left-24 top-1/4 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-emerald-200/35 blur-3xl"
+          aria-hidden="true"
+        />
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-3">
-            {MODULES.map((module, i) => {
-              const Icon = module.icon;
-              return (
-                <div
-                  key={module.name}
-                  className="group p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-transparent hover:shadow-xl transition-all duration-500 hover:-translate-y-2 text-center"
-                  style={{ transitionDelay: `${i * 0.05}s` }}
-                >
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300"
-                    style={{ backgroundColor: `${module.color}15`, color: module.color }}
-                  >
-                    <Icon size={22} strokeWidth={1.75} />
+        <div className="relative mx-auto w-full max-w-6xl">
+          <div className="sr-from-bottom overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-xl shadow-slate-200/60">
+            <div className="h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500" aria-hidden="true" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-5">
+              <div className="border-b border-slate-100 p-8 sm:p-10 lg:col-span-2 lg:border-b-0 lg:border-r">
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1">
+                  <Handshake size={12} className="text-indigo-600" />
+                  <span className="text-xs font-bold tracking-wider text-indigo-700">PARTNERSHIP</span>
+                </div>
+
+                <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 md:text-4xl">
+                  Built with education partners
+                </h2>
+
+                <p className="mt-4 text-base leading-relaxed text-gray-600">
+                  Developed in collaboration with education-domain specialists and engineered on the same
+                  platform discipline as Rexo ERP: web-based, mobile-ready, customizable to your
+                  institution&apos;s structure, with role-based access for administrators, teachers, and parents.
+                </p>
+
+                <div className="mt-8 rounded-2xl bg-slate-900 p-5 text-white">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10">
+                      <Layers size={18} className="text-indigo-300" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">Rexo ERP platform discipline</p>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                        Enterprise-grade engineering — proven in manufacturing, applied to education.
+                      </p>
+                    </div>
                   </div>
-                  <span className="text-xs font-medium text-gray-600">{module.name}</span>
                 </div>
-              );
-            })}
-          </div>
-
-          {/* Connection visual */}
-          <div className="mt-8 flex items-center justify-center gap-4 text-xs text-gray-400">
-            <span className="flex items-center gap-1">
-              <span className="w-8 h-0.5 bg-gradient-to-r from-indigo-400 to-purple-400" />
-              <span>Connected</span>
-              <span className="w-8 h-0.5 bg-gradient-to-r from-purple-400 to-indigo-400" />
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* App Screens - Auto-rotating */}
-      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-[1200px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="sr-from-left order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 border border-indigo-200 mb-4">
-                <Smartphone size={12} className="text-indigo-500" />
-                <span className="text-xs font-bold text-indigo-700 tracking-wider">LIVE PREVIEW</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                See Education ERP in action
-              </h2>
-              <p className="text-gray-600 text-base leading-relaxed mt-3 max-w-lg">
-                {SCREENS[activeScreen].desc}
-              </p>
-
-              <div className="flex items-center gap-4 mt-6">
-                <div className="flex gap-2">
-                  {SCREENS.map((screen, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActiveScreen(i)}
-                      className={`h-2 rounded-full transition-all duration-500 ${
-                        i === activeScreen ? 'w-8' : 'w-2 bg-gray-300 hover:bg-gray-400'
-                      }`}
-                      style={{
-                        background: i === activeScreen 
-                          ? `linear-gradient(90deg, ${screen.color}, ${screen.color}80)`
-                          : undefined,
-                      }}
-                    />
-                  ))}
-                </div>
-                <button
-                  onClick={toggleAutoPlay}
-                  className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-300"
-                  aria-label={isAutoPlaying ? 'Pause' : 'Play'}
-                >
-                  {isAutoPlaying ? (
-                    <Pause size={16} className="text-gray-500" />
-                  ) : (
-                    <Play size={16} className="text-gray-500" />
-                  )}
-                </button>
               </div>
 
-              <div className="mt-6 space-y-2">
-                {SCREENS.map((screen, i) => {
-                  const Icon = screen.icon;
-                  return (
-                    <div
-                      key={i}
-                      className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-300 cursor-pointer ${
-                        i === activeScreen ? 'bg-white shadow-sm' : 'hover:bg-gray-50'
-                      }`}
-                      onClick={() => setActiveScreen(i)}
-                    >
+              <div className="p-8 sm:p-10 lg:col-span-3">
+                <p className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Platform capabilities
+                </p>
+
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {PLATFORM_TRAITS.map((trait, i) => {
+                    const Icon = trait.icon;
+                    return (
                       <div
-                        className="w-8 h-8 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: i === activeScreen ? `${screen.color}15` : 'transparent' }}
+                        key={trait.label}
+                        className={`sr-from-bottom sr-d${Math.min(i + 1, 10)} group flex gap-3 rounded-2xl border border-slate-100 bg-slate-50/80 p-4 transition-all duration-300 hover:border-slate-200 hover:bg-white hover:shadow-md hover:shadow-slate-200/60`}
                       >
-                        <Icon size={16} style={{ color: i === activeScreen ? screen.color : '#9ca3af' }} />
-                      </div>
-                      <span className={`text-sm transition-colors duration-300 ${
-                        i === activeScreen ? 'font-medium text-gray-900' : 'text-gray-400'
-                      }`}>
-                        {screen.title}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="sr-from-right order-1 lg:order-2">
-              <div className="relative mx-auto max-w-[420px]">
-                <div className="relative rounded-[32px] bg-gradient-to-br from-slate-800 to-slate-900 p-2 shadow-2xl">
-                  <div className="rounded-[24px] overflow-hidden bg-white">
-                    <div className="p-3 bg-gradient-to-r from-indigo-50 to-purple-50 min-h-[380px]">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center">
-                            <GraduationCap size={16} className="text-white" />
-                          </div>
-                          <span className="text-sm font-bold text-gray-700">EduERP</span>
+                        <div
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                          style={{ backgroundColor: `${trait.color}12`, color: trait.color }}
+                        >
+                          <Icon size={18} strokeWidth={1.75} />
                         </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                          <span className="text-[10px] text-gray-500">Live</span>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">{trait.label}</p>
+                          <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{trait.desc}</p>
                         </div>
                       </div>
+                    );
+                  })}
+                </div>
 
-                      {activeScreen === 0 && (
-                        <div className="space-y-3">
-                          <div className="grid grid-cols-3 gap-2">
-                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-lg font-bold text-indigo-600">1,247</div>
-                              <div className="text-[10px] text-gray-400">Students</div>
-                            </div>
-                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-lg font-bold text-emerald-600">94%</div>
-                              <div className="text-[10px] text-gray-400">Attendance</div>
-                            </div>
-                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-lg font-bold text-amber-600">87</div>
-                              <div className="text-[10px] text-gray-400">Staff</div>
-                            </div>
-                          </div>
-                          <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="text-xs font-semibold text-gray-700">Today's Attendance</span>
-                              <span className="text-[10px] text-emerald-600">↑ 5%</span>
-                            </div>
-                            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-                              <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" style={{ width: '94%' }} />
-                            </div>
-                            <div className="flex justify-between mt-1 text-[10px] text-gray-400">
-                              <span>Present: 892</span>
-                              <span>Absent: 57</span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                <p className="mb-4 mt-8 text-xs font-bold uppercase tracking-widest text-gray-400">
+                  Who gets access
+                </p>
 
-                      {activeScreen === 1 && (
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                            <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
-                              AS
-                            </div>
-                            <div className="flex-1">
-                              <div className="text-sm font-semibold text-gray-900">Ananya Sharma</div>
-                              <div className="text-xs text-gray-500">Class 10-A • Roll #12</div>
-                            </div>
-                            <div className="text-xs text-emerald-600 font-medium">Active</div>
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-xs text-gray-500">Attendance</div>
-                              <div className="text-sm font-bold text-gray-900">95%</div>
-                            </div>
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-xs text-gray-500">Fees</div>
-                              <div className="text-sm font-bold text-emerald-600">Paid</div>
-                            </div>
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-xs text-gray-500">Exams</div>
-                              <div className="text-sm font-bold text-amber-600">3 Upcoming</div>
-                            </div>
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                              <div className="text-xs text-gray-500">Transport</div>
-                              <div className="text-sm font-bold text-blue-600">Route B</div>
-                            </div>
-                          </div>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  {ACCESS_ROLES.map((role, i) => {
+                    const Icon = role.icon;
+                    return (
+                      <div
+                        key={role.label}
+                        className={`sr-from-bottom sr-d${Math.min(i + 5, 10)} group relative overflow-hidden rounded-2xl border border-slate-100 p-4 text-center transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-200/70`}
+                      >
+                        <div
+                          className="absolute inset-x-0 top-0 h-1 opacity-80"
+                          style={{ background: role.color }}
+                          aria-hidden="true"
+                        />
+                        <div
+                          className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+                          style={{ backgroundColor: `${role.color}12`, color: role.color }}
+                        >
+                          <Icon size={20} strokeWidth={1.75} />
                         </div>
-                      )}
-
-                      {activeScreen === 2 && (
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-gray-700">Fee Collection</span>
-                            <span className="text-[10px] text-indigo-600">This Month</span>
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                              <div className="text-xs text-gray-500">Collected</div>
-                              <div className="text-lg font-bold text-emerald-600">₹24.8L</div>
-                              <div className="text-[10px] text-gray-400">85% of target</div>
-                            </div>
-                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                              <div className="text-xs text-gray-500">Pending</div>
-                              <div className="text-lg font-bold text-amber-600">₹4.2L</div>
-                              <div className="text-[10px] text-gray-400">12 students</div>
-                            </div>
-                          </div>
-                          <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-xs text-gray-600">Collection Progress</span>
-                              <span className="text-xs font-medium text-emerald-600">85%</span>
-                            </div>
-                            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-                              <div className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" style={{ width: '85%' }} />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {activeScreen === 3 && (
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-gray-700">Parent Notifications</span>
-                            <span className="text-[10px] text-indigo-600">Send</span>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                                <Bell size={14} />
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-gray-700">Attendance Alert</div>
-                                <div className="text-[10px] text-gray-400">Sent to 45 parents</div>
-                              </div>
-                              <span className="text-[10px] text-emerald-600">Delivered</span>
-                            </div>
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                                <Bell size={14} />
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-gray-700">Fee Reminder</div>
-                                <div className="text-[10px] text-gray-400">Scheduled for tomorrow</div>
-                              </div>
-                              <span className="text-[10px] text-amber-600">Pending</span>
-                            </div>
-                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
-                                <Bell size={14} />
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-gray-700">Exam Schedule</div>
-                                <div className="text-[10px] text-gray-400">Published to all classes</div>
-                              </div>
-                              <span className="text-[10px] text-emerald-600">Delivered</span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                        <p className="text-sm font-semibold text-gray-900">{role.label}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-gray-500">{role.desc}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <ProductLivePreviewSection
+        heading="See Education ERP in action"
+        sectionClassName="bg-white"
+        screens={SCREENS}
+        activeScreen={activeScreen}
+        onScreenChange={setActiveScreen}
+        isAutoPlaying={isAutoPlaying}
+        onToggleAutoPlay={toggleAutoPlay}
+      >
+        <div className="flex items-center justify-between mb-4 pt-2">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center">
+              <GraduationCap size={16} className="text-white" />
+            </div>
+            <span className="text-sm font-bold text-gray-700">EduERP</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[10px] text-gray-500">Live</span>
+          </div>
+        </div>
+
+        {activeScreen === 0 && (
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-2">
+              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-lg font-bold text-indigo-600">1,247</div>
+                <div className="text-[10px] text-gray-400">Students</div>
+              </div>
+              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-lg font-bold text-emerald-600">94%</div>
+                <div className="text-[10px] text-gray-400">Attendance</div>
+              </div>
+              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-lg font-bold text-amber-600">87</div>
+                <div className="text-[10px] text-gray-400">Staff</div>
+              </div>
+            </div>
+            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-gray-700">Today's Attendance</span>
+                <span className="text-[10px] text-emerald-600">↑ 5%</span>
+              </div>
+              <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" style={{ width: '94%' }} />
+              </div>
+              <div className="flex justify-between mt-1 text-[10px] text-gray-400">
+                <span>Present: 892</span>
+                <span>Absent: 57</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeScreen === 1 && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
+                AS
+              </div>
+              <div className="flex-1">
+                <div className="text-sm font-semibold text-gray-900">Ananya Sharma</div>
+                <div className="text-xs text-gray-500">Class 10-A • Roll #12</div>
+              </div>
+              <div className="text-xs text-emerald-600 font-medium">Active</div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-xs text-gray-500">Attendance</div>
+                <div className="text-sm font-bold text-gray-900">95%</div>
+              </div>
+              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-xs text-gray-500">Fees</div>
+                <div className="text-sm font-bold text-emerald-600">Paid</div>
+              </div>
+              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-xs text-gray-500">Exams</div>
+                <div className="text-sm font-bold text-amber-600">3 Upcoming</div>
+              </div>
+              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                <div className="text-xs text-gray-500">Transport</div>
+                <div className="text-sm font-bold text-blue-600">Route B</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeScreen === 2 && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-gray-700">Fee Collection</span>
+              <span className="text-[10px] text-indigo-600">This Month</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                <div className="text-xs text-gray-500">Collected</div>
+                <div className="text-lg font-bold text-emerald-600">₹24.8L</div>
+                <div className="text-[10px] text-gray-400">85% of target</div>
+              </div>
+              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                <div className="text-xs text-gray-500">Pending</div>
+                <div className="text-lg font-bold text-amber-600">₹4.2L</div>
+                <div className="text-[10px] text-gray-400">12 students</div>
+              </div>
+            </div>
+            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs text-gray-600">Collection Progress</span>
+                <span className="text-xs font-medium text-emerald-600">85%</span>
+              </div>
+              <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                <div className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" style={{ width: '85%' }} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeScreen === 3 && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-gray-700">Parent Notifications</span>
+              <span className="text-[10px] text-indigo-600">Send</span>
+            </div>
+            <div className="space-y-2">
+              <div className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                  <Bell size={14} />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs font-medium text-gray-700">Attendance Alert</div>
+                  <div className="text-[10px] text-gray-400">Sent to 45 parents</div>
+                </div>
+                <span className="text-[10px] text-emerald-600">Delivered</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                  <Bell size={14} />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs font-medium text-gray-700">Fee Reminder</div>
+                  <div className="text-[10px] text-gray-400">Scheduled for tomorrow</div>
+                </div>
+                <span className="text-[10px] text-amber-600">Pending</span>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                  <Bell size={14} />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs font-medium text-gray-700">Exam Schedule</div>
+                  <div className="text-[10px] text-gray-400">Published to all classes</div>
+                </div>
+                <span className="text-[10px] text-emerald-600">Delivered</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </ProductLivePreviewSection>
 
       {/* CTA */}
-      <section className="py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700" />
+      <section className="relative overflow-hidden px-6 py-24">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-emerald-600 to-blue-700" />
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-400/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-blue-400/30 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-emerald-400/30 blur-3xl" />
         </div>
 
-        <div className="relative z-10 max-w-[900px] mx-auto w-full text-center">
+        <div className="relative z-10 mx-auto w-full max-w-[900px] text-center">
           <div className="sr">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+            <h2 className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               Ready to bring your campus onto one platform?
             </h2>
-            <p className="text-lg text-indigo-100 leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-blue-100">
               See Education ERP in action. Walk through your workflow and get a clear, itemized quote.
             </p>
             <Link
               to="/#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-indigo-600 font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             >
               Book a Free Demo
               <ArrowRight size={18} />
             </Link>
-            <p className="text-sm text-indigo-200 mt-4">Live demo. No commitment. Just clarity.</p>
+            <p className="mt-4 text-sm text-blue-200">Live demo. No commitment. Just clarity.</p>
           </div>
         </div>
       </section>
@@ -929,13 +886,14 @@ export default function EducationERP() {
 
           <div className="flex flex-col gap-3">
             {FAQS.map((faq, i) => (
-              <FaqItem
-                key={faq.q}
-                question={faq.q}
-                answer={faq.a}
-                isOpen={faqOpen === i}
-                onToggle={() => setFaqOpen((prev) => (prev === i ? null : i))}
-              />
+              <div key={faq.q} className={`sr-from-bottom sr-d${Math.min(i + 1, 10)}`}>
+                <FaqItem
+                  question={faq.q}
+                  answer={faq.a}
+                  isOpen={faqOpen === i}
+                  onToggle={() => setFaqOpen((prev) => (prev === i ? null : i))}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -964,7 +922,7 @@ export default function EducationERP() {
           </div>
           <Link
             to="/#contact"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white text-sm font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-xl hover:shadow-blue-500/35 transition-all duration-300"
           >
             Book a Free Demo
             <ArrowRight size={16} />
@@ -972,15 +930,6 @@ export default function EducationERP() {
         </div>
       </section>
 
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
     </article>
   );
 }

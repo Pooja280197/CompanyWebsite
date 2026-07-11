@@ -37,10 +37,16 @@ export function useReveal() {
       rootMargin: '-40% 0px -40% 0px',
     });
 
+    const bottomObs = observeReveal('.sr-from-bottom', {
+      threshold: 0.05,
+      rootMargin: '0px 0px -10px 0px',
+    });
+
     return () => {
       defaultObs.disconnect();
       sideObs.disconnect();
       centerObs.disconnect();
+      bottomObs.disconnect();
     };
   }, [location.pathname]);
 }

@@ -20,6 +20,12 @@ export const PRODUCT_NAV_ITEMS: NavMegaItem[] = [
     description: 'Admissions, fees, academics & communication',
   },
   {
+    id: 'rexo-erp',
+    label: 'Rexo ERP',
+    href: '/product/rexo-erp',
+    description: 'Inventory, production, sales, finance & HR',
+  },
+  {
     id: 'our-products',
     label: 'All Products',
     href: '/our-products',

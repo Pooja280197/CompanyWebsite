@@ -351,8 +351,7 @@ export default function Blog() {
       bg: '#ECFDF5',
       keyword: 'when does a manufacturing business need ERP',
       metaTitle: '7 Signs Your Factory Has Outgrown Spreadsheets | NSS',
-      links: ['/rexo-erp', '/industries/manufacturing-software-solutions'],
-      structure: 'Hidden costs → 7 signs → What ERP fixes → Start small',
+      links: ['/product/rexo-erp', '/industries/manufacturing-software-solutions'],
     },
     {
       slug: 'staff-augmentation-vs-outsourcing',
