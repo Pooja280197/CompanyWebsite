@@ -369,6 +369,40 @@ const injectStyles = () => {
     .happy-emoji {
       transition: transform 0.3s ease;
     }
+      /* ── Hide scrollbar ── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: visible !important;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Wave path animation ── */
+.wave-path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawWave 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes drawWave {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.wave-dot {
+  opacity: 0;
+  animation: dotAppear 0.6s ease forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes dotAppear {
+  to {
+    opacity: 1;
+  }
+}
   `;
   document.head.appendChild(style);
 };
@@ -569,13 +603,13 @@ export default function AboutUsPage() {
 
   return (
     <div className="about-premium" ref={wrapperRef}>
-      
+
       {/* ===== HERO - Enhanced ===== */}
       <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
         {/* Floating Orbs */}
         <div className="floating-orb float-orb-1 w-96 h-96 bg-[#2563EB] top-[-100px] right-[-100px]" />
         <div className="floating-orb float-orb-2 w-80 h-80 bg-[#6366F1] bottom-[-80px] left-[-80px]" />
-        
+
         <div className="max-w-5xl mx-auto w-full relative z-10">
           <div className="flex items-center gap-3 mb-8 reveal-up">
             <span className="relative w-2.5 h-2.5 rounded-full bg-[#2563EB] pulse-ring" />
@@ -635,13 +669,13 @@ export default function AboutUsPage() {
               <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-[#0F172A] leading-tight tracking-tight reveal-up" style={{ transitionDelay: '100ms' }}>
                 Where we started
               </h2>
-              
+
               <div className="origin-border mt-6">
                 <p className="text-lg text-slate-600 leading-relaxed reveal-up" style={{ transitionDelay: '150ms' }}>
                   We started in <span className="font-semibold text-[#0F172A]">2017 in Indore</span> with a simple observation: businesses didn't need more technology — they needed technology that <span className="font-semibold text-[#0F172A]">simplified things</span> instead of adding to the pile.
                 </p>
               </div>
-              
+
               <div className="mt-6 space-y-5">
                 <p className="text-lg text-slate-600 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
                   That meant custom software shaped to real workflows, cloud infrastructure that didn't require a translator, and later, AI that reached production instead of the pitch deck.
@@ -721,7 +755,7 @@ export default function AboutUsPage() {
       {/* ===== LEADERSHIP - Enhanced ===== */}
       <section className="py-32 px-6 md:px-12 lg:px-20 wavy-bg relative overflow-hidden">
         <div className="floating-orb float-orb-1 w-64 h-64 bg-[#6366F1] top-[-80px] right-[-80px]" />
-        
+
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 block reveal-up">
@@ -750,9 +784,8 @@ export default function AboutUsPage() {
                   onMouseEnter={() => setActiveLeader(i)}
                   onMouseLeave={() => setActiveLeader(null)}
                 >
-                  <div className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-500 ${
-                    isActive ? 'border-[#2563EB] shadow-xl -translate-y-2' : 'border-slate-100 hover:shadow-xl hover:-translate-y-1'
-                  }`}>
+                  <div className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-500 ${isActive ? 'border-[#2563EB] shadow-xl -translate-y-2' : 'border-slate-100 hover:shadow-xl hover:-translate-y-1'
+                    }`}>
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <img src={leader.image} alt={leader.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       <div className="absolute top-4 right-4 text-3xl">{leader.emoji}</div>
@@ -786,10 +819,12 @@ export default function AboutUsPage() {
       <div className="divider-light max-w-5xl mx-auto" />
 
       {/* ===== OUR TEAM - Enhanced with Joyful Design ===== */}
-      <section className="py-32 px-6 md:px-12 lg:px-20 relative overflow-hidden">
-        <div className="floating-orb float-orb-2 w-72 h-72 bg-[#06B6D4] bottom-[-100px] left-[-100px]" />
-        
-        <div className="max-w-5xl mx-auto relative z-10">
+      {/* ===== OUR TEAM - Horizontal Wave Scroll (Smooth & Complete) ===== */}
+      <section className="py-32 px-6 md:px-12 lg:px-20 relative overflow-hidden bg-gradient-to-b from-[#FAFAFA] to-white">
+        <div className="floating-orb float-orb-2 w-72 h-72 bg-[#06B6D4] bottom-[-100px] left-[-100px] opacity-20" />
+        <div className="floating-orb float-orb-1 w-64 h-64 bg-[#6366F1] top-[-80px] right-[-80px] opacity-20" />
+
+        <div className="max-w-full mx-auto relative z-10">
           <div className="text-center mb-16">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 block reveal-up">
               <span className="inline-flex items-center gap-2">
@@ -802,66 +837,184 @@ export default function AboutUsPage() {
               <span className="gradient-text-warm">behind the work</span>
             </h2>
             <p className="text-slate-500 text-lg mt-3 reveal-up" style={{ transitionDelay: '150ms' }}>
-              Engineers, designers, and strategists — one team, one mission. <span className="text-xl">✨</span>
+              Scroll to meet the team → <span className="text-xl">✨</span>
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TEAM_MEMBERS.map((member, i) => {
-              const isActive = activeTeam === i;
-              return (
-                <div
-                  key={i}
-                  className="group team-card"
-                  style={{
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: `fadeUp 0.6s ease ${i * 0.08 + 0.2}s forwards`,
-                  }}
-                  onMouseEnter={() => setActiveTeam(i)}
-                  onMouseLeave={() => setActiveTeam(null)}
-                >
-                  <div className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-500 ${
-                    isActive ? 'border-[#2563EB] shadow-xl' : 'border-slate-100 hover:border-[#2563EB]/30'
-                  }`}>
-                    <div className="aspect-square overflow-hidden relative">
-                      <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute top-3 right-3 text-2xl happy-emoji">{member.emoji}</div>
-                    </div>
-                    <div className="p-5">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="font-bold text-[#0F172A]">{member.name}</h3>
-                          <p className="text-sm text-slate-500">{member.role}</p>
-                        </div>
-                        <div className="flex gap-1.5">
-                          <a href="#" className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-[#2563EB]/10 hover:text-[#2563EB] transition-all duration-300">
-                            <Linkedin size={12} />
-                          </a>
-                          <a href="#" className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-[#2563EB]/10 hover:text-[#2563EB] transition-all duration-300">
-                            <Twitter size={12} />
-                          </a>
+          {/* Horizontal Scroll Container - No cutting */}
+          <div className="relative overflow-x-auto pb-12 scroll-smooth hide-scrollbar" style={{ overflowY: 'visible' }}>
+            <div className="flex items-center gap-0 min-w-max px-8 md:px-16 py-8">
+              {TEAM_MEMBERS.map((member, i) => {
+                const isEven = i % 2 === 0;
+                const isLast = i === TEAM_MEMBERS.length - 1;
+
+                return (
+                  <div key={i} className="flex items-center flex-shrink-0">
+                    {/* Team Member Card */}
+                    <div
+                      className="group relative"
+                      style={{
+                        opacity: 0,
+                        animation: `fadeUp 0.6s ease ${i * 0.1 + 0.2}s forwards`,
+                      }}
+                    >
+                      <div className="relative flex flex-col items-center px-3 md:px-6">
+                        {/* Image - Circular with wave offset - COMPLETE CIRCLE */}
+                        <div
+                          className="relative"
+                          style={{
+                            transform: isEven ? 'translateY(-30px)' : 'translateY(30px)',
+                            transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                          }}
+                        >
+                          {/* Main circle container - FULL VISIBLE */}
+                          <div className="relative w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52">
+                            {/* Gradient ring - COMPLETE */}
+                            <div className="absolute inset-[-4px] rounded-full bg-gradient-to-br from-[#2563EB] via-[#6366F1] to-[#06B6D4] animate-spin-slow" style={{ animationDuration: '6s' }} />
+                            <div className="absolute inset-[-2px] rounded-full bg-gradient-to-br from-[#2563EB] via-[#6366F1] to-[#06B6D4]" />
+
+                            {/* Image - COMPLETE CIRCLE */}
+                            <div className="absolute inset-[3px] rounded-full overflow-hidden bg-white">
+                              <img
+                                src={member.image}
+                                alt={member.name}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              />
+                            </div>
+
+                            {/* Floating emoji badge - COMPLETE */}
+                            <div className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EF4444] flex items-center justify-center text-lg md:text-2xl shadow-lg shadow-[#F59E0B]/30 animate-bounce-slow z-10">
+                              {member.emoji}
+                            </div>
+                          </div>
+
+                          {/* Name & Role - Below circle */}
+                          <div className="text-center mt-4 min-w-[120px]">
+                            <h3 className="text-sm md:text-base font-bold text-[#0F172A]">{member.name}</h3>
+                            <p className="text-xs md:text-sm text-slate-500">{member.role}</p>
+                          </div>
+
+                          {/* Social links - Hover overlay */}
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-2xl flex gap-2 z-20">
+                            <a href="#" className="w-8 h-8 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+                              <Linkedin size={14} />
+                            </a>
+                            <a href="#" className="w-8 h-8 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+                              <Twitter size={14} />
+                            </a>
+                            <a href="#" className="w-8 h-8 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+                              <Globe size={14} />
+                            </a>
+                          </div>
                         </div>
                       </div>
-                      <p className="text-sm text-slate-600 mt-1">{member.bio}</p>
-                      <div className="mt-2 flex items-center gap-1 text-xs text-slate-400">
-                        <span>❤️</span>
-                        <span>Loves what they do</span>
-                      </div>
                     </div>
+
+                    {/* Connecting wave line between members - SMOOTH */}
+                    {!isLast && (
+                      <div className="flex-shrink-0 relative w-16 md:w-20 lg:w-24 h-32 md:h-40 lg:h-48">
+                        <svg
+                          className="w-full h-full"
+                          viewBox="0 0 80 160"
+                          preserveAspectRatio="none"
+                        >
+                          {/* Gradient wave line */}
+                          <defs>
+                            <linearGradient id={`waveGrad${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#2563EB" stopOpacity="0.4" />
+                              <stop offset="50%" stopColor="#6366F1" stopOpacity="0.7" />
+                              <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.4" />
+                            </linearGradient>
+                            <filter id={`glow${i}`}>
+                              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                              <feMerge>
+                                <feMergeNode in="coloredBlur" />
+                                <feMergeNode in="SourceGraphic" />
+                              </feMerge>
+                            </filter>
+                          </defs>
+
+                          {/* Wave path - SMOOTH CURVE */}
+                          <path
+                            d={isEven ? `
+                        M 10,40
+                        C 30,40 40,120 50,120
+                        C 60,120 70,40 80,40
+                      ` : `
+                        M 10,120
+                        C 30,120 40,40 50,40
+                        C 60,40 70,120 80,120
+                      `}
+                            stroke={`url(#waveGrad${i})`}
+                            strokeWidth="3"
+                            fill="none"
+                            strokeLinecap="round"
+                            className="wave-path"
+                            filter={`url(#glow${i})`}
+                          />
+
+                          {/* Animated dot at the end */}
+                          <circle
+                            cx="78"
+                            cy={isEven ? 40 : 120}
+                            r="5"
+                            fill="#2563EB"
+                            className="wave-dot"
+                          >
+                            <animate
+                              attributeName="r"
+                              values="4;6;4"
+                              dur="2s"
+                              repeatCount="indefinite"
+                            />
+                          </circle>
+
+                          {/* Small connecting dots along the wave */}
+                          <circle cx="20" cy={isEven ? 40 : 120} r="2.5" fill="#6366F1" opacity="0.6" />
+                          <circle cx="35" cy={isEven ? 68 : 92} r="2" fill="#6366F1" opacity="0.4" />
+                          <circle cx="50" cy={isEven ? 100 : 60} r="2" fill="#6366F1" opacity="0.4" />
+                          <circle cx="65" cy={isEven ? 68 : 92} r="2.5" fill="#6366F1" opacity="0.6" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+
+            {/* Scroll indicator - Right side */}
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-xl border border-slate-100 animate-bounce-slow z-10">
+              <MoveRight size={24} className="text-[#2563EB]" />
+            </div>
           </div>
 
-          <div className="text-center mt-10 reveal-up">
-            <p className="text-sm text-slate-400">
-              <span className="inline-flex items-center gap-1">
-                <Heart size={14} className="text-red-400 fill-red-400" />
-                Built with love in Indore
-              </span>
-            </p>
+          {/* Scroll hint with arrows */}
+          <div className="flex items-center justify-center gap-4 mt-4 text-slate-400 text-sm">
+            <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest">
+              <span className="text-[#2563EB]">←</span>
+              Scroll to explore
+              <span className="text-[#2563EB]">→</span>
+            </span>
+          </div>
+
+          {/* Bottom stats - Like the image */}
+          <div className="flex flex-wrap items-center justify-center gap-8 mt-12 pt-8 border-t border-slate-100">
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Heart size={16} className="text-red-400 fill-red-400" />
+              <span>Built with love in Indore</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Coffee size={16} className="text-amber-600" />
+              <span>200+ cups of chai weekly</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Globe size={16} className="text-[#2563EB]" />
+              <span>8 languages spoken</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Award size={16} className="text-[#F59E0B]" />
+              <span>12 industry awards</span>
+            </div>
           </div>
         </div>
       </section>
@@ -872,7 +1025,7 @@ export default function AboutUsPage() {
       <section className="py-40 px-6 md:px-12 lg:px-20 relative overflow-hidden">
         <div className="floating-orb float-orb-1 w-64 h-64 bg-[#8B5CF6] top-[-80px] left-[-80px]" />
         <div className="floating-orb float-orb-2 w-48 h-48 bg-[#06B6D4] bottom-[-60px] right-[-60px]" />
-        
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="text-5xl mb-4 reveal-up">🚀</div>
           <h2 className="font-editorial text-4xl md:text-5xl lg:text-7xl text-[#0F172A] leading-[1.1] tracking-tight">
@@ -956,7 +1109,7 @@ export default function AboutUsPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#1E1B4B] to-[#0F172A]" />
         <div className="floating-orb float-orb-1 w-96 h-96 bg-[#2563EB] top-[-150px] right-[-100px] opacity-20" />
         <div className="floating-orb float-orb-2 w-80 h-80 bg-[#8B5CF6] bottom-[-100px] left-[-100px] opacity-20" />
-        
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-6">
             <Sparkles size={16} className="text-[#2563EB]" />
@@ -980,13 +1133,7 @@ export default function AboutUsPage() {
               See Our Work ✨
             </a>
           </div>
-          <div className="mt-8 flex justify-center gap-3">
-            <span className="text-white/30 text-sm">❤️</span>
-            <span className="text-white/30 text-sm">⭐</span>
-            <span className="text-white/30 text-sm">🌟</span>
-            <span className="text-white/30 text-sm">💪</span>
-            <span className="text-white/30 text-sm">🚀</span>
-          </div>
+         
         </div>
       </section>
     </div>
