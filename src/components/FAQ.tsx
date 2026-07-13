@@ -3,12 +3,38 @@ import { ChevronDown } from 'lucide-react';
 import { ScrollTextReveal } from './ScrollTextReveal';
 
 const FAQS = [
-  { q: 'What services does NSS Agency offer?', a: 'We offer Brand Strategy, Web Development, Digital Marketing, UI/UX Design, and Analytics & Reporting — all tailored to help startups grow fast.' },
-  { q: 'How long does a typical project take?', a: 'Brand identity projects take 2–4 weeks. A full website typically takes 6–12 weeks. We share detailed timelines during our kickoff call.' },
-  { q: 'How is pricing structured at NSS Agency?', a: 'We offer two subscription plans — Starter at $2500/month and Pro at $3500/month. Both plans include dedicated designer access and regular updates.' },
-  { q: 'Do you offer ongoing support after project completion?', a: 'Yes. We offer monthly retainers for continuous design support, updates, and performance optimization.' },
-  { q: 'How often will I receive updates on my project?', a: 'Starter clients receive updates every 2 days. Pro clients receive daily updates plus priority Slack access.' },
-  { q: 'How do I get started with NSS Agency?', a: "Click \"Let's Collaborate\" anywhere on this page. We'll schedule a free 30-minute discovery call to understand your needs and recommend the best plan." },
+  {
+    q: 'How much does custom software development cost?',
+    a: 'Documented projects on our books range from $50,000 to $250,000, but scope drives everything — a focused MVP can cost far less. After a free consultation you get a fixed, itemized quote, and the price you approve is the price you pay.',
+  },
+  {
+    q: 'How fast can you place developers in my team?',
+    a: "Our seven-step vetting and sourcing process typically moves from requirement to onboarded engineer in days, not months. If a resource isn't the right fit, we replace them quickly — that's in the agreement, not a favor.",
+  },
+  {
+    q: 'Do you work with startups or only enterprises?',
+    a: 'Both, plus the consultants in between. Startups get ROI-driven scoping and transparent pricing; enterprises get compliance, security, and scale. Roughly a third of our engagements start as small pilots that grow.',
+  },
+  {
+    q: 'Can you take over a project another vendor started?',
+    a: 'Yes, and it\'s common. We start with a code and infrastructure audit, hand you an honest report, and propose a path — continue, refactor, or rebuild. You decide with full information.',
+  },
+  {
+    q: 'Who owns the code and IP?',
+    a: 'You do — 100% of everything we produce for you, with NDAs signed before any detailed discussion. No lock-in, no licensing traps.',
+  },
+  {
+    q: 'How do you handle time zones?',
+    a: 'A named account manager, overlap hours matched to your zone, and real-time project tracking. You will never wonder what happened this week.',
+  },
+  {
+    q: 'What happens after launch?',
+    a: "Every project includes a support window, and most clients continue on a maintenance plan — monitoring, updates, and improvements. Software that isn't maintained decays; ours doesn't get the chance.",
+  },
+  {
+    q: 'Where are you located?',
+    a: 'Headquarters: 308 Shagun Arcade, Vijay Nagar, Indore (M.P.), India — delivering to clients across North America, Europe, Asia, Australia, and the Middle East with 24/7 coverage.',
+  },
 ];
 
 function FaqItem({
