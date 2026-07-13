@@ -11,6 +11,12 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   useReveal();
 
   useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
     if (!location.hash) return;
     const id = location.hash.replace('#', '');
     const timer = setTimeout(() => {

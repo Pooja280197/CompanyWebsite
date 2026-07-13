@@ -51,10 +51,10 @@ export default function RetailAITeam() {
           quote="We had all this customer data but couldn't turn it into sales. We needed people who could build the models — inside our team."
           quoteAuthor="VP of Marketing"
           glanceItems={[
-          { label: 'Industry', value: 'Retail' },
-          { label: 'Solution', value: 'Staff Augmentation + AI' },
-          { label: 'Team Size', value: '5 Engineers' },
-          { label: 'Impact', value: '20% Sales Lift', highlight: true },
+                    { label: 'Industry', value: 'Retail' },
+                    { label: 'Solution', value: 'Staff Augmentation + AI' },
+                    { label: 'Team Size', value: '5 Engineers' },
+                    { label: 'Impact', value: '20% Sales Lift', highlight: true },
           ]}
       />
 

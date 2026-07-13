@@ -1,721 +1,551 @@
-// Contact.tsx - Contact Us Page
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 import {
-  ArrowRight,
-  Mail,
-  Phone,
-  MapPin,
-  Send,
   Check,
-  Clock,
-  MessageSquare,
-  Users,
-  Sparkles,
-  Shield,
-  TrendingUp,
-  Globe,
-  Building2,
-  ChevronRight,
-  Quote,
-  X,
-  Briefcase,
-  Database,
-  Server,
-  Rocket,
-  Calendar,
-  MapPin as MapPinIcon,
-  ArrowUpRight,
-  Circle,
-  Dot,
-  Plus,
-  Minus,
-  Star,
-  ChevronLeft,
-  ChevronRight as ChevronRightIcon,
-  CalendarCheck2,
-  Award,
-  Gauge,
-  BarChart3,
-  UserCheck,
-  Activity,
-  Scan,
-  Brain,
-  Ambulance,
-  Syringe,
-  Bandage,
-  Eye,
-  RefreshCw,
-  DollarSign,
   FileCheck,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Facebook,
-  Youtube,
-  Mic,
-  Video,
-  Smartphone,
-  Zap,
-  Crown,
-  Heart,
-  Footprints,
-  Dumbbell,
-  Medal,
-  Target,
-  Flag,
-  Timer,
+  MailOpen,
+  PhoneCall,
 } from 'lucide-react';
+import { FaEnvelope, FaFacebook, FaInstagram, FaLinkedin, FaPhoneAlt, FaWhatsapp, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { MdLocationOn } from 'react-icons/md';
+import { ScrollTextReveal } from './ScrollTextReveal';
 
-const injectStyles = () => {
-  const id = 'contact-premium';
-  if (document.getElementById(id)) return;
-  const style = document.createElement('style');
-  style.id = id;
-  style.textContent = `
-    .contact-premium {
-      background: #FAFBFC;
-      color: #0F172A;
-      overflow-x: hidden;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
+const NEED_OPTIONS = [
+  'Custom software',
+  'AI & Data',
+  'Cloud & DevOps',
+  'Staff augmentation',
+  'Rexo ERP demo',
+  'CleanPlan demo',
+  'Education ERP demo',
+  'Something else',
+] as const;
 
-    .font-editorial {
-      font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-    }
+const BUDGET_OPTIONS = [
+  'Under ₹5L',
+  '₹5L – ₹15L',
+  '₹15L – ₹35L',
+  '₹35L – ₹75L',
+  'Above ₹75L',
+  'Not sure yet',
+] as const;
 
-    .heading-xl {
-      font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-      font-size: clamp(48px, 7vw, 80px);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-    }
+const AFTER_STEPS = [
+  {
+    num: '01',
+    title: 'We read it',
+    text: 'A person, not an autoresponder.',
+    icon: MailOpen,
+  },
+  {
+    num: '02',
+    title: '30-minute call',
+    text: 'We understand the problem before proposing anything.',
+    icon: PhoneCall,
+  },
+  {
+    num: '03',
+    title: 'Quote or honesty',
+    text: "A fixed, itemized quote — or an honest 'here's a better way to solve this.' Sometimes that's a smaller project, sometimes a tool we don't sell.",
+    icon: FileCheck,
+  },
+] as const;
 
-    .heading-lg {
-      font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-      font-size: clamp(36px, 5vw, 56px);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
+const PHONE = '+91 88780 03344';
+const PHONE_TEL = '+918878003344';
+const EMAIL = 'info@nagarsoftwaresolution.com';
+const WHATSAPP_URL = 'https://wa.me/918878003344';
 
-    .reveal-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+const SOCIAL_LINKS = [
+  { label: 'Facebook', icon: FaFacebook, href: '#', className: 'contact-page__social--facebook' },
+  { label: 'LinkedIn', icon: FaLinkedin, href: '#', className: 'contact-page__social--linkedin' },
+  { label: 'WhatsApp', icon: FaWhatsapp, href: WHATSAPP_URL, className: 'contact-page__social--whatsapp', external: true },
+  { label: 'Instagram', icon: FaInstagram, href: '#', className: 'contact-page__social--instagram' },
+  { label: 'X', icon: FaXTwitter, href: '#', className: 'contact-page__social--x' },
+  { label: 'YouTube', icon: FaYoutube, href: '#', className: 'contact-page__social--youtube' },
+] as const;
 
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-60px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-left.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
+const OFFICE =
+  '308 Shagun Arcade, Plot No. 8, PU-4, Scheme No. 54, AB Road, Vijay Nagar, Indore (M.P.) 452010, India';
+const MAP_QUERY = encodeURIComponent(
+  '308 Shagun Arcade, Plot No. 8, PU-4, Scheme No. 54, AB Road, Vijay Nagar, Indore, Madhya Pradesh 452010, India',
+);
+const MAP_EMBED = `https://maps.google.com/maps?q=${MAP_QUERY}&hl=en&z=17&ie=UTF8&iwloc=near&output=embed`;
+const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`;
 
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(60px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-right.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
+const CONTACT_LETTER_INTERVAL = 78;
 
-    .reveal-scale {
-      opacity: 0;
-      transform: scale(0.95);
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-scale.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
+const CONTACT_TITLE_WORDS = [
+  { text: 'Tell' },
+  { text: 'us' },
+  { text: "what's" },
+  { text: 'slowing' },
+  { text: 'you' },
+  { text: 'down' },
+] as const;
 
-    .text-reveal-line {
-      overflow: hidden;
-      display: block;
-    }
-    .text-reveal-line > span {
-      display: inline-block;
-      transform: translateY(110%);
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .text-reveal-line.visible > span {
-      transform: translateY(0);
-    }
+type BrandIconType = 'location' | 'phone' | 'email';
 
-    .gradient-text {
-      background: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #06B6D4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .float-el {
-      animation: floatEl 6s ease-in-out infinite;
-      position: absolute;
-      pointer-events: none;
-    }
-    .float-el:nth-child(2) { animation-delay: 1.5s; }
-    .float-el:nth-child(3) { animation-delay: 3s; }
-
-    @keyframes floatEl {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-16px) rotate(4deg); }
-    }
-
-    .divider-gradient {
-      height: 2px;
-      background: linear-gradient(to right, transparent, rgba(37,99,235,0.1), transparent);
-      width: 80px;
-      margin: 16px 0;
-    }
-
-    .contact-card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px 24px;
-      border: 1px solid #f1f5f9;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .contact-card:hover {
-      border-color: #2563EB;
-      box-shadow: 0 8px 24px rgba(37,99,235,0.08);
-      transform: translateY(-2px);
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      background: white;
-      font-family: 'Inter', sans-serif;
-    }
-    .form-input:focus {
-      outline: none;
-      border-color: #2563EB;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-    }
-    .form-input::placeholder {
-      color: #94a3b8;
-    }
-    .form-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #0F172A;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .form-select {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      font-size: 15px;
-      transition: all 0.3s ease;
-      background: white;
-      font-family: 'Inter', sans-serif;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-    }
-    .form-select:focus {
-      outline: none;
-      border-color: #2563EB;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-    }
-    textarea.form-input {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .step-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 18px;
-      background: #EFF6FF;
-      color: #2563EB;
-      flex-shrink: 0;
-    }
-
-    .social-icon-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 1px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      color: #475569;
-      background: white;
-    }
-    .social-icon-btn:hover {
-      border-color: #2563EB;
-      color: #2563EB;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37,99,235,0.1);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .success-message {
-      animation: slideDown 0.5s ease forwards;
-    }
-  `;
-  document.head.appendChild(style);
+const BRAND_ICONS: Record<
+  BrandIconType,
+  { Icon: typeof MdLocationOn; className: string }
+> = {
+  location: { Icon: MdLocationOn, className: 'contact-page__brand-icon contact-page__brand-icon--location' },
+  phone: { Icon: FaPhoneAlt, className: 'contact-page__brand-icon contact-page__brand-icon--phone' },
+  email: { Icon: FaEnvelope, className: 'contact-page__brand-icon contact-page__brand-icon--email' },
 };
 
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const targets = el.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale, .text-reveal-line');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-    );
-    targets.forEach((t) => observer.observe(t));
-    return () => observer.disconnect();
-  }, []);
-  return ref;
+function ContactBrandIcon({ type }: { type: BrandIconType }) {
+  const { Icon, className } = BRAND_ICONS[type];
+  return (
+    <span className={className} aria-hidden="true">
+      <Icon className="h-7 w-7" />
+    </span>
+  );
+}
+
+const CONTACT_CARDS: {
+  iconType: BrandIconType;
+  title: string;
+  content: string;
+  href?: string;
+  external?: boolean;
+  isEmail?: boolean;
+}[] = [
+  {
+    iconType: 'location',
+    title: 'Our main office',
+    content: OFFICE,
+    href: MAP_LINK,
+    external: true,
+  },
+  {
+    iconType: 'phone',
+    title: 'Phone',
+    content: PHONE,
+    href: `tel:${PHONE_TEL}`,
+    external: false,
+  },
+  {
+    iconType: 'email',
+    title: 'Email',
+    content: EMAIL,
+    href: `mailto:${EMAIL}`,
+    external: false,
+    isEmail: true,
+  },
+];
+
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  need: string;
+  description: string;
+  budget: string;
+  consent: boolean;
+};
+
+const INITIAL_FORM: FormData = {
+  name: '',
+  email: '',
+  phone: '',
+  need: '',
+  description: '',
+  budget: '',
+  consent: false,
+};
+
+function FlowConnector() {
+  return (
+    <svg
+      className="contact-page__flow-connector"
+      viewBox="0 0 120 40"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 32 C40 6, 80 6, 116 32"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeDasharray="6 7"
+        strokeLinecap="round"
+        markerEnd="url(#contact-flow-arrow)"
+      />
+    </svg>
+  );
 }
 
 export default function Contact() {
-  const wrapperRef = useReveal();
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    need: '',
-    description: '',
-    budget: '',
-    consent: false,
-  });
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
 
   useEffect(() => {
-    injectStyles();
     document.title = 'Contact Us — NSS';
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    // In production, send to your backend
-    console.log('Form submitted:', formData);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value, type } = e.target;
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+      return;
     }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const needs = [
-    'Custom software',
-    'AI & Data',
-    'Cloud & DevOps',
-    'Staff augmentation',
-    'Rexo ERP demo',
-    'CleanPlan demo',
-    'Education ERP demo',
-    'Something else',
-  ];
-
-  const budgets = [
-    'Under ₹5L',
-    '₹5L – ₹15L',
-    '₹15L – ₹35L',
-    '₹35L – ₹75L',
-    'Above ₹75L',
-    'Not sure yet',
-  ];
-
-  const steps = [
-    { icon: Mail, label: 'You write to us' },
-    { icon: Users, label: '30-min call to understand' },
-    { icon: Check, label: 'Fixed quote or honest alternative' },
-  ];
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
 
   return (
-    <div className="contact-premium" ref={wrapperRef}>
-      
-      {/* ===== HERO ===== */}
-      <section className="relative min-h-[60vh] flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#F5F3FF]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-3xl" />
-          <Mail className="float-el top-[15%] right-[8%] text-[#2563EB]/10 w-20 h-20" />
-          <MessageSquare className="float-el bottom-[25%] right-[12%] text-[#7C3AED]/10 w-16 h-16" />
-          <Phone className="float-el top-[35%] left-[85%] text-[#06B6D4]/10 w-14 h-14" />
-        </div>
-
-        <div className="max-w-5xl mx-auto w-full relative z-10">
-          <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
-              <MessageSquare size={16} className="text-[#2563EB]" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Contact</span>
-            <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Let's Talk</span>
-          </div>
-
-          <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            Tell us what's
-            <br />
-            <span className="gradient-text">slowing you down</span>
+    <div className="contact-page hero-bg">
+      {/* Hero */}
+      <section className="contact-page__hero px-6 pb-6 pt-36 sm:pb-8 sm:pt-40">
+        <div className="mx-auto w-full max-w-[900px] text-center">
+          <h1
+            className="a1 w-full"
+            style={{
+              fontFamily: 'Inter,sans-serif',
+              fontWeight: 600,
+              fontSize: 'clamp(2.35rem, 5.6vw, 3.85rem)',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              color: '#1b1d1e',
+            }}
+          >
+            <ScrollTextReveal
+              tag="span"
+              align="center"
+              animate="words"
+              textColor="#1b1d1e"
+              letterInterval={CONTACT_LETTER_INTERVAL}
+              startDelay={0}
+              wordGap="0.18em"
+              style={{
+                display: 'block',
+                width: '100%',
+                maxWidth: '100%',
+                textAlign: 'center',
+              }}
+              words={[...CONTACT_TITLE_WORDS]}
+            />
           </h1>
-
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            A 30-minute call. An honest assessment. A fixed quote if we're the right fit — a straight answer if we're not. Replies within 24 business hours.
+          <p className="contact-page__lede a2 mx-auto mt-5 max-w-[42rem]">
+            A 30-minute call. An honest assessment. A fixed quote if we&apos;re the right fit — a
+            straight answer if we&apos;re not. Replies within 24 business hours.
           </p>
-
-          <div className="grid grid-cols-3 gap-3 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-            {steps.map((step, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100">
-                <div className="w-8 h-8 rounded-full bg-[#EFF6FF] flex items-center justify-center flex-shrink-0">
-                  <step.icon size={14} className="text-[#2563EB]" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold text-[#2563EB]">Step {i + 1}</div>
-                  <div className="text-xs font-medium text-slate-700">{step.label}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* ===== FORM + CONTACT INFO ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12">
-            {/* Form - 3 columns */}
-            <div className="lg:col-span-3">
-              <div className="mb-8 reveal-up">
-                <h2 className="heading-lg text-[#0F172A]">
-                  Let's start a <span className="gradient-text">conversation</span>
-                </h2>
-                <p className="text-slate-500 mt-2">Fill in the details and we'll get back to you within 24 business hours.</p>
-              </div>
+      {/* Cards + gradient form section */}
+      <section className="contact-page__body relative">
+        <div className="contact-page__cards px-4 sm:px-6">
+          <div className="contact-page__cards-grid sr sr-d2">
+            {CONTACT_CARDS.map((card) => {
+              const { iconType, title, content, href, external } = card;
+              const isEmail = Boolean(card.isEmail);
+              const inner = (
+                <>
+                  <ContactBrandIcon type={iconType} />
+                  <h2 className="contact-page__card-title">{title}</h2>
+                  {isEmail && href ? (
+                    <a href={href} className="contact-page__card-email">
+                      {content}
+                    </a>
+                  ) : (
+                    <p className="contact-page__card-text">{content}</p>
+                  )}
+                </>
+              );
 
-              {formSubmitted ? (
-                <div className="success-message p-8 rounded-2xl bg-[#ECFDF5] border border-[#059669]/20">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#059669]/20 flex items-center justify-center flex-shrink-0">
-                      <Check size={24} className="text-[#059669]" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-[#0F172A]">Got it.</h3>
-                      <p className="text-slate-600 mt-2 leading-relaxed">
-                        A real person reads this — expect a reply within 24 business hours.
-                      </p>
-                      <p className="text-slate-600 mt-2 text-sm">
-                        If it's urgent, call <a href="tel:+918878003344" className="font-semibold text-[#059669] hover:underline">+91 88780 03344</a>.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label className="form-label">Full Name *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="form-input"
-                      placeholder="Your full name"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="form-label">Work Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="form-input"
-                      placeholder="you@company.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="form-label">Phone (Optional)</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="+91 98765 43210"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="form-label">What do you need? *</label>
-                    <select
-                      name="need"
-                      value={formData.need}
-                      onChange={handleChange}
-                      required
-                      className="form-select"
-                    >
-                      <option value="">Select an option</option>
-                      {needs.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="form-label">Tell us about it *</label>
-                    <textarea
-                      name="description"
-                      value={formData.description}
-                      onChange={handleChange}
-                      required
-                      className="form-input"
-                      placeholder="What's the challenge? What are you trying to achieve? The more detail, the better we can help."
-                    />
-                  </div>
-
-                  <div>
-                    <label className="form-label">Budget Range (Optional)</label>
-                    <select
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      className="form-select"
-                    >
-                      <option value="">Select a range</option>
-                      {budgets.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                    <p className="text-xs text-slate-400 mt-1">Filters expectations kindly — helps us scope appropriately.</p>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <input
-                      type="checkbox"
-                      name="consent"
-                      checked={formData.consent}
-                      onChange={handleChange}
-                      required
-                      className="mt-1 w-4 h-4 rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB]"
-                    />
-                    <label className="text-sm text-slate-500">
-                      I consent to NSS storing my information to respond to my inquiry. 
-                      <span className="text-[#DC2626]">*</span>
-                    </label>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+              if (href) {
+                return (
+                  <a
+                    key={title}
+                    href={href}
+                    className="contact-page__card"
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
-                    Send Message
-                    <Send size={18} />
-                  </button>
-
-                  <p className="text-xs text-slate-400 text-center">
-                    * Required fields. We'll never share your information.
-                  </p>
-                </form>
-              )}
-            </div>
-
-            {/* Contact Info - 2 columns */}
-            <div className="lg:col-span-2 space-y-6">
-              <div className="reveal-up">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4">Reach us directly</h3>
-                
-                <div className="space-y-3">
-                  <a href="tel:+918878003344" className="contact-card hover:border-[#059669]">
-                    <Phone size={20} className="text-[#059669]" />
-                    <div>
-                      <div className="text-xs text-slate-400">Phone</div>
-                      <div className="font-semibold text-[#0F172A]">+91 88780 03344</div>
-                    </div>
+                    {inner}
                   </a>
+                );
+              }
 
-                  <a href="mailto:info@nagarsoftwaresolution.com" className="contact-card hover:border-[#2563EB]">
-                    <Mail size={20} className="text-[#2563EB]" />
-                    <div>
-                      <div className="text-xs text-slate-400">Email</div>
-                      <div className="font-semibold text-[#0F172A]">info@nagarsoftwaresolution.com</div>
+              return (
+                <article key={title} className="contact-page__card">
+                  {inner}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="contact-page__gradient">
+          <div className="contact-page__gradient-inner mx-auto max-w-[1180px] px-4 sm:px-6">
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+              {/* Form */}
+              <div className="contact-page__form-wrap sr sr-d3">
+                {submitted ? (
+                  <div className="contact-page__success">
+                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-white/15">
+                      <Check className="h-7 w-7 text-white" aria-hidden="true" />
                     </div>
-                  </a>
+                    <h2 className="text-2xl font-semibold text-white">Got it.</h2>
+                    <p className="mt-4 text-sm leading-relaxed text-white/85 sm:text-base">
+                      A real person reads this — expect a reply within 24 business hours. If
+                      it&apos;s urgent, call{' '}
+                      <a
+                        href={`tel:${PHONE_TEL}`}
+                        className="font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"
+                      >
+                        {PHONE}
+                      </a>
+                      .
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="contact-page__form">
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div className="contact-page__field sm:col-span-2 sm:grid sm:grid-cols-2 sm:gap-6">
+                        <div>
+                          <label htmlFor="contact-name" className="contact-page__field-label">
+                            Name <span className="text-white">*</span>
+                          </label>
+                          <input
+                            id="contact-name"
+                            name="name"
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="contact-page__field-input"
+                            placeholder="Your full name"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="contact-email" className="contact-page__field-label">
+                            Work email <span className="text-white">*</span>
+                          </label>
+                          <input
+                            id="contact-email"
+                            name="email"
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="contact-page__field-input"
+                            placeholder="you@company.com"
+                          />
+                        </div>
+                      </div>
 
-                  <a href="#" className="contact-card hover:border-[#25D366]">
-                    <MessageSquare size={20} className="text-[#25D366]" />
-                    <div>
-                      <div className="text-xs text-slate-400">WhatsApp</div>
-                      <div className="font-semibold text-[#0F172A]">Click to chat</div>
-                    </div>
-                  </a>
+                      <div className="contact-page__field">
+                        <label htmlFor="contact-phone" className="contact-page__field-label">
+                          Phone <span className="text-white/80">(optional)</span>
+                        </label>
+                        <input
+                          id="contact-phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="contact-page__field-input"
+                          placeholder="+91 98765 43210"
+                        />
+                      </div>
 
-                  <div className="contact-card hover:border-[#7C3AED]">
-                    <MapPinIcon size={20} className="text-[#7C3AED]" />
-                    <div>
-                      <div className="text-xs text-slate-400">Office</div>
-                      <div className="font-semibold text-[#0F172A] text-sm">
-                        308 Shagun Arcade, Plot No. 8, PU-4,<br />
-                        Scheme No. 54, AB Road, Vijay Nagar,<br />
-                        Indore (M.P.) 452010, India
+                      <div className="contact-page__field">
+                        <label htmlFor="contact-need" className="contact-page__field-label">
+                          What do you need? <span className="text-white">*</span>
+                        </label>
+                        <select
+                          id="contact-need"
+                          name="need"
+                          required
+                          value={formData.need}
+                          onChange={handleChange}
+                          className="contact-page__field-input contact-page__field-select"
+                        >
+                          <option value="">Select an option</option>
+                          {NEED_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="contact-page__field sm:col-span-2">
+                        <label htmlFor="contact-description" className="contact-page__field-label">
+                          Tell us about it <span className="text-white">*</span>
+                        </label>
+                        <textarea
+                          id="contact-description"
+                          name="description"
+                          required
+                          rows={4}
+                          value={formData.description}
+                          onChange={handleChange}
+                          className="contact-page__field-input contact-page__field-textarea"
+                          placeholder="What's the challenge? What are you trying to achieve?"
+                        />
+                      </div>
+
+                      <div className="contact-page__field sm:col-span-2">
+                        <label htmlFor="contact-budget" className="contact-page__field-label">
+                          Budget range <span className="text-white/80">(optional)</span>
+                        </label>
+                        <select
+                          id="contact-budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleChange}
+                          className="contact-page__field-input contact-page__field-select"
+                        >
+                          <option value="">Select a range</option>
+                          {BUDGET_OPTIONS.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
-                  </div>
-                </div>
+
+                    <label className="contact-page__consent mt-6 flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        name="consent"
+                        required
+                        checked={formData.consent}
+                        onChange={handleChange}
+                        className="contact-page__checkbox mt-0.5"
+                      />
+                      <span className="contact-page__consent-text">
+                        I consent to NSS storing my information to respond to my inquiry.{' '}
+                        <span className="text-white">*</span>
+                      </span>
+                    </label>
+
+                    <button type="submit" className="contact-page__submit mt-8">
+                      Send message
+                    </button>
+                  </form>
+                )}
               </div>
 
-              {/* Social Links */}
-              <div className="reveal-up" style={{ transitionDelay: '100ms' }}>
-                <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 mb-3">Follow us</h4>
-                <div className="flex gap-2">
-                  {[
-                    { icon: Linkedin, label: 'LinkedIn' },
-                    { icon: Twitter, label: 'X' },
-                    { icon: Instagram, label: 'Instagram' },
-                    { icon: Facebook, label: 'Facebook' },
-                    { icon: Youtube, label: 'YouTube' },
-                  ].map((social, i) => (
-                    <a key={i} href="#" className="social-icon-btn" aria-label={social.label}>
-                      <social.icon size={18} />
-                    </a>
-                  ))}
-                </div>
-              </div>
+              {/* Reach us / get in touch */}
+              <aside className="contact-page__aside sr sr-d4 flex flex-col">
+                <h2 className="contact-page__aside-title">Reach us directly</h2>
+                <p className="contact-page__aside-lead">
+                  A 30-minute call. An honest assessment. A fixed quote if we&apos;re the right fit
+                  — a straight answer if we&apos;re not.
+                </p>
+                <p className="contact-page__aside-text">
+                  Replies within 24 business hours. Visit our Indore office or drop us a line —
+                  we&apos;d rather understand your problem than send a brochure.
+                </p>
 
-              {/* Map */}
-              <div className="reveal-up" style={{ transitionDelay: '150ms' }}>
-                <div className="rounded-2xl overflow-hidden border border-slate-200 h-[200px] bg-slate-100 flex items-center justify-center">
-                  <div className="text-center text-slate-400">
-                    <MapPinIcon size={32} className="mx-auto mb-2 text-[#2563EB]" />
-                    <p className="text-sm">Google Map</p>
-                    <p className="text-xs">308 Shagun Arcade, Indore</p>
-                    <p className="text-xs text-slate-300 mt-2">(Embedded map placeholder)</p>
+                <div className="contact-page__map mt-8 overflow-hidden rounded-2xl border border-white/25 shadow-lg">
+                  <iframe
+                    title="NSS office location on Google Maps"
+                    src={MAP_EMBED}
+                    className="h-[220px] w-full border-0 sm:h-[250px]"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </div>
+                <a
+                  href={MAP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-page__map-link mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:text-white/90"
+                >
+                  Open in Google Maps
+                </a>
+
+                <div className="mt-auto pt-10">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">
+                    Follow us
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {SOCIAL_LINKS.map((link) => {
+                      const Icon = link.icon;
+                      return (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          className={`contact-page__social ${link.className}`}
+                          aria-label={link.label}
+                          {...('external' in link && link.external
+                            ? { target: '_blank', rel: 'noopener noreferrer' }
+                            : {})}
+                        >
+                          <Icon className="h-5 w-5" aria-hidden="true" />
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
-              </div>
+              </aside>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== WHAT HAPPENS AFTER ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-              <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
-              The Process
-            </span>
-            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-              What happens <span className="gradient-text">after you write</span>
+      {/* What happens after */}
+      <section className="contact-page__process px-6 py-16 sm:py-20" aria-labelledby="contact-process-heading">
+        <div className="mx-auto w-full max-w-[1280px]">
+          <div className="contact-page__process-header sr">
+            <h2
+              id="contact-process-heading"
+              className="contact-page__process-title"
+            >
+              What happens after you write
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                number: '01',
-                icon: Mail,
-                title: 'We read it',
-                description: 'A person, not an autoresponder. We take the time to understand what you\'re telling us.'
-              },
-              {
-                number: '02',
-                icon: Users,
-                title: '30-minute call',
-                description: 'We talk about the problem before proposing anything — no assumptions.'
-              },
-              {
-                number: '03',
-                icon: Check,
-                title: 'Quote or honesty',
-                description: 'A fixed, itemized quote — or an honest \'here\'s a better way\' that might not involve us.'
-              }
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="bg-white p-8 rounded-2xl border border-slate-100 text-center hover:border-[#2563EB]/20 hover:shadow-lg transition-all duration-300"
-                style={{
-                  opacity: 0,
-                  animation: `fadeUp 0.6s ease ${i * 0.1 + 0.2}s forwards`,
-                }}
+          <svg className="contact-page__flow-defs" aria-hidden="true">
+            <defs>
+              <marker
+                id="contact-flow-arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6.5"
+                refY="4"
+                orient="auto"
               >
-                <div className="w-14 h-14 rounded-full bg-[#EFF6FF] flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-bold text-[#2563EB]">{item.number}</span>
-                </div>
-                <div className="w-12 h-12 rounded-full bg-[#F0F9FF] flex items-center justify-center mx-auto mb-4">
-                  <item.icon size={20} className="text-[#2563EB]" />
-                </div>
-                <h4 className="font-bold text-[#0F172A]">{item.title}</h4>
-                <p className="text-sm text-slate-500 mt-2 leading-relaxed">{item.description}</p>
-              </div>
-            ))}
+                <path d="M0,0 L8,4 L0,8 Z" fill="#cbd5e1" />
+              </marker>
+            </defs>
+          </svg>
+
+          <div className="contact-page__flow-track">
+            {AFTER_STEPS.flatMap((item, index) => {
+              const Icon = item.icon;
+              const step = (
+                <article
+                  key={item.num}
+                  className={`contact-page__flow-step sr sr-d${index + 1}`}
+                >
+                  <div className="contact-page__flow-icon" aria-hidden="true">
+                    <Icon size={28} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="contact-page__flow-title">{item.title}</h3>
+                  <p className="contact-page__flow-text">{item.text}</p>
+                </article>
+              );
+
+              if (index === 0) return [step];
+              return [<FlowConnector key={`flow-connector-${index}`} />, step];
+            })}
           </div>
 
-          <div className="mt-8 p-6 rounded-2xl bg-[#F5F3FF] border border-[#7C3AED]/10 text-center reveal-up">
-            <p className="text-sm text-slate-600">
-              <span className="font-semibold text-[#7C3AED]">Both answers are free.</span> We don't charge for discovery — and we don't sell you something you don't need.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CTA - Return to top? ===== */}
-      <section className="py-16 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-slate-400 text-sm">Ready to start?</p>
-          <a href="#" className="inline-flex items-center gap-2 mt-3 text-white font-semibold hover:text-[#2563EB] transition-colors group">
-            Back to top
-            <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
         </div>
       </section>
     </div>
