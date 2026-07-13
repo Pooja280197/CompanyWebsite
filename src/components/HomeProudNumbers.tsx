@@ -89,7 +89,7 @@ export default function HomeProudNumbers() {
             return (
               <article
                 key={item.title}
-                className={`home-proud__card group sr sr-d${index + 1} flex flex-col rounded-3xl border border-[#ececec] bg-white p-6 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.16)] sm:p-7`}
+                className={`home-proud__card group sr sr-d${index + 1} flex flex-col rounded-3xl border border-[#ececec] bg-white p-5 shadow-[0_16px_40px_-12px_rgba(15,23,42,0.22)] sm:p-6`}
                 style={
                   {
                     '--proud-accent': item.accent,
@@ -97,26 +97,26 @@ export default function HomeProudNumbers() {
                   } as CSSProperties
                 }
               >
-                <div className="mb-5 flex items-start justify-between gap-4">
+                <div className="mb-4 flex items-start justify-between gap-4">
                   <div
-                    className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5f5f5] text-[#111] transition-colors duration-300 group-hover:bg-[#111] group-hover:text-white"
+                    className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f5f5f5] text-black transition-colors duration-300 group-hover:bg-[#111] group-hover:text-white"
                     aria-hidden="true"
                   >
-                    <Icon size={22} strokeWidth={1.75} />
+                    <Icon size={20} strokeWidth={1.75} />
                   </div>
                   <span
-                    className="pt-1 text-[0.9rem] font-semibold tracking-tight"
+                    className="pt-0.5 text-[0.9rem] font-semibold tracking-tight"
                     style={{ color: item.accent }}
                   >
                     {item.mark}
                   </span>
                 </div>
 
-                <h3 className="text-[clamp(1.05rem,1.4vw,1.25rem)] font-semibold leading-snug text-[#111]">
+                <h3 className="text-[clamp(1.05rem,1.4vw,1.2rem)] font-semibold leading-snug text-[#111]">
                   {item.title}
                 </h3>
 
-                <p className="mt-2.5 text-[0.92rem] leading-[1.6] text-[#777]">
+                <p className="mt-2 text-[0.9rem] leading-[1.55] text-[#777]">
                   {item.text}
                 </p>
               </article>

@@ -79,43 +79,33 @@ export default function HomeOutcomes() {
             return (
               <article
                 key={item.href}
-                className={`home-outcomes__card group sr sr-d${index + 1} flex min-h-[26rem] flex-col rounded-3xl border border-slate-100 bg-white px-7 pb-7 pt-8 shadow-[0_14px_36px_-14px_rgba(15,23,42,0.22)] transition-all duration-350 ease-out hover:-translate-y-2`}
+                className={`home-outcomes__card group sr sr-d${index + 1} flex min-h-[22rem] flex-col rounded-3xl border border-slate-100 bg-white px-6 pb-6 pt-6 shadow-[0_18px_44px_-14px_rgba(15,23,42,0.28)] transition-all duration-350 ease-out hover:-translate-y-2`}
                 style={{ '--out-accent': item.accent, '--out-soft': item.soft } as CSSProperties}
               >
                 <div className="flex flex-1 flex-col items-center text-center">
                   <span
-                    className="relative inline-flex h-[7.5rem] w-[7.5rem] items-center justify-center"
+                    className="relative inline-flex h-[5.75rem] w-[5.75rem] items-center justify-center"
                     aria-hidden="true"
                   >
-                    <span
-                      className="absolute inset-3 rounded-full opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ background: item.soft }}
-                    />
-                    <span
-                      className="absolute right-2 top-3 h-3 w-3 rounded-full"
-                      style={{ background: item.accent }}
-                    />
-                    <span
-                      className="absolute bottom-4 left-3 h-2 w-2 rounded-full"
-                      style={{ background: item.accent, opacity: 0.55 }}
-                    />
+                    <span className="absolute inset-3 rounded-full bg-[#f3f4f6]" />
+                    <span className="absolute right-2 top-2.5 h-2.5 w-2.5 rounded-full bg-slate-300" />
+                    <span className="absolute bottom-3 left-2.5 h-1.5 w-1.5 rounded-full bg-slate-400/70" />
                     <Icon
-                      size={58}
-                      strokeWidth={1.35}
-                      className="relative z-[1]"
-                      style={{ color: '#1e293b' }}
+                      size={44}
+                      strokeWidth={1.45}
+                      className="relative z-[1] text-black"
                     />
                   </span>
 
-                  <h3 className="mt-7 text-[1.35rem] font-bold leading-tight tracking-tight text-slate-900 sm:text-[1.45rem]">
+                  <h3 className="mt-5 text-[1.25rem] font-bold leading-tight tracking-tight text-slate-900 sm:text-[1.35rem]">
                     {item.title}
                   </h3>
 
-                  <p className="mt-3 max-w-[16.5rem] text-[0.9rem] leading-relaxed text-slate-500">
+                  <p className="mt-2.5 max-w-[16.5rem] text-[0.88rem] leading-relaxed text-slate-500">
                     {item.text}
                   </p>
 
-                  <div className="mt-auto flex w-full justify-center pt-6">
+                  <div className="mt-auto flex w-full justify-center pt-5">
                     <Link
                       to={item.href}
                       className="inline-flex h-11 min-w-[7.5rem] items-center justify-center rounded-full px-6 text-[0.84rem] font-semibold leading-none text-white shadow-sm transition-all duration-300 group-hover:shadow-md"
