@@ -18,11 +18,11 @@ import {
  
   LineChart,
   Activity,
-
+ 
   ChevronRight,
 
   FileText,
-
+  
   Quote,
  
   Server,
@@ -67,10 +67,10 @@ export default function DataPipeline() {
           quote="Our data was everywhere and nowhere. We needed one source of truth that everyone could trust."
           quoteAuthor="Head of Data Strategy"
           glanceItems={[
-          { label: 'Industry', value: 'Data-Driven Enterprise' },
-          { label: 'Technology', value: 'ETL · Data Warehousing' },
-          { label: 'Duration', value: '~4 months' },
-          { label: 'Impact', value: '3x Faster Reporting', highlight: true },
+                    { label: 'Industry', value: 'Data-Driven Enterprise' },
+                    { label: 'Technology', value: 'ETL · Data Warehousing' },
+                    { label: 'Duration', value: '~4 months' },
+                    { label: 'Impact', value: '3x Faster Reporting', highlight: true },
           ]}
       />
 

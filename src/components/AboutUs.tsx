@@ -55,6 +55,67 @@ import {
   Music,
   Camera,
 } from 'lucide-react';
+import { ScrollTextReveal } from './ScrollTextReveal';
+
+const LETTER_INTERVAL = 78;
+
+const HERO_WORDS = [
+  { text: 'The' },
+  { text: 'company' },
+  { text: 'behind' },
+  { text: 'the' },
+  { text: 'numbers' },
+] as const;
+
+const HERO_STATS = [
+  { value: 500, suffix: '+', label: 'Projects' },
+  { value: 95, suffix: '%', label: 'Retention' },
+  { value: 15, suffix: '+', label: 'Countries' },
+] as const;
+
+function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3;
+}
+
+function StatCounter({ value, startDelay = 0 }: { value: number; startDelay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const ran = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || ran.current) return;
+        ran.current = true;
+        const duration = 2200;
+
+        const run = () => {
+          const start = performance.now();
+          const tick = (now: number) => {
+            const progress = Math.min(1, (now - start) / duration);
+            el.textContent = String(Math.round(value * easeOutCubic(progress)));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        };
+
+        window.setTimeout(run, startDelay);
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [value, startDelay]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      0
+    </span>
+  );
+}
 
 const injectStyles = () => {
   const id = 'about-us-premium-enhanced';
@@ -602,56 +663,53 @@ export default function AboutUsPage() {
   }, []);
 
   return (
-    <div className="about-premium" ref={wrapperRef}>
+    <>
+      <div className="about-page hero-bg">
+        {/* Hero */}
+        <section className="about-page__hero px-6 pb-12 pt-36 sm:pb-16 sm:pt-40">
+          <div className="mx-auto w-full max-w-[920px] text-center">
+            {/* <p className="about-page__eyebrow sr">About NSS</p> */}
 
-      {/* ===== HERO - Enhanced ===== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        {/* Floating Orbs */}
-        <div className="floating-orb float-orb-1 w-96 h-96 bg-[#2563EB] top-[-100px] right-[-100px]" />
-        <div className="floating-orb float-orb-2 w-80 h-80 bg-[#6366F1] bottom-[-80px] left-[-80px]" />
+            <h1 className="about-page__title font-editorial a1">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="words"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                  lineHeight: 1.08,
+                  letterSpacing: '0.02em',
+                }}
+                words={[...HERO_WORDS]}
+              />
+            </h1>
 
-        <div className="max-w-5xl mx-auto w-full relative z-10">
-          <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="relative w-2.5 h-2.5 rounded-full bg-[#2563EB] pulse-ring" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">About Us</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">·</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]/60 celebrate-badge px-3 py-1 rounded-full">
-              ✨ Celebrating 8 Years
-            </span>
+            <p className="about-page__lede sr sr-d1 mx-auto mt-6 max-w-[44rem]">
+              500+ projects. 95% retention. 15+ countries. Here&apos;s how a team from Indore got
+              there — and the principles that keep clients for years, not quarters.
+            </p>
+
+            <div className="about-page__hero-stats sr sr-d2">
+              {HERO_STATS.map((stat, index) => (
+                <div key={stat.label} className="about-page__hero-stat">
+                  <p className="about-page__hero-stat-value">
+                    <StatCounter value={stat.value} startDelay={index * 200} />
+                    <span>{stat.suffix}</span>
+                  </p>
+                  <p className="about-page__hero-stat-label">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
+        </section>
+      </div>
 
-          <h1 className="font-editorial text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#0F172A] leading-[1.05] tracking-tight reveal-up" style={{ transitionDelay: '100ms' }}>
-            The company
-            <br />
-            <span className="gradient-text">behind the magic</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-500 max-w-xl mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
-            500+ projects. 95% retention. 15+ countries. And a team that actually enjoys working together.
-          </p>
-
-          <div className="flex flex-wrap gap-12 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-            <CounterStat value={500} suffix="+" label="Projects" icon={Briefcase} />
-            <CounterStat value={95} suffix="%" label="Retention" icon={Heart} />
-            <CounterStat value={15} suffix="+" label="Countries" icon={Globe} />
-          </div>
-
-          <div className="flex flex-wrap gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#2563EB] to-[#6366F1] text-white font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300">
-              Work With Us
-              <ArrowRight size={18} />
-            </a>
-            <a href="#story" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
-              Learn More
-            </a>
-          </div>
-
-          <div className="mt-16 flex items-center gap-3 text-slate-400 reveal-up" style={{ transitionDelay: '500ms' }}>
-            <div className="w-px h-10 bg-gradient-to-b from-slate-300 to-transparent" />
-            <span className="text-xs uppercase tracking-widest font-medium animate-bounce">↓ Scroll to explore</span>
-          </div>
-        </div>
-      </section>
+      <div className="about-premium" ref={wrapperRef}>
 
       <div className="divider-light max-w-5xl mx-auto" />
 
@@ -1136,6 +1194,7 @@ export default function AboutUsPage() {
          
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

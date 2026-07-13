@@ -73,10 +73,10 @@ export default function DiamondAI() {
                 quote="We needed software that could see what our experts see — and do it consistently, every time."
                 quoteAuthor="Head of Operations"
                 glanceItems={[
-                { label: 'Industry', value: 'Retail & E-Commerce' },
-                { label: 'Technology', value: 'AI · Machine Learning' },
-                { label: 'Duration', value: '~4 months' },
-                { label: 'Impact', value: '80% Accuracy', highlight: true },
+                                        { label: 'Industry', value: 'Retail & E-Commerce' },
+                                        { label: 'Technology', value: 'AI · Machine Learning' },
+                                        { label: 'Duration', value: '~4 months' },
+                                        { label: 'Impact', value: '80% Accuracy', highlight: true },
                 ]}
             />
 

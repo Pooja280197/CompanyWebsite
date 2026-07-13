@@ -16,7 +16,7 @@ const services: Array<{
     title: 'Product Engineering',
     description:
       'Custom software, web platforms, and mobile apps built for the moment after launch — when real users, real load, and real edge cases show up. From the first architecture decision to version 4.0.',
-    href: '/product-engineering',
+    href: '/whatWeDo/productEngineering',
     bg: '#ede9fe',
     accent: '#7c3aed',
   },
@@ -25,7 +25,7 @@ const services: Array<{
     title: 'AI & Data',
     description:
       'Machine learning, generative AI, and the data engineering that makes both trustworthy. Built for production from day one: governance, MLOps, and data readiness included, not improvised later.',
-    href: '/ai-data',
+    href: '/whatWeDo/ai-and-data',
     bg: '#dbeafe',
     accent: '#2563eb',
   },
@@ -34,7 +34,7 @@ const services: Array<{
     title: 'Cloud & DevOps',
     description:
       'Migration without downtime, architecture that scales on demand, and CI/CD pipelines that turn releases from events into routine. One client runs at 99.99% uptime on a cloud bill 35% smaller than before.',
-    href: '/cloud-devops',
+    href: '/whatWeDo/cloud-and-devops',
     bg: '#ffedd5',
     accent: '#ea580c',
   },
@@ -43,7 +43,7 @@ const services: Array<{
     title: 'Team Extension',
     description:
       'Vetted engineers embedded in your team, working your hours, under your direction — onboarded in days through a seven-step vetting process. Scale up for a sprint or down after a release.',
-    href: '/staff-augmentation',
+    href: '/whatWeDo/staffAugmentation',
     bg: '#dcfce7',
     accent: '#16a34a',
   },
@@ -81,9 +81,8 @@ export default function Services() {
           {services.map((s, i) => {
             const Icon = s.icon;
             return (
-              <Link
+              <article
                 key={s.title}
-                to={s.href}
                 className={`service-hover-card sr sr-d${i + 1}`}
                 style={
                   {
@@ -101,8 +100,14 @@ export default function Services() {
                     <p className="service-hover-card__desc">{s.description}</p>
                   </div>
                 </div>
-                <span className="service-hover-card__btn">Read More</span>
-              </Link>
+                <Link
+                  to={s.href}
+                  className="service-hover-card__btn"
+                  aria-label={`Read more about ${s.title}`}
+                >
+                  Read More
+                </Link>
+              </article>
             );
           })}
         </div>
@@ -130,7 +135,7 @@ export default function Services() {
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" strokeWidth="1.5" strokeLinecap="round" /></svg>
               </span>
             </a>
-            <a
+            {/* <a
               href="#work"
               className="flex items-center gap-2.5 border border-white/30 text-white font-semibold text-sm px-6 py-3 rounded-full hover:border-white/60 transition-colors"
               style={{ fontFamily: 'Inter, sans-serif' }}
@@ -139,7 +144,7 @@ export default function Services() {
               <span className="w-7 h-7 border border-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" strokeWidth="1.5" strokeLinecap="round" /></svg>
               </span>
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

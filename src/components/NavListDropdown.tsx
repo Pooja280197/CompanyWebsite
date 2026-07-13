@@ -82,12 +82,7 @@ export function NavListDropdown({
                     }`}
                     style={{ transitionDelay: open ? `${index * 28 + 100}ms` : '0ms' }}
                   >
-                    <span className="block font-medium text-[0.9rem] leading-snug">{item.label}</span>
-                    {item.description && (
-                      <span className="mt-0.5 block text-[0.72rem] leading-snug text-[#6b7280] font-sans font-normal">
-                        {item.description}
-                      </span>
-                    )}
+                    {item.label}
                   </Link>
                 );
               })}

@@ -390,7 +390,7 @@ export default function IndustryHealthcare() {
             <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
               Explore Solutions
             </a>
-          </div>
+              </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
             {[
@@ -417,7 +417,7 @@ export default function IndustryHealthcare() {
               <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
                 <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
                 The Challenge
-              </span>
+                </span>
               <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
                 The fragmentation tax in care delivery
               </h2>
@@ -466,7 +466,7 @@ export default function IndustryHealthcare() {
                 <Sparkles size={18} className="text-[#2563EB]" />
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Solutions</span>
-            </div>
+        </div>
             
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
@@ -526,7 +526,7 @@ export default function IndustryHealthcare() {
                   {/* Accent Line */}
                   <div 
                     className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
-                    style={{ background: service.color }} 
+                    style={{ background: service.color }}
                   />
 
                   {/* Learn More Link */}
@@ -576,8 +576,8 @@ export default function IndustryHealthcare() {
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
-            </div>
-
+        </div>
+        
             <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
               <div className="p-6 rounded-2xl bg-[#EFF6FF] border border-[#2563EB]/10 relative">
                 <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#2563EB] flex items-center justify-center">
@@ -589,12 +589,12 @@ export default function IndustryHealthcare() {
                 <div className="mt-4 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-sm font-bold">
                     CM
-                  </div>
+              </div>
                   <div>
                     <div className="text-sm font-semibold text-[#0F172A]">Chief Medical Officer</div>
                     <div className="text-xs text-slate-500">Healthcare Provider</div>
-                  </div>
-                </div>
+          </div>
+        </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2">
@@ -624,7 +624,7 @@ export default function IndustryHealthcare() {
             </span>
             <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
               Common questions, straight answers
-            </h2>
+          </h2>
           </div>
 
           <div className="space-y-3">
@@ -642,10 +642,10 @@ export default function IndustryHealthcare() {
                 a: 'Both, plus diagnostics, telehealth startups, and health-data companies — the discipline scales in both directions.'
               }
             ].map((faq, i) => (
-              <div
-                key={i}
+                <div
+                  key={i}
                 className="border border-slate-100 rounded-xl bg-white p-5 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
-                style={{
+                  style={{
                   opacity: 0,
                   animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
                 }}
@@ -653,7 +653,7 @@ export default function IndustryHealthcare() {
                 <div className="flex items-start gap-3">
                   <div className="w-6 h-6 rounded-full bg-[#2563EB]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-[10px] font-bold text-[#2563EB]">Q</span>
-                  </div>
+                    </div>
                   <div>
                     <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
                     <p className="text-sm text-slate-500 mt-1 leading-relaxed">{faq.a}</p>

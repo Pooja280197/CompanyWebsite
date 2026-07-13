@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SiteLayout from './layouts/SiteLayout';
 import HomePage from './pages/HomePage';
 import {
@@ -72,9 +72,15 @@ export default function App() {
           <Route path="/whatWeDo/ai-and-data" element={<AIandData />} />
           <Route path="/whatWeDo/productEngineering" element={<ProductEngineering />} />
 
+          <Route path="/product-engineering" element={<Navigate to="/whatWeDo/productEngineering" replace />} />
+          <Route path="/ai-data" element={<Navigate to="/whatWeDo/ai-and-data" replace />} />
+          <Route path="/cloud-devops" element={<Navigate to="/whatWeDo/cloud-and-devops" replace />} />
+          <Route path="/staff-augmentation" element={<Navigate to="/whatWeDo/staffAugmentation" replace />} />
+
           <Route path="/product/rexo-erp" element={<RexoERP />} />
           <Route path="/product/cleanplan" element={<CleanPlan />} />
           <Route path="/product/education-erp" element={<EducationERP />} />
+          <Route path="/cleanplan" element={<Navigate to="/product/cleanplan" replace />} />
           <Route path="/our-products" element={<OurProducts />} />
 
           <Route path="/our-work" element={<OurWorkHub />} />

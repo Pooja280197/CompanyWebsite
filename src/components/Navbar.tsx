@@ -12,9 +12,11 @@ import { PRODUCT_NAV_ITEMS, isProductsNavActive } from '../data/navProducts';
 
 import { CASE_STUDY_NAV_ITEMS, isCaseStudiesNavActive } from '../data/navCaseStudies';
 
+import { COMPANY_NAV_ITEMS, isCompanyNavActive } from '../data/navCompany';
 
 
-type DropdownKey = 'services' | 'products' | 'case-studies';
+
+type DropdownKey = 'services' | 'products' | 'case-studies' | 'company';
 
 
 
@@ -30,17 +32,15 @@ const NAV_LINKS: {
 
   { label: 'Home', href: '/' },
 
-  { label: 'About us', href: '/#about' },
-
   { label: 'What We Do', href: '/#WhatWeDo', dropdown: 'services' },
 
   { label: 'Products', href: '/our-products', dropdown: 'products' },
 
   { label: 'Case Studies', href: '/#case-studies', dropdown: 'case-studies' },
 
-  { label: 'Industries', href: '/#industries' },
+  { label: 'Company', href: '/aboutus', dropdown: 'company' },
 
-  { label: 'Blog', href: '/#blog' },
+  { label: 'Contact Us', href: '/contactUs' },
 
 ];
 
@@ -53,6 +53,8 @@ const DROPDOWN_MENU_IDS: Record<DropdownKey, string> = {
   products: 'products-mega-menu',
 
   'case-studies': 'case-studies-mega-menu',
+
+  company: 'company-mega-menu',
 
 };
 
@@ -91,6 +93,10 @@ function isNavSectionActive(label: string, pathname: string, hash: string) {
   if (label === 'Products') return isProductsNavActive(pathname);
 
   if (label === 'Case Studies') return isCaseStudiesNavActive(pathname);
+
+  if (label === 'Company') return isCompanyNavActive(pathname);
+
+  if (label === 'Contact Us') return pathname === '/contactUs';
 
   return false;
 
@@ -242,6 +248,8 @@ export default function Navbar() {
 
     if (key === 'products') return <NavListMobileList items={PRODUCT_NAV_ITEMS} onNavigate={onNavigate} />;
 
+    if (key === 'company') return <NavListMobileList items={COMPANY_NAV_ITEMS} onNavigate={onNavigate} />;
+
     return <NavListMobileList items={CASE_STUDY_NAV_ITEMS} onNavigate={onNavigate} />;
 
   };
@@ -386,7 +394,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
 
-            <a href="/#contact" className="nav-cta-btn">
+            <a href="/contactUs" className="nav-cta-btn">
 
               <span className="nav-cta-btn__label">Let's Collaborate</span>
 
@@ -477,6 +485,28 @@ export default function Navbar() {
           arrowLeft={openDropdown === 'case-studies' ? arrowLeft : null}
 
           onMouseEnter={() => openMenu('case-studies')}
+
+          onMouseLeave={scheduleCloseMenu}
+
+          onClose={closeMenu}
+
+        />
+
+        <NavListDropdown
+
+          open={openDropdown === 'company'}
+
+          menuId={DROPDOWN_MENU_IDS.company}
+
+          label="Company"
+
+          items={COMPANY_NAV_ITEMS}
+
+          columns={1}
+
+          arrowLeft={openDropdown === 'company' ? arrowLeft : null}
+
+          onMouseEnter={() => openMenu('company')}
 
           onMouseLeave={scheduleCloseMenu}
 
@@ -610,7 +640,7 @@ export default function Navbar() {
 
           <a
 
-            href="/#contact"
+            href="/contactUs"
 
             onClick={() => setOpen(false)}
 
