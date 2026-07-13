@@ -147,13 +147,13 @@ type FormData = {
 };
 
 const INITIAL_FORM: FormData = {
-  name: '',
-  email: '',
-  phone: '',
-  need: '',
-  description: '',
-  budget: '',
-  consent: false,
+    name: '',
+    email: '',
+    phone: '',
+    need: '',
+    description: '',
+    budget: '',
+    consent: false,
 };
 
 function FlowConnector() {
@@ -282,7 +282,7 @@ export default function Contact() {
               );
             })}
           </div>
-        </div>
+              </div>
 
         <div className="contact-page__gradient">
           <div className="contact-page__gradient-inner mx-auto max-w-[1180px] px-4 sm:px-6">
@@ -306,123 +306,123 @@ export default function Contact() {
                       </a>
                       .
                     </p>
-                  </div>
-                ) : (
+                </div>
+              ) : (
                   <form onSubmit={handleSubmit} className="contact-page__form">
                     <div className="grid gap-6 sm:grid-cols-2">
                       <div className="contact-page__field sm:col-span-2 sm:grid sm:grid-cols-2 sm:gap-6">
-                        <div>
+                  <div>
                           <label htmlFor="contact-name" className="contact-page__field-label">
                             Name <span className="text-white">*</span>
                           </label>
-                          <input
+                    <input
                             id="contact-name"
                             name="name"
-                            type="text"
+                      type="text"
                             required
-                            value={formData.name}
-                            onChange={handleChange}
+                      value={formData.name}
+                      onChange={handleChange}
                             className="contact-page__field-input"
-                            placeholder="Your full name"
-                          />
-                        </div>
-                        <div>
+                      placeholder="Your full name"
+                    />
+                  </div>
+                  <div>
                           <label htmlFor="contact-email" className="contact-page__field-label">
                             Work email <span className="text-white">*</span>
                           </label>
-                          <input
+                    <input
                             id="contact-email"
                             name="email"
-                            type="email"
+                      type="email"
                             required
-                            value={formData.email}
-                            onChange={handleChange}
+                      value={formData.email}
+                      onChange={handleChange}
                             className="contact-page__field-input"
-                            placeholder="you@company.com"
-                          />
+                      placeholder="you@company.com"
+                    />
                         </div>
-                      </div>
+                  </div>
 
                       <div className="contact-page__field">
                         <label htmlFor="contact-phone" className="contact-page__field-label">
                           Phone <span className="text-white/80">(optional)</span>
                         </label>
-                        <input
+                    <input
                           id="contact-phone"
                           name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
                           className="contact-page__field-input"
-                          placeholder="+91 98765 43210"
-                        />
-                      </div>
+                      placeholder="+91 98765 43210"
+                    />
+                  </div>
 
                       <div className="contact-page__field">
                         <label htmlFor="contact-need" className="contact-page__field-label">
                           What do you need? <span className="text-white">*</span>
                         </label>
-                        <select
+                    <select
                           id="contact-need"
-                          name="need"
+                      name="need"
                           required
-                          value={formData.need}
-                          onChange={handleChange}
+                      value={formData.need}
+                      onChange={handleChange}
                           className="contact-page__field-input contact-page__field-select"
-                        >
-                          <option value="">Select an option</option>
+                    >
+                      <option value="">Select an option</option>
                           {NEED_OPTIONS.map((option) => (
                             <option key={option} value={option}>
                               {option}
                             </option>
-                          ))}
-                        </select>
-                      </div>
+                      ))}
+                    </select>
+                  </div>
 
                       <div className="contact-page__field sm:col-span-2">
                         <label htmlFor="contact-description" className="contact-page__field-label">
                           Tell us about it <span className="text-white">*</span>
                         </label>
-                        <textarea
+                    <textarea
                           id="contact-description"
-                          name="description"
+                      name="description"
                           required
                           rows={4}
-                          value={formData.description}
-                          onChange={handleChange}
+                      value={formData.description}
+                      onChange={handleChange}
                           className="contact-page__field-input contact-page__field-textarea"
                           placeholder="What's the challenge? What are you trying to achieve?"
-                        />
-                      </div>
+                    />
+                  </div>
 
                       <div className="contact-page__field sm:col-span-2">
                         <label htmlFor="contact-budget" className="contact-page__field-label">
                           Budget range <span className="text-white/80">(optional)</span>
                         </label>
-                        <select
+                    <select
                           id="contact-budget"
-                          name="budget"
-                          value={formData.budget}
-                          onChange={handleChange}
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
                           className="contact-page__field-input contact-page__field-select"
-                        >
-                          <option value="">Select a range</option>
+                    >
+                      <option value="">Select a range</option>
                           {BUDGET_OPTIONS.map((option) => (
                             <option key={option} value={option}>
                               {option}
                             </option>
-                          ))}
-                        </select>
+                      ))}
+                    </select>
                       </div>
-                    </div>
+                  </div>
 
                     <label className="contact-page__consent mt-6 flex items-start gap-3">
-                      <input
-                        type="checkbox"
-                        name="consent"
+                    <input
+                      type="checkbox"
+                      name="consent"
                         required
-                        checked={formData.consent}
-                        onChange={handleChange}
+                      checked={formData.consent}
+                      onChange={handleChange}
                         className="contact-page__checkbox mt-0.5"
                       />
                       <span className="contact-page__consent-text">
@@ -433,10 +433,10 @@ export default function Contact() {
 
                     <button type="submit" className="contact-page__submit mt-8">
                       Send message
-                    </button>
-                  </form>
-                )}
-              </div>
+                  </button>
+                </form>
+              )}
+            </div>
 
               {/* Reach us / get in touch */}
               <aside className="contact-page__aside sr sr-d4 flex flex-col">
@@ -535,7 +535,7 @@ export default function Contact() {
                 >
                   <div className="contact-page__flow-icon" aria-hidden="true">
                     <Icon size={28} strokeWidth={1.5} />
-                  </div>
+                </div>
                   <h3 className="contact-page__flow-title">{item.title}</h3>
                   <p className="contact-page__flow-text">{item.text}</p>
                 </article>
