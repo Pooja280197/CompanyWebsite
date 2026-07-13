@@ -68,10 +68,10 @@ export default function HealthcareModernization() {
           quote="Our clinicians were spending more time navigating systems than caring for patients. That had to change."
           quoteAuthor="Chief Medical Officer"
           glanceItems={[
-          { label: 'Industry', value: 'Healthcare' },
-          { label: 'Solution', value: 'Custom Software + Data' },
-          { label: 'Focus', value: 'Patient Management' },
-          { label: 'Impact', value: '30% More Efficient', highlight: true },
+                    { label: 'Industry', value: 'Healthcare' },
+                    { label: 'Solution', value: 'Custom Software + Data' },
+                    { label: 'Focus', value: 'Patient Management' },
+                    { label: 'Impact', value: '30% More Efficient', highlight: true },
           ]}
       />
 
