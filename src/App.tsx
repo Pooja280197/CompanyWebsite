@@ -44,6 +44,8 @@ import Contact from './components/ContactUs';
 import Blog from './components/Blog';
 import Career from './components/Career';
 import OurWorkHub from './components/caseStudies/OurWorkHub';
+import IndustryEducation from './components/industries/Education';
+import Sports from './components/industries/Sports';
 
 export default function App() {
   return (
@@ -95,9 +97,12 @@ export default function App() {
           <Route path="/industries/healthcare-software-development" element={<IndustryHealthcare />} />
           <Route path="/industries/manufacturing-software-solutions" element={<IndustryManufacturing />} />
           <Route path="/industries/fintech-software-development" element={<IndustryFinance />} />
+          <Route path="/industries/education-software-development" element={<IndustryEducation />} />
           <Route path="/industries/ecommerce-development" element={<IndustryEcommerce />} />
           <Route path="/industries/real-estate-software-development" element={<IndustryRealEstate />} />
           <Route path="/industries/travel-software-development" element={<IndustryTravel/>} />
+          <Route path="/industries/sports-software-development" element={<Sports/>} />
+
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactUs" element={<Contact />} />
           <Route path="/blog" element={<Blog/>} />

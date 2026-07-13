@@ -530,10 +530,10 @@ export default function IndustryHealthcare() {
                   />
 
                   {/* Learn More Link */}
-                  <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
+                  {/* <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
                     Learn more
                     <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
+                  </button> */}
                 </div>
               );
             })}
@@ -567,18 +567,18 @@ export default function IndustryHealthcare() {
                   A healthcare provider faced care delays from fragmented patient data and outdated management systems.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  We modernized patient management with integrated database solutions and streamlined workflows — delivering <span className="font-semibold text-[#0F172A]">30% operational efficiency</span> and measurably better satisfaction.
+                  We modernized patient management with integrated database solutions and streamlined workflows — delivering <span className="font-semibold text-[#0F172A]">30% operational efficiency improvement, faster and more accurate care delivery, and measurably better satisfaction for staff and patients.</span> .
                 </p>
               </div>
-              <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
+              {/* <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
                 <Link to="/case-studies/healthcare-modernization" className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
                   Read the full case study
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </div>
+              </div> */}
         </div>
         
-            <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
+            {/* <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
               <div className="p-6 rounded-2xl bg-[#EFF6FF] border border-[#2563EB]/10 relative">
                 <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#2563EB] flex items-center justify-center">
                   <Quote size={14} className="text-white" />
@@ -609,13 +609,13 @@ export default function IndustryHealthcare() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      <section className="py-10 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-3xl mx-auto">
           <div className="mb-16">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">

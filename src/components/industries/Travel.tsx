@@ -419,8 +419,8 @@ export default function IndustryTravel() {
             {[
               { value: '99.99%', label: 'Uptime', icon: Gauge, color: '#0EA5E9' },
               { value: 'Auto', label: 'Scaling', icon: Server, color: '#06B6D4' },
-              { value: 'Real-Time', label: 'Availability', icon: Ticket, color: '#14B8A6' },
-              { value: '24/7', label: 'Operations', icon: Calendar, color: '#7C3AED' },
+              // { value: 'Real-Time', label: 'Availability', icon: Ticket, color: '#14B8A6' },
+              // { value: '24/7', label: 'Operations', icon: Calendar, color: '#7C3AED' },
             ].map((stat, i) => (
               <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#0EA5E9] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
@@ -540,16 +540,11 @@ export default function IndustryTravel() {
                     style={{ background: service.color }} 
                   />
 
-                  {service.link ? (
+                  {service.link && (
                     <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#0EA5E9] transition-colors duration-300 flex items-center gap-1 group">
                       Learn more
                       <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </Link>
-                  ) : (
-                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#0EA5E9] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
                   )}
                 </div>
               );
@@ -626,7 +621,7 @@ export default function IndustryTravel() {
       </section>
 
       {/* ===== PROOF ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      {/* <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -686,7 +681,7 @@ export default function IndustryTravel() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== FAQ ===== */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">

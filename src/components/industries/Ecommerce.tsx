@@ -339,7 +339,7 @@ export default function IndustryEcommerce() {
     { 
       icon: Brain, 
       title: 'Personalization & AI', 
-      desc: 'Recommendation and segmentation models that drive measurable revenue.', 
+      desc: 'Recommendation and segmentation models; five of our embedded AI engineers drove a 20% sales increase for a retail client.', 
       color: '#7C3AED', 
       bg: '#F5F3FF',
       features: ['Recommendations', 'Segmentation', 'Predictive Models'],
@@ -536,17 +536,12 @@ export default function IndustryEcommerce() {
                     style={{ background: service.color }} 
                   />
 
-                  {service.link ? (
+                  {service.link && (
                     <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#DC2626] transition-colors duration-300 flex items-center gap-1 group">
                       Learn more
                       <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </Link>
-                  ) : (
-                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#DC2626] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
-                  )}
+                  ) }
                 </div>
               );
             })}
@@ -630,15 +625,15 @@ export default function IndustryEcommerce() {
                   The diamond-similarity engine (<span className="font-semibold text-[#0F172A]">80% accuracy, 60% faster evaluation</span>) came from the same retail practice.
                 </p>
               </div>
-              <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
+              {/* <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
                 <Link to="/case-studies/retail-ai" className="inline-flex items-center gap-2 text-sm font-semibold text-[#DC2626] hover:text-[#B91C1C] transition-colors group">
                   Read the full case study
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </div>
+              </div> */}
             </div>
 
-            <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
+            {/* <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
               <div className="p-6 rounded-2xl bg-[#FEF2F2] border border-[#DC2626]/10 relative">
                 <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#DC2626] flex items-center justify-center">
                   <Quote size={14} className="text-white" />
@@ -668,7 +663,7 @@ export default function IndustryEcommerce() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

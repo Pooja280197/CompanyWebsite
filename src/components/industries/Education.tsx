@@ -407,7 +407,7 @@ export default function IndustryEducation() {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
             {[
               { value: '100%', label: 'Student Lifecycle', icon: School, color: '#D97706' },
               { value: '24/7', label: 'Learning Access', icon: Monitor, color: '#F59E0B' },
@@ -420,7 +420,7 @@ export default function IndustryEducation() {
                 <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -532,17 +532,12 @@ export default function IndustryEducation() {
                     style={{ background: service.color }} 
                   />
 
-                  {service.link ? (
+                  {service.link && (
                     <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#D97706] transition-colors duration-300 flex items-center gap-1 group">
                       Learn more
                       <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </Link>
-                  ) : (
-                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#D97706] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
-                  )}
+            )}
                 </div>
               );
             })}
@@ -604,7 +599,7 @@ export default function IndustryEducation() {
       </section>
 
       {/* ===== PROOF ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      {/* <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -664,7 +659,7 @@ export default function IndustryEducation() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== FAQ ===== */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">

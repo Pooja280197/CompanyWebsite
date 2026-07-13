@@ -519,10 +519,10 @@ export default function IndustryManufacturing() {
                     style={{ background: service.color }} 
                   />
 
-                  <Link to={service.link || '#'} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#059669] transition-colors duration-300 flex items-center gap-1 group">
+                 {service.link && <Link to={service.link || '#'} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#059669] transition-colors duration-300 flex items-center gap-1 group">
                     Learn more
                     <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </Link>
+                  </Link>}
                 </div>
               );
             })}
@@ -561,15 +561,15 @@ export default function IndustryManufacturing() {
                   Separately, two embedded DevOps specialists cut another manufacturer's deployment times by <span className="font-semibold text-[#0F172A]">25%</span> while closing security gaps.
                 </p>
               </div>
-              <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
+              {/* <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
                 <Link to="/case-studies/manufacturing-modernization" className="inline-flex items-center gap-2 text-sm font-semibold text-[#059669] hover:text-[#047857] transition-colors group">
                   Read the full case study
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </div>
+              </div> */}
             </div>
 
-            <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
+            {/* <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
               <div className="p-6 rounded-2xl bg-[#ECFDF5] border border-[#059669]/10 relative">
                 <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#059669] flex items-center justify-center">
                   <Quote size={14} className="text-white" />
@@ -600,7 +600,7 @@ export default function IndustryManufacturing() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
