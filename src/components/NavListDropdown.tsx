@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import type { NavMegaItem } from '../data/navProducts';
 import { NavDropdownCaret } from './NavDropdownCaret';
@@ -32,6 +32,7 @@ export function NavListDropdown({
 }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
+  const [shiftX, setShiftX] = useState(0);
 
   useEffect(() => {
     if (!open) return;
@@ -42,10 +43,48 @@ export function NavListDropdown({
     return () => document.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
+  useLayoutEffect(() => {
+    if (!open || arrowLeft == null || !panelRef.current) {
+      setShiftX(0);
+      return;
+    }
+
+    const clamp = () => {
+      const el = panelRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const pad = 12;
+      let next = 0;
+      if (rect.left < pad) next = pad - rect.left;
+      else if (rect.right > window.innerWidth - pad) next = window.innerWidth - pad - rect.right;
+      setShiftX(next);
+    };
+
+    clamp();
+    window.addEventListener('resize', clamp);
+    return () => window.removeEventListener('resize', clamp);
+  }, [open, arrowLeft, columns, items.length]);
+
+  const isCompact = columns === 1;
+  const maxWidthClass =
+    columns === 2
+      ? 'w-[min(520px,calc(100vw-24px))]'
+      : items.length <= 3
+        ? 'w-max min-w-[180px] max-w-[220px]'
+        : 'w-max min-w-[200px] max-w-[260px]';
+
   const gridClass =
     columns === 2
-      ? 'grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0'
-      : 'grid grid-cols-1 gap-y-0';
+      ? 'services-dropdown__list-grid services-dropdown__list-grid--2'
+      : 'services-dropdown__list-grid';
+
+  const anchored =
+    arrowLeft != null
+      ? {
+          left: arrowLeft,
+          transform: `translateX(calc(-50% + ${shiftX}px))`,
+        }
+      : undefined;
 
   return (
     <div
@@ -55,17 +94,18 @@ export function NavListDropdown({
       aria-hidden={!open}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`services-dropdown hidden md:block absolute inset-x-0 top-full z-40 pt-2 ${
+      className={`services-dropdown services-dropdown--anchored hidden md:block absolute top-full z-40 pt-2 ${
         open ? 'services-dropdown--open pointer-events-auto' : 'pointer-events-none'
       }`}
+      style={anchored}
     >
-      <NavDropdownCaret left={arrowLeft} visible={open} />
-      <div className={`mx-auto px-4 ${columns === 2 ? 'max-w-[720px]' : 'max-w-[420px]'}`}>
+      <NavDropdownCaret left="50%" visible={open} />
+      <div className={maxWidthClass}>
         <div
           ref={panelRef}
           className={`services-dropdown__panel ${open ? 'services-dropdown__panel--open' : ''}`}
         >
-          <div className="services-dropdown__card">
+          <div className={`services-dropdown__card ${isCompact ? 'services-dropdown__card--compact' : ''}`}>
             <div className="services-dropdown__shine" aria-hidden="true" />
             <div className={gridClass}>
               {items.map((item, index) => {

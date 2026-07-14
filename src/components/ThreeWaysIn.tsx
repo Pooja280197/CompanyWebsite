@@ -85,13 +85,12 @@ export default function ThreeWaysIn() {
           {WAYS.map((way, index) => (
             <article
               key={way.step}
-              className="ways-in__lane sr-from-left"
+              className={`ways-in__lane sr-from-left sr-d${index + 1}`}
               style={
                 {
                   '--ways-accent': way.accent,
                   '--ways-glow': way.glow,
                   '--ways-tint': way.tint,
-                  transitionDelay: `${index * 0.08}s`,
                 } as CSSProperties
               }
             >
