@@ -30,19 +30,20 @@ const NAV_LINKS: {
 
 }[] = [
 
-  { label: 'Home', href: '/' },
+    { label: 'Home', href: '/' },
 
-  { label: 'What We Do', href: '/#WhatWeDo', dropdown: 'services' },
+    { label: 'What We Do', href: '/#WhatWeDo', dropdown: 'services' },
 
-  { label: 'Products', href: '/our-products', dropdown: 'products' },
+    { label: 'Case Studies', href: '/#case-studies', dropdown: 'case-studies' },
 
-  { label: 'Case Studies', href: '/#case-studies', dropdown: 'case-studies' },
+    { label: 'Products', href: '/our-products', dropdown: 'products' },
 
-  { label: 'Company', href: '/aboutus', dropdown: 'company' },
 
-  { label: 'Contact Us', href: '/contactUs' },
+    { label: 'Company', href: '/aboutus', dropdown: 'company' },
 
-];
+    { label: 'Contact Us', href: '/contactUs' },
+
+  ];
 
 
 
@@ -322,11 +323,9 @@ export default function Navbar() {
 
                       href={l.href}
 
-                      className={`nav-link nav-link--dropdown px-5 pt-1.5 pb-1 rounded-full text-[0.95rem] font-medium ${
+                      className={`nav-link nav-link--dropdown px-5 pt-1.5 pb-1 rounded-full text-[0.95rem] font-medium ${sectionActive || menuOpen ? 'nav-link--active' : ''
 
-                        sectionActive || menuOpen ? 'nav-link--active' : ''
-
-                      }`}
+                        }`}
 
                       aria-expanded={menuOpen}
 
@@ -372,11 +371,9 @@ export default function Navbar() {
 
                   href={l.href}
 
-                  className={`nav-link px-5 pt-1.5 pb-1 rounded-full text-[0.95rem] font-medium ${
+                  className={`nav-link px-5 pt-1.5 pb-1 rounded-full text-[0.95rem] font-medium ${sectionActive ? 'nav-link--active' : ''
 
-                    sectionActive ? 'nav-link--active' : ''
-
-                  }`}
+                    }`}
 
                 >
 
@@ -402,7 +399,7 @@ export default function Navbar() {
 
                 <svg viewBox="0 0 10 10" fill="none">
 
-                  <path d="M2 8L8 2M8 2H3M8 2V7" stroke="#111" strokeWidth="1.6" strokeLinecap="round"/>
+                  <path d="M2 8L8 2M8 2H3M8 2V7" stroke="#111" strokeWidth="1.6" strokeLinecap="round" />
 
                 </svg>
 

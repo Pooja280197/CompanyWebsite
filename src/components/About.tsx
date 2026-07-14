@@ -1,10 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { ScrollTextReveal } from './ScrollTextReveal';
 
-const CREATIVITY = 'https://cdn.prod.website-files.com/67a5fb8bc33c7f25ab4e52d9/67aadb9ec80cd595bb214692_Magic%20Stick.svg';
-const INNOVATION = 'https://cdn.prod.website-files.com/67a5fb8bc33c7f25ab4e52d9/67aaddc4c79cc5141322f4db_Frame.svg';
-const STRATEGY   = 'https://cdn.prod.website-files.com/67a5fb8bc33c7f25ab4e52d9/67aaddc4819d3c15ab088565_Frame%20(1).svg';
-
 function Counter({ target }: { target: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const ran = useRef(false);
@@ -37,24 +33,21 @@ const STAT_SUFFIX_STYLE: React.CSSProperties = {
   marginLeft: '0.06em',
 };
 
-const PILLS = [
-  { icon: CREATIVITY, label: 'Creativity', bg: '#ede9fe', color: '#7C3AED', filter: 'invert() sepia(60%) saturate(500%) hue-rotate(240deg)' },
-  { icon: INNOVATION, label: 'Innovation', bg: '#dbeafe', color: '#2563EB', filter: 'invert(30%) sepia(60%) saturate(500%) hue-rotate(180deg)' },
-  { icon: STRATEGY,   label: 'Strategy',   bg: '#fef3c7', color: '#D97706', filter: 'invert(50%) sepia(80%) saturate(500%) hue-rotate(10deg)'   },
-];
-
 const STATS = [
-  { n: 500, percent: false, label: 'Total Projects Completed' },
-  { n: 95, percent: true, label: 'Client Retention Rate' },
-  { n: 15, percent: false, label: 'Countries Served' },
+  { n: 8,   percent: false, label: 'Years (est. 2017)',           accent: '#C2410C' },
+  { n: 500, percent: false, label: 'Projects Completed',          accent: '#5B21B6' },
+  { n: 95,  percent: true,  label: 'Client Retention',            accent: '#065F46' },
+  { n: 100, percent: false, label: 'Verified IT Professionals',   accent: '#0369A1' },
+  { n: 20,  percent: false, label: 'Technology Stacks',           accent: '#92400E' },
+  { n: 15,  percent: false, label: 'Global Locations',            accent: '#9F1239' },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="bg-white py-16 px-6 overflow-hidden">
+    <section id="about" className="bg-white py-8 px-6 overflow-hidden">
       <div className="max-w-[1140px] mx-auto w-full">
 
-        <div className="text-center mb-10 sr w-full max-w-[1000px] mx-auto px-2">
+        <div className="text-center mb-8 sr w-full max-w-[1000px] mx-auto px-2">
           <ScrollTextReveal
             tag="h2"
             align="center"
@@ -78,37 +71,36 @@ export default function About() {
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-20 sr sr-d1">
-          {PILLS.map((p) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 min-w-0 divide-y sm:divide-y-0 divide-[#efefef]">
+          {STATS.map(({ n, percent, label, accent }, i) => (
             <div
-              key={p.label}
-              className="flex items-center gap-3 px-7 py-3.5 rounded-full cursor-default"
-              style={{ background: p.bg }}
+              key={label}
+              className={`px-4 sm:px-6 py-6 text-center sr sr-d${Math.min(i + 1, 6)} min-w-0 sm:border-r sm:border-[#efefef] ${
+                i % 2 === 1 ? 'sm:border-r-0' : ''
+              } lg:border-r lg:border-[#efefef] ${
+                i % 3 === 2 ? 'lg:border-r-0' : ''
+              } ${i < 3 ? 'lg:border-b lg:border-[#efefef]' : ''}`}
             >
-              <img src={p.icon} alt="" className="w-6 h-6" style={{ filter: p.filter }} />
-              <span className="font-serif-italic text-xl" style={{ color: p.color }}>{p.label}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#efefef] min-w-0">
-          {STATS.map(({ n, percent, label }, i) => (
-            <div key={label} className={`px-4 sm:px-8 py-12 text-center sr sr-d${i + 1} min-w-0`}>
               <div
                 className="text-[#1b1d1e] mb-3 inline-flex items-start justify-center max-w-full"
                 style={{
                   fontFamily: 'Inter,sans-serif',
                   fontWeight: 500,
-                  fontSize: 'clamp(4.5rem, 9vw, 8rem)',
+                  fontSize: 'clamp(3rem, 6vw, 5.5rem)',
                   letterSpacing: '-0.04em',
                   lineHeight: 1,
                 }}
               >
                 <Counter target={n} />
-                {percent && <span>%</span>}
-                <span className="self-start" style={STAT_SUFFIX_STYLE}>+</span>
+                {percent ? (
+                  <span>%</span>
+                ) : (
+                  <span className="self-start" style={STAT_SUFFIX_STYLE}>+</span>
+                )}
               </div>
-              <p className="text-[#666] text-base font-normal">{label}</p>
+              <p className="text-base font-semibold" style={{ color: accent }}>
+                {label}
+              </p>
             </div>
           ))}
         </div>

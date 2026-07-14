@@ -1,5 +1,5 @@
 interface Props {
-  left: number | null;
+  left: number | string | null;
   visible: boolean;
 }
 

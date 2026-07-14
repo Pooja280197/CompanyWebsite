@@ -51,10 +51,10 @@ const services: Array<{
 
 export default function Services() {
   return (
-    <section id="services" className="bg-white py-16 px-6 overflow-hidden">
+    <section id="services" className="bg-white py-10 pb-16 px-6 overflow-hidden">
       <div className="max-w-[1200px] mx-auto w-full">
 
-        <div className="text-center mb-14 sr w-full max-w-[1100px] mx-auto px-2">
+        <div className="text-center mb-8 sr w-full max-w-[1100px] mx-auto px-2">
           <ScrollTextReveal
             tag="h2"
             align="center"
@@ -72,7 +72,7 @@ export default function Services() {
               { text: 'Four' },
               { text: 'ways we' },
               { text: 'move your' },
-              { text: 'roadmap  forward' },
+              { text: 'roadmap forward' },
             ]}
           />
         </div>
@@ -112,7 +112,7 @@ export default function Services() {
           })}
         </div>
 
-        <div className="bg-[#111] rounded-2xl px-8 py-7 sm:px-10 sm:py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sr sr-d5">
+        {/* <div className="bg-[#111] rounded-2xl px-8 py-7 sm:px-10 sm:py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sr sr-d5">
           <div>
             <p
               className="text-white font-semibold text-xl sm:text-2xl"
@@ -135,7 +135,7 @@ export default function Services() {
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" strokeWidth="1.5" strokeLinecap="round" /></svg>
               </span>
             </a>
-            {/* <a
+            <a
               href="#work"
               className="flex items-center gap-2.5 border border-white/30 text-white font-semibold text-sm px-6 py-3 rounded-full hover:border-white/60 transition-colors"
               style={{ fontFamily: 'Inter, sans-serif' }}
@@ -144,9 +144,9 @@ export default function Services() {
               <span className="w-7 h-7 border border-white/30 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" strokeWidth="1.5" strokeLinecap="round" /></svg>
               </span>
-            </a> */}
+            </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -62,7 +62,7 @@ export function CaseStudyCta({
           wordGap="0.2em"
           scrollFromColor="#d1d1d1"
           scrollToColor="#111827"
-          words={titleToScrollWords(title, { serif: true })}
+          words={titleToScrollWords(title)}
         />
         <p className="sf-cta__subtitle mt-6 text-gray-600 sr-from-bottom sr-d2">{subtitle}</p>
 

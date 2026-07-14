@@ -6,7 +6,6 @@ import {
   Users,
   Building2,
   Globe,
-  Award,
   Shield,
   Zap,
   TrendingUp,
@@ -18,20 +17,14 @@ import {
   Target,
   Handshake,
   Rocket,
-  Twitter,
   Linkedin,
   Calendar,
-  Crown,
   User,
-  Coffee,
   Laptop,
   Wifi,
   ArrowUpRight,
   Star,
   Hexagon,
-  Triangle,
-  MoveRight,
-  PlayCircle,
   Mail,
   Phone,
   Heart,
@@ -42,22 +35,52 @@ import {
   Feather,
   Sun,
   Cloud,
-  Compass,
   Layers,
   BarChart3,
   CheckCircle2,
   CircleDot,
   Brush,
-  Sparkle,
-  Orbit,
   Flower,
   Gem,
   Music,
-  Camera,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ScrollTextReveal } from './ScrollTextReveal';
+import Team from './Team';
+import RRCATLOGO from '../assets/Clients/RRCATLOGO.png';
+import DataInfaLogo from '../assets/Clients/DataInfaLogo.jpg';
+import BlueTinkLogo from '../assets/Clients/BlueThinkLogo.png';
+import CareerWaveLogo from '../assets/Clients/CareerWaveLogo.png';
+import ChowguleLogo from '../assets/Clients/ChowguleLogo.png';
+import CrickBro from '../assets/Clients/CrickBro.jpg';
+import ExatipTechnologies from '../assets/Clients/ExatipTechnologies.jpg';
+import MindefyLogo from '../assets/Clients/MindefyLogo.jpg';
+import ShyamFutureTech from '../assets/Clients/ShyamFutureTech.jpg';
+import SiyaTechLogo from '../assets/Clients/SiyaTechLogo.png';
+import SMTLabsLogo from '../assets/Clients/SMTLabsLogo.jpg';
+import leader1Img from '../assets/team/leader-1.png';
+import leader2Img from '../assets/team/leader-2.png';
+import Techlene from '../assets/Clients/Techlene.jpg';
 
 const LETTER_INTERVAL = 78;
+
+const titleWords = (text: string) => text.split(' ').map((word) => ({ text: word }));
+
+const TITLE_STYLE = {
+  display: 'block' as const,
+  width: '100%',
+  fontFamily: 'Inter, system-ui, sans-serif',
+  fontWeight: 600,
+  letterSpacing: '0.04em',
+  fontSize: 'clamp(2rem, 4.5vw, 3.25rem)',
+  lineHeight: 1.12,
+};
+
+const TITLE_STYLE_LG = {
+  ...TITLE_STYLE,
+  fontSize: 'clamp(2.35rem, 5.2vw, 3.85rem)',
+  lineHeight: 1.1,
+};
 
 const HERO_WORDS = [
   { text: 'The' },
@@ -72,6 +95,55 @@ const HERO_STATS = [
   { value: 95, suffix: '%', label: 'Retention' },
   { value: 15, suffix: '+', label: 'Countries' },
 ] as const;
+
+function FoundedYearBadge() {
+  const ref = useRef<HTMLDivElement>(null);
+  const yearRef = useRef<HTMLSpanElement>(null);
+  const ran = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    const yearEl = yearRef.current;
+    if (!el || !yearEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || ran.current) return;
+        ran.current = true;
+        el.classList.add('is-in');
+
+        const start = performance.now();
+        const duration = 1600;
+        const from = 2008;
+        const to = 2017;
+
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - (1 - t) ** 3;
+          yearEl.textContent = String(Math.round(from + (to - from) * eased));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      },
+      { threshold: 0.45 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="about-founded" aria-label="Founded 2017">
+      <span className="about-founded__glow about-founded__glow--warm" aria-hidden />
+      <span className="about-founded__glow about-founded__glow--cool" aria-hidden />
+      <span className="about-founded__label">Founded</span>
+      <span ref={yearRef} className="about-founded__year">
+        2008
+      </span>
+      <span className="about-founded__bar" aria-hidden />
+    </div>
+  );
+}
 
 function easeOutCubic(t: number) {
   return 1 - (1 - t) ** 3;
@@ -161,6 +233,23 @@ const injectStyles = () => {
       transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Leadership — slow, smooth side entrances */
+    .about-lead__card.reveal-left {
+      transform: translateX(-120px);
+      transition: opacity 1.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .about-lead__card.reveal-right {
+      transform: translateX(120px);
+      transition: opacity 1.9s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .about-lead__card.reveal-left.visible,
+    .about-lead__card.reveal-right.visible {
       opacity: 1;
       transform: translateX(0);
     }
@@ -526,17 +615,7 @@ function useCounter(end: number, duration = 2000) {
   return { count, ref };
 }
 
-function TextReveal({ lines, className = '' }: { lines: string[]; className?: string }) {
-  return (
-    <span className={className}>
-      {lines.map((line, i) => (
-        <span key={i} className="text-reveal-line" style={{ transitionDelay: `${i * 120}ms` }}>
-          <span>{line}</span>
-        </span>
-      ))}
-    </span>
-  );
-}
+
 
 function CounterStat({ value, suffix = '', label, icon: Icon }: { value: number; suffix?: string; label: string; icon?: any }) {
   const { count, ref } = useCounter(value, 2200);
@@ -562,90 +641,103 @@ function CounterStat({ value, suffix = '', label, icon: Icon }: { value: number;
    DATA
    ───────────────────────────────────────────── */
 
-const TEAM_MEMBERS = [
-  {
-    name: 'Ana Belić',
-    role: 'UX Designer',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80',
-    bio: 'Crafting interfaces that users actually enjoy',
-    color: '#2563EB',
-    emoji: '🎨',
-  },
-  {
-    name: 'Brian Hanley',
-    role: 'Brand Strategist',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80',
-    bio: 'Building brands that connect and inspire',
-    color: '#6366F1',
-    emoji: '🚀',
-  },
-  {
-    name: 'Darko Stanković',
-    role: 'Web Developer',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
-    bio: 'Building fast, reliable, and scalable apps',
-    color: '#059669',
-    emoji: '💻',
-  },
-  {
-    name: 'Sarah Chen',
-    role: 'ML Engineer',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80',
-    bio: 'Turning data into intelligent solutions',
-    color: '#7C3AED',
-    emoji: '🧠',
-  },
-  {
-    name: 'Marcus Johnson',
-    role: 'Cloud Architect',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80',
-    bio: 'Designing resilient cloud infrastructure',
-    color: '#0891B2',
-    emoji: '☁️',
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'DevOps Lead',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80',
-    bio: 'Automating deployments and scaling systems',
-    color: '#D97706',
-    emoji: '⚡',
-  },
-];
-
 const LEADERSHIP = [
   {
-    name: 'Vikram Singh',
+    name: 'Jyoti Gupta',
     role: 'Founder & CEO',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80',
+    image: leader2Img,
     bio: 'Leading with innovation and client success. 8+ years building technology that solves real problems.',
-    color: '#2563EB',
-    emoji: '👑',
   },
   {
-    name: 'Ananya Reddy',
+    name: 'Anand Nagar',
     role: 'Chief Technology Officer',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80',
+    image: leader1Img,
     bio: 'Driving technical excellence and architectural decisions. Shaped the engineering culture.',
-    color: '#6366F1',
-    emoji: '🔧',
+  },
+] as const;
+
+const BELIEFS = [
+  {
+    title: 'Software should pay for itself',
+    text: 'Every engagement is measured by the result it produces — 40% cost savings, 20% sales lifts, 3x faster reporting — not the hours it consumed.',
+    icon: TrendingUp,
+    accent: '#ea580c',
   },
   {
-    name: 'Arjun Mehta',
-    role: 'Head of AI/ML',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
-    bio: 'Pioneering AI solutions that deliver real business impact. Built production-ready AI systems.',
-    color: '#059669',
-    emoji: '🤖',
+    title: 'Honesty is a feature',
+    text: "We've talked clients out of projects, recommended cheaper tools than ours, and said 'don't build that yet' more times than any sales team would like. It's why 95% of clients stay.",
+    icon: Heart,
+    accent: '#2563EB',
   },
-];
+  {
+    title: 'The price you approve is the invoice you receive',
+    text: 'Transparent, itemized quotes — eight years, zero surprise bills.',
+    icon: CheckCircle2,
+    accent: '#208A86',
+  },
+  {
+    title: 'Your challenges are our solution',
+    text: 'Startups fighting budget limits, consultants fighting deadlines, enterprises fighting compliance complexity — the challenge defines the engagement, not a standard package.',
+    icon: Target,
+    accent: '#7c3aed',
+  },
+] as const;
 
-const FUN_FACTS = [
-  { emoji: '🎉', fact: 'We celebrate every deployment with a dance party in the office' },
-  { emoji: '☕', fact: 'We go through 200+ cups of chai every week' },
-  { emoji: '🌍', fact: 'Our team speaks 8 different languages' },
-  { emoji: '🏆', fact: 'We\'ve won 12 industry awards in the last 3 years' },
-];
+const WHAT_WE_DO = [
+  {
+    step: '01',
+    title: 'Build platforms',
+    text: 'We build custom software, AI, and cloud platforms — one engineering standard across product, data, and infrastructure.',
+    accent: '#ea580c',
+    soft: 'rgba(234,88,12,0.1)',
+    icon: Layers,
+    links: [
+      { label: 'Product Engineering', to: '/product-engineering' },
+      { label: 'AI & Data', to: '/ai-data' },
+      { label: 'Cloud & DevOps', to: '/cloud-devops' },
+    ],
+  },
+  {
+    step: '02',
+    title: 'Ship our products',
+    text: 'We implement our own products inside real client operations — not demos.',
+    accent: '#2563EB',
+    soft: 'rgba(37,99,235,0.1)',
+    icon: Rocket,
+    products: ['Rexo ERP', 'CleanPlan', 'Education ERP'],
+  },
+  {
+    step: '03',
+    title: 'Extend your team',
+    text: 'We extend client teams with 100+ verified IT professionals across 20+ technology stacks.',
+    accent: '#208A86',
+    soft: 'rgba(32,138,134,0.12)',
+    icon: Users,
+    links: [{ label: 'Staff Augmentation', to: '/staff-augmentation' }],
+  },
+] as const;
+
+const WHO_TRUST_CATEGORIES = [
+  'Government research',
+  'Data-focused firms',
+  'Technology companies',
+  'Service businesses',
+] as const;
+
+const WHO_TRUSTS_LOGOS = [
+  { name: 'RRCAT', logo: RRCATLOGO },
+  { name: 'DataInfa', logo: DataInfaLogo },
+  { name: 'Bluethink', logo: BlueTinkLogo },
+  { name: 'Career Wave', logo: CareerWaveLogo },
+  { name: 'Chowgule', logo: ChowguleLogo },
+  { name: 'CrickBro', logo: CrickBro },
+  { name: 'Exatip Technologies', logo: ExatipTechnologies },
+  { name: 'Mindefy', logo: MindefyLogo },
+  { name: 'Shyam Future Tech', logo: ShyamFutureTech },
+  { name: 'Siya Tech', logo: SiyaTechLogo },
+  { name: 'SMT Labs', logo: SMTLabsLogo },
+  { name: 'Techlene', logo: Techlene },
+] as const;
 
 /* ─────────────────────────────────────────────
    MAIN COMPONENT
@@ -654,8 +746,6 @@ const FUN_FACTS = [
 export default function AboutUsPage() {
   const wrapperRef = useReveal();
   const [activeTeam, setActiveTeam] = useState<number | null>(null);
-  const [activeLeader, setActiveLeader] = useState<number | null>(null);
-  const [activeFunFact, setActiveFunFact] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
@@ -664,46 +754,110 @@ export default function AboutUsPage() {
 
   return (
     <>
-      <div className="about-page hero-bg">
-        {/* Hero */}
-        <section className="about-page__hero px-6 pb-12 pt-36 sm:pb-16 sm:pt-40">
-          <div className="mx-auto w-full max-w-[920px] text-center">
-            {/* <p className="about-page__eyebrow sr">About NSS</p> */}
+      <div className="about-page bg-white">
+        {/* Hero — full-bleed right image with wavy edge */}
+        <section className="about-hero-wave relative min-h-[min(88vh,760px)] overflow-hidden bg-white pt-28 sm:pt-32 lg:min-h-[720px] lg:pt-0">
+          <svg width="0" height="0" className="absolute" aria-hidden="true">
+            <defs>
+              <clipPath id="aboutHeroWaveDesktop" clipPathUnits="objectBoundingBox">
+                <path d="M0.6,0 C0.48,0.1 0.28,0.2 0.18,0.34 C0.08,0.5 0.14,0.6 0.2,0.7 C0.28,0.84 0.36,0.92 0.4,1 L1,1 L1,0 Z" />
+              </clipPath>
+              <clipPath id="aboutHeroWaveMobile" clipPathUnits="objectBoundingBox">
+                <path d="M0,0.16 C0.18,0.08 0.42,0.02 0.68,0.03 C0.88,0.04 1,0.1 1,0.1 L1,1 L0,1 Z" />
+              </clipPath>
+            </defs>
+          </svg>
 
-            <h1 className="about-page__title font-editorial a1">
-              <ScrollTextReveal
-                tag="span"
-                align="center"
-                animate="words"
-                textColor="#0F172A"
-                letterInterval={LETTER_INTERVAL}
-                wordGap="0.2em"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                  lineHeight: 1.08,
-                  letterSpacing: '0.02em',
-                }}
-                words={[...HERO_WORDS]}
-              />
-            </h1>
+          {/* Soft rim behind media — depth on the left edge */}
+          <div
+            className="about-hero-wave__rim pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[56%] bg-[#208A86]/30 lg:block"
+            aria-hidden="true"
+          />
 
-            <p className="about-page__lede sr sr-d1 mx-auto mt-6 max-w-[44rem]">
-              500+ projects. 95% retention. 15+ countries. Here&apos;s how a team from Indore got
-              there — and the principles that keep clients for years, not quarters.
-            </p>
+          {/* Right image panel — full section height, clipped by wave */}
+          <div
+            className="about-hero-wave__media pointer-events-none absolute inset-x-0 bottom-0 top-auto h-[42%] w-full lg:inset-y-0 lg:left-auto lg:right-0 lg:h-full lg:w-[56%]"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-0 bg-[#1a7a76]" />
+            <img
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80"
+              alt="NSS office meeting"
+              className="absolute inset-0 h-full w-full object-cover object-[center_40%] lg:object-[62%_center]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a7a76]/55 via-[#208A86]/15 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/5" />
+          </div>
 
-            <div className="about-page__hero-stats sr sr-d2">
-              {HERO_STATS.map((stat, index) => (
-                <div key={stat.label} className="about-page__hero-stat">
-                  <p className="about-page__hero-stat-value">
-                    <StatCounter value={stat.value} startDelay={index * 200} />
-                    <span>{stat.suffix}</span>
-                  </p>
-                  <p className="about-page__hero-stat-label">{stat.label}</p>
-                </div>
-              ))}
+          {/* Curve accent stroke along the left border */}
+          <svg
+            className="about-hero-wave__stroke pointer-events-none absolute inset-y-0 right-0 z-[1] hidden h-full w-[56%] lg:block"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="aboutWaveStrokeGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
+                <stop offset="45%" stopColor="#5eead4" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.4" />
+              </linearGradient>
+            </defs>
+            <path
+              className="about-hero-wave__stroke-path"
+              d="M60,0 C48,10 28,20 18,34 C8,50 14,60 20,70 C28,84 36,92 40,100"
+              fill="none"
+              stroke="url(#aboutWaveStrokeGrad)"
+              strokeWidth="1.15"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+
+          <div className="relative z-10 mx-auto flex min-h-[inherit] w-full max-w-[1200px] items-center px-6 pb-[46%] pt-4 sm:px-6 lg:items-center lg:px-0 lg:pb-16 lg:pt-28">
+            <div className="w-full max-w-xl pb-6 text-center lg:max-w-[46%] lg:pb-8 lg:pl-0 lg:text-left">
+              <h1 className="font-editorial a1 text-[#0F172A]">
+                <ScrollTextReveal
+                  tag="span"
+                  align="left"
+                  animate="words"
+                  textColor="#0F172A"
+                  letterInterval={LETTER_INTERVAL}
+                  wordGap="0.2em"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    fontSize: 'clamp(2.35rem, 5.2vw, 3.85rem)',
+                    lineHeight: 1.1,
+                    letterSpacing: '0.04em',
+                    fontWeight: 600,
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                  }}
+                  words={[...HERO_WORDS]}
+                />
+              </h1>
+
+              <p className="sr sr-d1 mx-auto mt-5 max-w-[34rem] text-[1.02rem] leading-relaxed text-slate-500 lg:mx-0 lg:text-[1.08rem]">
+                500+ projects. 95% retention. 15+ countries. Here&apos;s how a team from Indore got
+                there — and the principles that keep clients for years, not quarters.
+              </p>
+
+              <div className="sr sr-d2 mt-10 flex flex-wrap items-stretch justify-center lg:justify-start">
+                {HERO_STATS.map((stat, index) => (
+                  <div
+                    key={stat.label}
+                    className={`flex min-w-[6.5rem] flex-col px-5 py-1 text-center first:pl-0 last:pr-0 sm:min-w-[7.5rem] sm:px-7 lg:text-left ${
+                      index > 0 ? 'border-l border-slate-300/80' : ''
+                    }`}
+                  >
+                    <p className="text-[1.85rem] font-bold leading-none tracking-tight text-slate-900 sm:text-[2.1rem]">
+                      <StatCounter value={stat.value} startDelay={index * 200} />
+                      <span>{stat.suffix}</span>
+                    </p>
+                    <p className="mt-2 text-[0.88rem] font-normal text-slate-500">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -711,161 +865,300 @@ export default function AboutUsPage() {
 
       <div className="about-premium" ref={wrapperRef}>
 
-      <div className="divider-light max-w-5xl mx-auto" />
-
-      {/* ===== ORIGIN STORY - Enhanced ===== */}
-      <section id="story" className="py-32 px-6 md:px-12 lg:px-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-16">
-            <div className="lg:col-span-3">
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-6 block reveal-up">
-                <span className="inline-flex items-center gap-2">
-                  <PartyPopper size={14} />
-                  Origin Story
-                </span>
-              </span>
-              <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-[#0F172A] leading-tight tracking-tight reveal-up" style={{ transitionDelay: '100ms' }}>
-                Where we started
+      {/* ===== ORIGIN STORY ===== */}
+      <section
+        id="story"
+        className="relative overflow-hidden bg-white px-6 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20"
+      >
+        <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+          {/* Header */}
+          <div className="flex flex-col gap-5 border-b border-slate-200/80 pb-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-[#0F172A]">
+                <ScrollTextReveal
+                  tag="span"
+                  align="left"
+                  animate="scroll"
+                  textColor="#0F172A"
+                  letterInterval={LETTER_INTERVAL}
+                  wordGap="0.2em"
+                  style={TITLE_STYLE_LG}
+                  words={titleWords('Where we started')}
+                />
               </h2>
-
-              <div className="origin-border mt-6">
-                <p className="text-lg text-slate-600 leading-relaxed reveal-up" style={{ transitionDelay: '150ms' }}>
-                  We started in <span className="font-semibold text-[#0F172A]">2017 in Indore</span> with a simple observation: businesses didn't need more technology — they needed technology that <span className="font-semibold text-[#0F172A]">simplified things</span> instead of adding to the pile.
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-5">
-                <p className="text-lg text-slate-600 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-                  That meant custom software shaped to real workflows, cloud infrastructure that didn't require a translator, and later, AI that reached production instead of the pitch deck.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed reveal-up" style={{ transitionDelay: '250ms' }}>
-                  The client base spread from India across North America, Europe, Asia, Australia, and the Middle East — startups, consultants, and enterprises, each with different constraints and the same expectation of delivery.
-                </p>
-              </div>
-
-              {/* Fun Facts */}
-              <div className="grid grid-cols-2 gap-3 mt-8 reveal-up" style={{ transitionDelay: '300ms' }}>
-                {FUN_FACTS.map((fact, i) => (
-                  <div
-                    key={i}
-                    className="fun-fact-card"
-                    onMouseEnter={() => setActiveFunFact(i)}
-                    onMouseLeave={() => setActiveFunFact(null)}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">{fact.emoji}</span>
-                      <span className="text-xs text-slate-600 leading-relaxed">{fact.fact}</span>
-                    </div>
-                  </div>
-                ))}
+              <div className="reveal-up mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem]">
+                <span className="inline-flex items-center gap-2 font-medium text-slate-700">
+                  <Calendar size={15} className="text-[#ea580c]" />
+                  Est. 2017
+                </span>
+                <span className="h-1 w-1 rounded-full bg-slate-300" aria-hidden />
+                <span className="inline-flex items-center gap-2 font-medium text-slate-700">
+                  <MapPin size={15} className="text-[#2563EB]" />
+                  Indore, India
+                </span>
               </div>
             </div>
 
-            {/* Right side - Enhanced Cards */}
-            <div className="lg:col-span-2 space-y-6">
-              <div className="gradient-border-card">
-                <div className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#6366F1] flex items-center justify-center shadow-lg shadow-[#2563EB]/20">
-                      <Calendar size={20} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-[#0F172A]">Est. 2017</p>
-                      <p className="text-sm text-slate-500">8 years of consistent delivery</p>
-                    </div>
+            <FoundedYearBadge />
+          </div>
+
+          {/* Story copy + practices */}
+          <div className="mt-7 grid gap-8 lg:grid-cols-12 lg:gap-10">
+            <div className="relative space-y-5 lg:col-span-7 lg:pl-7">
+              <span
+                className="absolute left-0 top-1 hidden h-[calc(100%-0.5rem)] w-[3px] rounded-full lg:block"
+                style={{
+                  background: 'linear-gradient(180deg, #ea580c 0%, #2563EB 55%, #208A86 100%)',
+                }}
+                aria-hidden
+              />
+              <p className="reveal-up text-[1.05rem] leading-[1.75] text-slate-600">
+                We started in 2017 in Indore with a simple observation: businesses didn&apos;t need more
+                technology — they needed technology that simplified things instead of adding to the
+                pile. That meant custom software shaped to real workflows, cloud infrastructure that
+                didn&apos;t require a translator, and later, AI that reached production instead of the
+                pitch deck.
+              </p>
+              <p className="reveal-up text-[1.05rem] leading-[1.75] text-slate-600">
+                The focus deepened from there: AI/ML, data engineering, and cloud optimization became
+                core practices. The client base spread from India across North America, Europe, Asia,
+                Australia, and the Middle East — startups, consultants, and enterprises, each with
+                different constraints and the same expectation of delivery.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 lg:col-span-5">
+              {[
+                { icon: Brain, title: 'AI / ML', text: 'Production systems — not pitch decks.', accent: '#ea580c', soft: 'rgba(234,88,12,0.1)' },
+                { icon: Layers, title: 'Data engineering', text: 'Pipelines shaped to real workflows.', accent: '#2563EB', soft: 'rgba(37,99,235,0.1)' },
+                { icon: Globe, title: 'Cloud optimization', text: 'Infrastructure without the translator.', accent: '#208A86', soft: 'rgba(32,138,134,0.12)' },
+              ].map(({ icon: Icon, title, text, accent, soft }, i) => (
+                <div
+                  key={title}
+                  className="reveal-up group flex gap-4 rounded-2xl border border-slate-200/90 bg-[#fafafa] p-4 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_16px_40px_-24px_rgba(15,23,42,0.25)]"
+                  style={{ transitionDelay: `${i * 60}ms`, borderColor: 'rgba(226,232,240,0.95)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = accent;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(226,232,240,0.95)';
+                  }}
+                >
+                  <span
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
+                    style={{ background: soft, color: accent }}
+                  >
+                    <Icon size={20} strokeWidth={1.75} />
+                  </span>
+                  <div>
+                    <p className="text-[0.95rem] font-semibold text-[#0F172A]">{title}</p>
+                    <p className="mt-1 text-[0.88rem] leading-relaxed text-slate-500">{text}</p>
                   </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              <div className="gradient-border-card">
-                <div className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#EF4444] flex items-center justify-center shadow-lg shadow-[#F59E0B]/20">
-                      <MapPin size={20} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-[#0F172A]">Indore, India</p>
-                      <p className="text-sm text-slate-500">Headquarters</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="image-frame reveal-right" style={{ transitionDelay: '300ms' }}>
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
-                  alt="Team"
-                  className="w-full h-52 object-cover"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 text-sm text-slate-400 justify-end">
-                <Camera size={14} />
-                <span>Our team, celebrating a big win</span>
-              </div>
+          {/* Regions */}
+          <div className="reveal-up mt-8 flex flex-col gap-3 border-t border-slate-200/80 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="inline-flex items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-slate-400">
+              <Globe size={14} className="text-[#2563EB]" />
+              Where we deliver
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {['India', 'North America', 'Europe', 'Asia', 'Australia', 'Middle East'].map(
+                (region) => (
+                  <span
+                    key={region}
+                    className="rounded-full border border-orange-100 bg-gradient-to-r from-orange-50 to-blue-50 px-3.5 py-1.5 text-[0.8rem] font-medium text-slate-700"
+                  >
+                    {region}
+                  </span>
+                ),
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      <div className="divider-light max-w-5xl mx-auto" />
-
-      {/* ===== LEADERSHIP - Enhanced ===== */}
-      <section className="py-32 px-6 md:px-12 lg:px-20 wavy-bg relative overflow-hidden">
-        <div className="floating-orb float-orb-1 w-64 h-64 bg-[#6366F1] top-[-80px] right-[-80px]" />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 block reveal-up">
-              <span className="inline-flex items-center gap-2">
-                <Crown size={14} />
-                Leadership
-              </span>
-            </span>
-            <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-[#0F172A] leading-tight tracking-tight reveal-up" style={{ transitionDelay: '100ms' }}>
-              The team behind the <span className="gradient-text">vision</span>
+      {/* ===== WHAT WE BELIEVE ===== */}
+      <section
+        id="beliefs"
+        className="relative overflow-hidden bg-gray-50 px-6 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20"
+        aria-labelledby="beliefs-heading"
+      >
+        <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+          <div className="mb-9 flex flex-col items-center text-center sm:mb-11">
+            <h2 id="beliefs-heading" className="text-[#0F172A]">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="scroll"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={TITLE_STYLE}
+                words={titleWords('What we believe and practice')}
+              />
             </h2>
+            <p className="reveal-up mx-auto mt-3 max-w-2xl text-[0.98rem] leading-relaxed text-slate-500 sm:mt-4 sm:text-[1.05rem]">
+              Results over hours. Honesty over upsells. Clear quotes. Challenges that shape the work —
+              not a packaged checklist.
+            </p>
+            <span className="about-beliefs__title-line reveal-up mt-4" aria-hidden />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {LEADERSHIP.map((leader, i) => {
-              const isActive = activeLeader === i;
+          <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8">
+            {BELIEFS.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <article
+                  key={item.title}
+                  className="about-belief group reveal-up relative flex h-full min-h-[12.5rem] flex-col overflow-hidden rounded-[1.5rem] bg-white px-5 pb-[3.75rem] pt-4 sm:min-h-[13.25rem] sm:rounded-[1.65rem] sm:px-6 sm:pb-16 sm:pt-5"
+                  style={
+                    {
+                      '--belief-accent': item.accent,
+                      '--belief-delay': `${index * 0.35}s`,
+                      transitionDelay: `${index * 80}ms`,
+                    } as React.CSSProperties
+                  }
+                >
+                  <span className="about-belief__shine" aria-hidden />
+                  <span className="about-belief__glow" aria-hidden />
+                  <span className="about-belief__index" aria-hidden>
+                    0{index + 1}
+                  </span>
+
+                  <span className="about-belief__ripples pointer-events-none" aria-hidden>
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+
+                  <div className="about-belief__copy relative z-[1] max-w-[88%]">
+                    <h3 className="text-[1.08rem] font-bold leading-[1.25] tracking-tight text-slate-900 sm:text-[1.18rem]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-[0.88rem] font-normal leading-[1.55] text-slate-500 sm:text-[0.9rem]">
+                      {item.text}
+                    </p>
+                  </div>
+
+                  <div className="about-belief__icon pointer-events-none absolute bottom-3 right-3 z-[2] sm:bottom-3.5 sm:right-3.5">
+                    <span
+                      className="about-belief__icon-blob"
+                      style={{ background: item.accent }}
+                      aria-hidden
+                    />
+                    <span
+                      className="about-belief__icon-stack"
+                      style={{ '--icon-tone': item.accent } as React.CSSProperties}
+                    >
+                      <span className="about-belief__icon-plate about-belief__icon-plate--back" aria-hidden />
+                      <span className="about-belief__icon-plate about-belief__icon-plate--mid" aria-hidden />
+                      <span className="about-belief__icon-face">
+                        <Icon size={26} strokeWidth={1.7} />
+                      </span>
+                    </span>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== WHAT WE DO TODAY ===== */}
+      <section
+        id="what-we-do"
+        className="relative overflow-hidden bg-white px-6 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16"
+        aria-labelledby="what-we-do-heading"
+      >
+        <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+          <div className="mb-8 flex flex-col items-center text-center sm:mb-9">
+            <h2 id="what-we-do-heading" className="text-[#0F172A]">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="scroll"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={TITLE_STYLE}
+                words={titleWords('What we do today')}
+              />
+            </h2>
+            <p className="reveal-up mx-auto mt-2.5 max-w-2xl text-[0.98rem] leading-relaxed text-slate-500 sm:mt-3 sm:text-[1.05rem]">
+              Three ways of working, one engineering standard.
+            </p>
+            <span className="about-beliefs__title-line reveal-up mt-3.5" aria-hidden />
+          </div>
+
+          <div className="about-do-flow relative mx-auto max-w-5xl">
+            <span className="about-do-flow__rail" aria-hidden />
+
+            {WHAT_WE_DO.map((item, index) => {
+              const Icon = item.icon;
               return (
                 <div
-                  key={i}
-                  className="group"
-                  style={{
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: `fadeUp 0.6s ease ${i * 0.1 + 0.2}s forwards`,
-                  }}
-                  onMouseEnter={() => setActiveLeader(i)}
-                  onMouseLeave={() => setActiveLeader(null)}
+                  key={item.title}
+                  className="about-do-row group reveal-up relative grid grid-cols-[3rem_1fr] gap-4 py-4 sm:grid-cols-[4.5rem_1fr] sm:gap-7 sm:py-5"
+                  style={
+                    {
+                      '--do-accent': item.accent,
+                      transitionDelay: `${index * 100}ms`,
+                    } as React.CSSProperties
+                  }
                 >
-                  <div className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-500 ${isActive ? 'border-[#2563EB] shadow-xl -translate-y-2' : 'border-slate-100 hover:shadow-xl hover:-translate-y-1'
-                    }`}>
-                    <div className="aspect-[4/3] overflow-hidden relative">
-                      <img src={leader.image} alt={leader.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute top-4 right-4 text-3xl">{leader.emoji}</div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                      <div className="text-white font-semibold">{leader.name}</div>
-                      <div className="text-white/80 text-sm">{leader.role}</div>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="font-bold text-[#0F172A]">{leader.name}</h3>
-                          <p className="text-sm text-slate-500">{leader.role}</p>
-                        </div>
-                        <a href="#" className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-[#2563EB]/10 hover:text-[#2563EB] transition-all duration-300">
-                          <Linkedin size={14} />
-                        </a>
+                  <div className="relative z-[1] flex flex-col items-center">
+                    <span className="about-do-row__node">
+                      <Icon size={18} strokeWidth={1.85} />
+                    </span>
+                    <span className="mt-1.5 text-[0.7rem] font-bold tracking-[0.14em] text-slate-400">
+                      {item.step}
+                    </span>
+                  </div>
+
+                  <div className="min-w-0 pb-0.5 text-left">
+                    <h3 className="text-[1.15rem] font-bold tracking-tight text-slate-900 sm:text-[1.25rem]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 max-w-xl text-[0.92rem] leading-[1.55] text-slate-500">
+                      {item.text}
+                    </p>
+
+                    {'products' in item && item.products ? (
+                      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+                        {item.products.map((name) => (
+                          <span
+                            key={name}
+                            className="inline-flex items-center gap-2 text-[0.84rem] font-medium text-slate-700"
+                          >
+                            <span
+                              className="h-1.5 w-1.5 rounded-full"
+                              style={{ background: item.accent }}
+                              aria-hidden
+                            />
+                            {name}
+                          </span>
+                        ))}
                       </div>
-                      <p className="text-sm text-slate-600 mt-2">{leader.bio}</p>
-                      <div className={`mt-3 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-12' : 'w-8 group-hover:w-12'}`} style={{ background: leader.color }} />
-                    </div>
+                    ) : null}
+
+                    {'links' in item && item.links ? (
+                      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5">
+                        {item.links.map((link) => (
+                          <Link
+                            key={link.to}
+                            to={link.to}
+                            className="about-do-row__link inline-flex items-center gap-1.5 text-[0.88rem] font-semibold text-slate-800"
+                          >
+                            {link.label}
+                            <ArrowUpRight size={14} strokeWidth={2.2} />
+                          </Link>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               );
@@ -874,326 +1167,215 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      <div className="divider-light max-w-5xl mx-auto" />
+      {/* ===== WHO TRUSTS US ===== */}
+      <section
+        id="who-trusts-us"
+        className="about-trust relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24"
+        aria-labelledby="who-trusts-heading"
+      >
+        <div className="about-trust__aura" aria-hidden />
 
-      {/* ===== OUR TEAM - Enhanced with Joyful Design ===== */}
-      {/* ===== OUR TEAM - Horizontal Wave Scroll (Smooth & Complete) ===== */}
-      <section className="py-32 px-6 md:px-12 lg:px-20 relative overflow-hidden bg-gradient-to-b from-[#FAFAFA] to-white">
-        <div className="floating-orb float-orb-2 w-72 h-72 bg-[#06B6D4] bottom-[-100px] left-[-100px] opacity-20" />
-        <div className="floating-orb float-orb-1 w-64 h-64 bg-[#6366F1] top-[-80px] right-[-80px] opacity-20" />
-
-        <div className="max-w-full mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 block reveal-up">
-              <span className="inline-flex items-center gap-2">
-                <Users size={14} />
-                Our Team
-              </span>
-            </span>
-            <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-[#0F172A] leading-tight tracking-tight reveal-up" style={{ transitionDelay: '100ms' }}>
-              The amazing people <br className="hidden md:block" />
-              <span className="gradient-text-warm">behind the work</span>
+        <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 sm:px-8 lg:px-12">
+          <div className="mb-10 flex flex-col items-center text-center sm:mb-12">
+            <h2 id="who-trusts-heading" className="text-[#0F172A]">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="scroll"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={TITLE_STYLE}
+                words={titleWords('Who trusts us')}
+              />
             </h2>
-            <p className="text-slate-500 text-lg mt-3 reveal-up" style={{ transitionDelay: '150ms' }}>
-              Scroll to meet the team → <span className="text-xl">✨</span>
+            <p className="reveal-up mx-auto mt-3 max-w-xl text-[1.02rem] leading-relaxed text-slate-500 sm:text-[1.08rem]">
+              From research labs to product companies — trust earned on delivery.
             </p>
+            <span className="about-beliefs__title-line reveal-up mt-4" aria-hidden />
           </div>
 
-          {/* Horizontal Scroll Container - No cutting */}
-          <div className="relative overflow-x-auto pb-12 scroll-smooth hide-scrollbar" style={{ overflowY: 'visible' }}>
-            <div className="flex items-center gap-0 min-w-max px-8 md:px-16 py-8">
-              {TEAM_MEMBERS.map((member, i) => {
-                const isEven = i % 2 === 0;
-                const isLast = i === TEAM_MEMBERS.length - 1;
-
-                return (
-                  <div key={i} className="flex items-center flex-shrink-0">
-                    {/* Team Member Card */}
-                    <div
-                      className="group relative"
-                      style={{
-                        opacity: 0,
-                        animation: `fadeUp 0.6s ease ${i * 0.1 + 0.2}s forwards`,
-                      }}
-                    >
-                      <div className="relative flex flex-col items-center px-3 md:px-6">
-                        {/* Image - Circular with wave offset - COMPLETE CIRCLE */}
-                        <div
-                          className="relative"
-                          style={{
-                            transform: isEven ? 'translateY(-30px)' : 'translateY(30px)',
-                            transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                          }}
-                        >
-                          {/* Main circle container - FULL VISIBLE */}
-                          <div className="relative w-36 h-36 md:w-44 md:h-44 lg:w-52 lg:h-52">
-                            {/* Gradient ring - COMPLETE */}
-                            <div className="absolute inset-[-4px] rounded-full bg-gradient-to-br from-[#2563EB] via-[#6366F1] to-[#06B6D4] animate-spin-slow" style={{ animationDuration: '6s' }} />
-                            <div className="absolute inset-[-2px] rounded-full bg-gradient-to-br from-[#2563EB] via-[#6366F1] to-[#06B6D4]" />
-
-                            {/* Image - COMPLETE CIRCLE */}
-                            <div className="absolute inset-[3px] rounded-full overflow-hidden bg-white">
-                              <img
-                                src={member.image}
-                                alt={member.name}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                              />
-                            </div>
-
-                            {/* Floating emoji badge - COMPLETE */}
-                            <div className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-[#F59E0B] to-[#EF4444] flex items-center justify-center text-lg md:text-2xl shadow-lg shadow-[#F59E0B]/30 animate-bounce-slow z-10">
-                              {member.emoji}
-                            </div>
-                          </div>
-
-                          {/* Name & Role - Below circle */}
-                          <div className="text-center mt-4 min-w-[120px]">
-                            <h3 className="text-sm md:text-base font-bold text-[#0F172A]">{member.name}</h3>
-                            <p className="text-xs md:text-sm text-slate-500">{member.role}</p>
-                          </div>
-
-                          {/* Social links - Hover overlay */}
-                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-2xl flex gap-2 z-20">
-                            <a href="#" className="w-8 h-8 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-300">
-                              <Linkedin size={14} />
-                            </a>
-                            <a href="#" className="w-8 h-8 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-300">
-                              <Twitter size={14} />
-                            </a>
-                            <a href="#" className="w-8 h-8 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-300">
-                              <Globe size={14} />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Connecting wave line between members - SMOOTH */}
-                    {!isLast && (
-                      <div className="flex-shrink-0 relative w-16 md:w-20 lg:w-24 h-32 md:h-40 lg:h-48">
-                        <svg
-                          className="w-full h-full"
-                          viewBox="0 0 80 160"
-                          preserveAspectRatio="none"
-                        >
-                          {/* Gradient wave line */}
-                          <defs>
-                            <linearGradient id={`waveGrad${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                              <stop offset="0%" stopColor="#2563EB" stopOpacity="0.4" />
-                              <stop offset="50%" stopColor="#6366F1" stopOpacity="0.7" />
-                              <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.4" />
-                            </linearGradient>
-                            <filter id={`glow${i}`}>
-                              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                              <feMerge>
-                                <feMergeNode in="coloredBlur" />
-                                <feMergeNode in="SourceGraphic" />
-                              </feMerge>
-                            </filter>
-                          </defs>
-
-                          {/* Wave path - SMOOTH CURVE */}
-                          <path
-                            d={isEven ? `
-                        M 10,40
-                        C 30,40 40,120 50,120
-                        C 60,120 70,40 80,40
-                      ` : `
-                        M 10,120
-                        C 30,120 40,40 50,40
-                        C 60,40 70,120 80,120
-                      `}
-                            stroke={`url(#waveGrad${i})`}
-                            strokeWidth="3"
-                            fill="none"
-                            strokeLinecap="round"
-                            className="wave-path"
-                            filter={`url(#glow${i})`}
-                          />
-
-                          {/* Animated dot at the end */}
-                          <circle
-                            cx="78"
-                            cy={isEven ? 40 : 120}
-                            r="5"
-                            fill="#2563EB"
-                            className="wave-dot"
-                          >
-                            <animate
-                              attributeName="r"
-                              values="4;6;4"
-                              dur="2s"
-                              repeatCount="indefinite"
-                            />
-                          </circle>
-
-                          {/* Small connecting dots along the wave */}
-                          <circle cx="20" cy={isEven ? 40 : 120} r="2.5" fill="#6366F1" opacity="0.6" />
-                          <circle cx="35" cy={isEven ? 68 : 92} r="2" fill="#6366F1" opacity="0.4" />
-                          <circle cx="50" cy={isEven ? 100 : 60} r="2" fill="#6366F1" opacity="0.4" />
-                          <circle cx="65" cy={isEven ? 68 : 92} r="2.5" fill="#6366F1" opacity="0.6" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Scroll indicator - Right side */}
-            <div className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-xl border border-slate-100 animate-bounce-slow z-10">
-              <MoveRight size={24} className="text-[#2563EB]" />
-            </div>
-          </div>
-
-          {/* Scroll hint with arrows */}
-          <div className="flex items-center justify-center gap-4 mt-4 text-slate-400 text-sm">
-            <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest">
-              <span className="text-[#2563EB]">←</span>
-              Scroll to explore
-              <span className="text-[#2563EB]">→</span>
-            </span>
-          </div>
-
-          {/* Bottom stats - Like the image */}
-          <div className="flex flex-wrap items-center justify-center gap-8 mt-12 pt-8 border-t border-slate-100">
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Heart size={16} className="text-red-400 fill-red-400" />
-              <span>Built with love in Indore</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Coffee size={16} className="text-amber-600" />
-              <span>200+ cups of chai weekly</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Globe size={16} className="text-[#2563EB]" />
-              <span>8 languages spoken</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Award size={16} className="text-[#F59E0B]" />
-              <span>12 industry awards</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="divider-light max-w-5xl mx-auto" />
-
-      {/* ===== BIG STATEMENT - Enhanced ===== */}
-      <section className="py-40 px-6 md:px-12 lg:px-20 relative overflow-hidden">
-        <div className="floating-orb float-orb-1 w-64 h-64 bg-[#8B5CF6] top-[-80px] left-[-80px]" />
-        <div className="floating-orb float-orb-2 w-48 h-48 bg-[#06B6D4] bottom-[-60px] right-[-60px]" />
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="text-5xl mb-4 reveal-up">🚀</div>
-          <h2 className="font-editorial text-4xl md:text-5xl lg:text-7xl text-[#0F172A] leading-[1.1] tracking-tight">
-            <TextReveal lines={["We don't sell hours.", "We ship outcomes."]} />
-          </h2>
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mt-6 leading-relaxed">
-            Every line of code, every model trained, every infrastructure decision — measured against the result it produces for your business.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <span className="text-3xl animate-bounce">✨</span>
-            <span className="text-3xl animate-bounce" style={{ animationDelay: '0.2s' }}>⭐</span>
-            <span className="text-3xl animate-bounce" style={{ animationDelay: '0.4s' }}>🌟</span>
-          </div>
-        </div>
-      </section>
-
-      <div className="divider-light max-w-5xl mx-auto" />
-
-      {/* ===== LOCATION - Enhanced ===== */}
-      <section className="py-32 px-6 md:px-12 lg:px-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 block reveal-up">
-                <span className="inline-flex items-center gap-2">
-                  <Compass size={14} />
-                  Location
+          <div className="about-trust__rail reveal-up mb-10 sm:mb-12" role="list">
+            {WHO_TRUST_CATEGORIES.map((title, i) => (
+              <React.Fragment key={title}>
+                {i > 0 ? <span className="about-trust__rail-dot" aria-hidden /> : null}
+                <span className="about-trust__rail-item" role="listitem">
+                  {title}
                 </span>
-              </span>
-              <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-[#0F172A] leading-tight tracking-tight reveal-up" style={{ transitionDelay: '100ms' }}>
-                Where we <span className="gradient-text">work & play</span>
-              </h2>
-              <p className="text-lg text-slate-600 mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '150ms' }}>
-                Headquartered in Indore, India — with delivery and support across time zones for clients in 15+ locations worldwide.
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        <div className="about-trust__stage reveal-up relative z-10" aria-label="Client logos">
+          <div className="about-trust__marquee about-trust__marquee--left">
+            <div className="about-trust__marquee-track">
+              {[...WHO_TRUSTS_LOGOS, ...WHO_TRUSTS_LOGOS].map((item, i) => (
+                <div key={`a-${item.name}-${i}`} className="about-trust__tile" title={item.name}>
+                  <img src={item.logo} alt={item.name} loading="lazy" decoding="async" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 sm:px-8 lg:px-12">
+          <p className="about-trust__closer reveal-up mt-12 text-center sm:mt-14" style={{ transitionDelay: '160ms' }}>
+            <span className="about-trust__closer-soft">Across every one:</span>{' '}
+            <span className="about-trust__closer-emph">delivery, measured.</span>
+          </p>
+        </div>
+      </section>
+
+      {/* ===== WHERE WE WORK ===== */}
+      <section
+        id="where-we-work"
+        className="about-work relative overflow-hidden bg-slate-50 px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+        aria-labelledby="where-we-work-heading"
+      >
+        <div className="about-work__grid" aria-hidden />
+
+        <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+          <div className="mb-10 flex flex-col items-center text-center sm:mb-14">
+            <h2 id="where-we-work-heading" className="text-[#0F172A]">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="scroll"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={TITLE_STYLE}
+                words={titleWords('Where we work')}
+              />
+            </h2>
+            <span className="about-beliefs__title-line reveal-up mt-3.5" aria-hidden />
+          </div>
+
+          <div className="about-work__layout reveal-up">
+            <div className="about-work__hq">
+              <p className="about-work__label">
+                <span className="about-work__label-icon" aria-hidden>
+                  <MapPin size={18} strokeWidth={2.35} />
+                </span>
+                Location
               </p>
 
-              <div className="mt-8 p-6 rounded-2xl bg-white border border-slate-100 shadow-sm reveal-up" style={{ transitionDelay: '200ms' }}>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563EB] to-[#6366F1] flex items-center justify-center shadow-lg shadow-[#2563EB]/20 flex-shrink-0">
-                    <MapPin size={18} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[#0F172A]">308 Shagun Arcade</p>
-                    <p className="text-sm text-slate-500">Plot No. 8, PU-4, Scheme No. 54</p>
-                    <p className="text-sm text-slate-500">AB Road, Vijay Nagar, Indore 452010</p>
-                    <p className="text-xs text-slate-400 mt-1">📍 Come say hi! We have chai ☕</p>
+              <address className="about-work__address not-italic">
+                {[
+                  '308 Shagun Arcade',
+                  'Plot No. 8, PU-4, Scheme No. 54',
+                  'AB Road, Vijay Nagar',
+                  'Indore (M.P.) 452010, India',
+                ].map((line) => (
+                  <span key={line} className="about-work__line">
+                    {line}
+                  </span>
+                ))}
+              </address>
+
+              <div className="about-work__cta">
+                <Link to="/contactUs" className="about-work__btn about-work__btn--primary">
+                  Work with us
+                  <ArrowUpRight size={16} strokeWidth={2.2} />
+                </Link>
+                <Link to="/careers" className="about-work__btn about-work__btn--ghost">
+                  Join us
+                  <ArrowUpRight size={16} strokeWidth={2.2} />
+                </Link>
+              </div>
+            </div>
+
+            <div className="about-work__spine" aria-hidden>
+              <span className="about-work__spine-dot" />
+              <span className="about-work__spine-rail" />
+              <span className="about-work__spine-dot about-work__spine-dot--end" />
+            </div>
+
+            <div className="about-work__reach">
+              <p className="about-work__stat">
+                <span className="about-work__stat-num">15+</span>
+                <span className="about-work__stat-label">locations worldwide</span>
+              </p>
+              <p className="about-work__reach-copy">
+                Delivery and support across time zones — so your team always has cover where the work happens.
+              </p>
+              <div className="about-work__zones" aria-hidden>
+                {['Americas', 'Europe', 'Asia', 'ANZ'].map((zone) => (
+                  <span key={zone} className="about-work__zone">
+                    {zone}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider-light max-w-5xl mx-auto" />
+
+      {/* ===== LEADERSHIP ===== */}
+      <section
+        id="leadership"
+        className="about-lead relative overflow-hidden px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+        aria-labelledby="leadership-heading"
+      >
+        <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+          <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
+            <h2 id="leadership-heading" className="text-[#0F172A]">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="scroll"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={TITLE_STYLE}
+                words={titleWords('The team behind the vision')}
+              />
+            </h2>
+            <span className="about-beliefs__title-line reveal-up mt-3.5" aria-hidden />
+          </div>
+
+          <div className="about-lead__rows">
+            {LEADERSHIP.map((leader, i) => (
+              <article
+                key={leader.name}
+                className={`about-lead__card ${i % 2 === 1 ? 'about-lead__card--reverse' : ''} ${
+                  i % 2 === 0 ? 'reveal-left' : 'reveal-right'
+                }`}
+                style={
+                  {
+                    transitionDelay: `${i * 280}ms`,
+                    '--lead-accent': i % 2 === 0 ? '#ea580c' : '#2563eb',
+                    '--lead-accent-soft':
+                      i % 2 === 0 ? 'rgba(234, 88, 12, 0.22)' : 'rgba(37, 99, 235, 0.2)',
+                  } as React.CSSProperties
+                }
+              >
+                <div
+                  className={`about-lead__media${i % 2 === 0 ? ' about-lead__media--warm' : ' about-lead__media--cool'}`}
+                >
+                  <span className="about-lead__media-glow" aria-hidden />
+                  <span className="about-lead__media-frame" aria-hidden />
+                  <div className="about-lead__media-shot">
+                    <img src={leader.image} alt={leader.name} loading="lazy" decoding="async" />
                   </div>
                 </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-                <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#2563EB] to-[#6366F1] text-white font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300">
-                  Work With Us
-                  <ArrowRight size={18} />
-                </a>
-                <a href="/careers" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
-                  Join Us 🎯
-                </a>
-              </div>
-            </div>
-
-            <div className="reveal-right" style={{ transitionDelay: '200ms' }}>
-              <div className="image-frame">
-                <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
-                  alt="Office"
-                  className="w-full h-80 object-cover"
-                />
-              </div>
-              <div className="flex items-center gap-2 text-sm text-slate-400 mt-3 justify-end">
-                <Camera size={14} />
-                <span>Our office space — where magic happens</span>
-              </div>
-            </div>
+                <div className="about-lead__copy">
+                  <h3 className="about-lead__name">{leader.name}</h3>
+                  <span className="about-lead__badge">{leader.role}</span>
+                  <p className="about-lead__bio">{leader.bio}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== CTA - Enhanced with Joyful Design ===== */}
-      <section className="py-32 px-6 md:px-12 lg:px-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#1E1B4B] to-[#0F172A]" />
-        <div className="floating-orb float-orb-1 w-96 h-96 bg-[#2563EB] top-[-150px] right-[-100px] opacity-20" />
-        <div className="floating-orb float-orb-2 w-80 h-80 bg-[#8B5CF6] bottom-[-100px] left-[-100px] opacity-20" />
+      <div className="divider-light max-w-5xl mx-auto" />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-6">
-            <Sparkles size={16} className="text-[#2563EB]" />
-            <span className="text-xs font-bold text-white/80 tracking-widest">READY TO BUILD</span>
-            <span className="text-sm">🚀</span>
-          </div>
-          <h2 className="font-editorial text-4xl md:text-5xl lg:text-6xl text-white leading-tight tracking-tight">
-            Let's create something
-            <br />
-            <span className="gradient-text">remarkable together</span>
-          </h2>
-          <p className="text-lg text-slate-400 mt-4 max-w-xl mx-auto">
-            500+ projects delivered. 95% client retention. And a team that actually cares about your success.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
-              Work With Us
-              <ArrowRight size={18} />
-            </a>
-            <a href="/case-studies" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/10 transition-all duration-300">
-              See Our Work ✨
-            </a>
-          </div>
-         
-        </div>
-      </section>
+      <Team />
       </div>
     </>
   );
