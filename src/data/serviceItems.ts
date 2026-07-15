@@ -26,6 +26,25 @@ export interface ServiceItem {
 
 type ServiceItemBase = Omit<ServiceItem, 'href'>;
 
+/** Maps legacy service ids → canonical public paths */
+export const SERVICE_PATHS: Record<string, string> = {
+  'custom-software': '/custom-software-development',
+  'web-development': '/web-development-and-design',
+  'mobile-apps': '/mobile-app-development',
+  'ui-ux-design': '/ui-ux-design',
+  'ai-solutions': '/ai-ml-development-services',
+  analytics: '/data-science-and-analytics',
+  consulting: '/iot-solutions',
+  'cloud-services': '/cloud-solutions',
+  devops: '/devops-development',
+  'maintenance-support': '/software-maintenance-support',
+  salesforce: '/salesforce-development',
+  'brand-strategy': '/services/brand-strategy',
+  'digital-marketing': '/services/digital-marketing',
+  ecommerce: '/services/ecommerce',
+  seo: '/services/seo',
+};
+
 const SERVICE_ITEMS_BASE: ServiceItemBase[] = [
   {
     id: 'brand-strategy',
@@ -127,7 +146,7 @@ const SERVICE_ITEMS_BASE: ServiceItemBase[] = [
 
 export const SERVICE_ITEMS: ServiceItem[] = SERVICE_ITEMS_BASE.map((item) => ({
   ...item,
-  href: `/services/${item.id}`,
+  href: SERVICE_PATHS[item.id] ?? `/${item.id}`,
 }));
 
 export interface ServiceMegaLink {
@@ -147,44 +166,40 @@ export const SERVICE_MEGA_COLUMNS: ServiceMegaColumn[] = [
   {
     id: 'product-engineering',
     title: 'Product Engineering',
-    href: '/whatWeDo/productEngineering',
+    href: '/product-engineering',
     items: [
-      { id: 'custom-software', label: 'Custom Software', href: '/services/custom-software' },
-      { id: 'web-development', label: 'Web Development', href: '/services/web-development' },
-      { id: 'mobile-apps', label: 'Mobile Apps', href: '/services/mobile-apps' },
-      { id: 'ui-ux-design', label: 'UI/UX Design', href: '/services/ui-ux-design' },
+      { id: 'custom-software', label: 'Custom Software', href: '/custom-software-development' },
+      { id: 'web-development', label: 'Web Development', href: '/web-development-and-design' },
+      { id: 'mobile-apps', label: 'Mobile Apps', href: '/mobile-app-development' },
+      { id: 'ui-ux-design', label: 'UI/UX Design', href: '/ui-ux-design' },
     ],
   },
   {
     id: 'ai-data',
     title: 'AI & Data',
-    href: '/whatWeDo/ai-and-data',
+    href: '/ai-data',
     items: [
-      { id: 'ai-ml', label: 'AI/ML Development', href: '/services/ai-solutions' },
-      { id: 'data-science', label: 'Data Science & Analytics', href: '/services/analytics' },
-      { id: 'iot', label: 'IoT Solutions', href: '/services/consulting' },
+      { id: 'ai-ml', label: 'AI/ML Development', href: '/ai-ml-development-services' },
+      { id: 'data-science', label: 'Data Science & Analytics', href: '/data-science-and-analytics' },
+      { id: 'iot', label: 'IoT Solutions', href: '/iot-solutions' },
     ],
   },
   {
     id: 'cloud-devops',
     title: 'Cloud & DevOps',
-    href: '/whatWeDo/cloud-and-devops',
+    href: '/cloud-devops',
     items: [
-      { id: 'cloud', label: 'Cloud Solutions', href: '/services/cloud-services' },
-      { id: 'devops', label: 'DevOps', href: '/services/devops' },
-      { id: 'maintenance', label: 'Maintenance & Support', href: '/services/maintenance-support' },
-      { id: 'salesforce', label: 'Salesforce', href: '/services/salesforce' },
+      { id: 'cloud', label: 'Cloud Solutions', href: '/cloud-solutions' },
+      { id: 'devops', label: 'DevOps', href: '/devops-development' },
+      { id: 'maintenance', label: 'Maintenance & Support', href: '/software-maintenance-support' },
+      { id: 'salesforce', label: 'Salesforce', href: '/salesforce-development' },
     ],
   },
   {
-    id: 'team-extension',
-    title: 'Team Extension',
-    href: '/whatWeDo/staffAugmentation',
-    items: [
-      { id: 'staff-augmentation', label: 'Staff Augmentation', href: '/#contact' },
-      { id: 'engagement-models', label: 'Engagement Models', href: '/#contact' },
-      { id: 'hire-by-skill', label: 'Hire by Skill', href: '/#contact' },
-    ],
+    id: 'staff-augmentation',
+    title: 'Staff Augmentation',
+    href: '/staff-augmentation',
+    items: [],
   },
 ];
 

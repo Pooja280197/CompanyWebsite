@@ -1,5 +1,5 @@
 // IndustryHealthcare.tsx - Redesigned "What We Build" Section Only
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -22,7 +22,6 @@ import {
   FileText,
   Layers,
   Quote,
-  X,
   Briefcase,
   Database,
   Server,
@@ -56,9 +55,15 @@ import {
   ChevronRight as ChevronRightIcon,
   CalendarCheck2,
 } from 'lucide-react';
+import { FaqAccordionSection } from '../FaqAccordionSection';
+import { ServiceProofSection } from '../service-pages/ServiceProofSection';
+import { HERO_IMAGES } from '../../data/heroImages';
+import { IndustryHero } from './IndustryHero';
+import { IndustryChallenge } from './IndustryChallenge';
+import { IndustryBuildCards } from './IndustryBuildCards';
 
 const injectStyles = () => {
-  const id = 'healthcare-industry-premium';
+    const id = 'healthcare-industry-premium-v2';
   if (document.getElementById(id)) return;
   const style = document.createElement('style');
   style.id = id;
@@ -293,7 +298,6 @@ function TextReveal({ lines, className = '' }: { lines: string[]; className?: st
 
 export default function IndustryHealthcare() {
   const wrapperRef = useReveal();
-  const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
@@ -352,321 +356,139 @@ export default function IndustryHealthcare() {
     <div className="healthcare-premium" ref={wrapperRef}>
       
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#EEF2FF]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6366F1]/5 rounded-full blur-3xl" />
-          <Heart className="float-el top-[15%] right-[8%] text-[#2563EB]/10 w-20 h-20" />
-          <Stethoscope className="float-el bottom-[25%] right-[12%] text-[#6366F1]/10 w-16 h-16" />
-          <Pill className="float-el top-[35%] left-[85%] text-[#06B6D4]/10 w-14 h-14" />
-        </div>
-
-        <div className="max-w-5xl mx-auto w-full relative z-10">
-          <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
-              <Heart size={16} className="text-[#2563EB]" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Healthcare</span>
-            <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Software Development</span>
-          </div>
-
-          <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            Software where the stakes are
-            <br />
-            <span className="gradient-text">patients, not just deadlines</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            Healthcare software development with the discipline the domain demands: patient data handled properly, workflows built around clinicians, systems that don't fail at 2 a.m.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-105">
-              Discuss Your Project
-              <ArrowRight size={18} />
-            </a>
-            <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
-              Explore Solutions
-            </a>
-              </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
-            {[
-              { value: '30%', label: 'Efficiency Gain', icon: TrendingUp, color: '#2563EB' },
-              { value: '99.9%', label: 'Data Integrity', icon: Shield, color: '#6366F1' },
-              { value: '24/7', label: 'System Uptime', icon: Clock, color: '#059669' },
-              { value: '100%', label: 'Compliance Ready', icon: Lock, color: '#D97706' },
-            ].map((stat, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#2563EB] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
-                <div className="text-2xl font-bold text-[#0F172A]">{stat.value}</div>
-                <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <IndustryHero
+        image={HERO_IMAGES.healthcare}
+        eyebrow="Healthcare Software"
+        accent="#38bdf8"
+        title={
+          <>
+            Software where the stakes are <em>patients</em>, not just deadlines
+          </>
+        }
+        description="Healthcare software development with the discipline the domain demands: patient data handled properly, workflows built around clinicians, systems that don't fail at 2 a.m."
+        primaryCta={{ label: 'Discuss Your Project', href: '/contact-us' }}
+        secondaryCta={{ label: 'Explore Solutions', href: '#services' }}
+        rail={['HIPAA-aware architecture', 'Clinical workflows', 'Always-on reliability']}
+      />
 
       {/* ===== THE CHALLENGE ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
-                The Challenge
-                </span>
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                The fragmentation tax in care delivery
-              </h2>
-              <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Patient data scattered across registration, lab, pharmacy, and billing systems doesn't just waste staff time — it <span className="font-semibold text-[#0F172A]">delays care</span>.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Every duplicate entry is a chance for error; every system that won't talk to another is a hallway phone call.
-                </p>
-              </div>
-            </div>
+      <IndustryChallenge
+        accent="#2563EB"
+        accentSoft="rgba(37, 99, 235, 0.14)"
+        accentSoft2="rgba(14, 165, 233, 0.12)"
+        title={
+          <>
+            The fragmentation tax in <span className="gradient-text">care delivery</span>
+          </>
+        }
+        accentQuote="Clinics rarely lack software — they lack one connected view of the patient journey."
+        items={[
+          {
+            icon: Database,
+            label: 'Fragmented Patient Data',
+            desc: 'Records split across registration, lab, and billing',
+          },
+          {
+            icon: ClipboardCheck,
+            label: 'Manual Workflows',
+            desc: 'Duplicate entry, hallway handoffs, and paper gaps',
+          },
+          {
+            icon: Shield,
+            label: 'Compliance Risk',
+            desc: 'Audit trails and access control left inconsistent',
+          },
+          {
+            icon: Clock,
+            label: 'Care Delays',
+            desc: 'Staff time spent hunting data instead of treating',
+          },
+        ]}
+      >
+        <p className="text-lg text-slate-600 leading-relaxed">
+          Patient data scattered across registration, lab, pharmacy, and billing systems
+          doesn&apos;t just waste staff time — it{' '}
+          <span className="font-semibold text-[#0F172A]">delays care</span>.
+        </p>
+        <p className="text-lg text-slate-600 leading-relaxed">
+          Every duplicate entry is a chance for error; every system that won&apos;t talk to
+          another is a hallway phone call.
+        </p>
+      </IndustryChallenge>
 
-            <div className="lg:col-span-2 space-y-3 reveal-right" style={{ transitionDelay: '200ms' }}>
-              {[
-                { label: 'Fragmented Patient Data' },
-                { label: 'Manual Workflows' },
-                { label: 'Compliance Risk' },
-                { label: 'Care Delays' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 hover:shadow-md transition-all duration-300">
-                  <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                    <X size={14} className="text-red-500" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          REDESIGNED "WHAT WE BUILD" SECTION
-          ============================================================ */}
-      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC] relative overflow-hidden">
-        {/* Background Decoration */}
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#6366F1]/5 rounded-full blur-3xl" />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          {/* Section Header - New Style */}
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-4 reveal-up">
+      {/* ===== WHAT WE BUILD ===== */}
+      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-14 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3 reveal-up">
               <span className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center">
                 <Sparkles size={18} className="text-[#2563EB]" />
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Solutions</span>
-        </div>
-            
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                What we <span className="gradient-text">build</span>
-              </h2>
-              <p className="text-slate-400 text-sm reveal-up max-w-sm" style={{ transitionDelay: '150ms' }}>
-                5 core solutions engineered for healthcare — each one built with the discipline the domain demands.
-              </p>
             </div>
-            
-            <div className="divider-gradient reveal-up" style={{ transitionDelay: '200ms' }} />
+
+            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
+              What we <span className="gradient-text">build</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 reveal-up" style={{ transitionDelay: '150ms' }}>
+              5 core solutions engineered for healthcare — each one built with the discipline the domain demands.
+            </p>
+
+            <div className="divider-gradient mx-auto reveal-up" style={{ transitionDelay: '200ms' }} />
           </div>
 
-          {/* Cards - New Design */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => {
-              const Icon = service.icon;
-              const isActive = activeService === i;
-              return (
-                <div
-                  key={i}
-                  className="service-card-new"
-                  style={{
-                    borderColor: isActive ? service.color : '#f1f5f9',
-                    boxShadow: isActive ? `0 8px 32px ${service.color}15` : '0 1px 3px rgba(0,0,0,0.04)',
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: `fadeUp 0.6s ease ${i * 0.08 + 0.2}s forwards`,
-                  }}
-                  onMouseEnter={() => setActiveService(i)}
-                  onMouseLeave={() => setActiveService(null)}
-                >
-                  {/* Large Number */}
-                  <span className="card-number">{service.number}</span>
-
-                  {/* Icon */}
-                  <div className="icon-wrap" style={{ backgroundColor: service.bg, color: service.color }}>
-                    <Icon size={24} strokeWidth={1.75} />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-[#0F172A] pr-12">{service.title}</h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">{service.desc}</p>
-
-                  {/* Feature Tags */}
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {service.features.map((feature, idx) => (
-                      <span key={idx} className="feature-tag">
-                        <Check size={10} className="text-[#2563EB]" />
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Accent Line */}
-                  <div 
-                    className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
-                    style={{ background: service.color }}
-                  />
-
-                  {/* Learn More Link */}
-                  <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
-                    Learn more
-                    <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
-                </div>
-              );
-            })}
+          <div className="reveal-up" style={{ transitionDelay: '220ms' }}>
+            <IndustryBuildCards items={services} />
           </div>
 
-          {/* Bottom CTA */}
-          <div className="mt-12 text-center reveal-up">
+          {/* <div className="mt-12 text-center reveal-up">
             <p className="text-sm text-slate-500 mb-4">Need a custom healthcare solution?</p>
-            <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
               Discuss Your Project
               <ArrowRight size={16} />
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* ===== PROOF ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
-                Proof
-              </span>
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                Real impact in healthcare
-              </h2>
-              <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  A healthcare provider faced care delays from fragmented patient data and outdated management systems.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  We modernized patient management with integrated database solutions and streamlined workflows — delivering <span className="font-semibold text-[#0F172A]">30% operational efficiency</span> and measurably better satisfaction.
-                </p>
-              </div>
-              <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
-                <Link to="/case-studies/healthcare-modernization" className="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8] transition-colors group">
-                  Read the full case study
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-        </div>
-        
-            <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
-              <div className="p-6 rounded-2xl bg-[#EFF6FF] border border-[#2563EB]/10 relative">
-                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#2563EB] flex items-center justify-center">
-                  <Quote size={14} className="text-white" />
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed italic mt-2">
-                  "Our clinicians were spending more time navigating systems than caring for patients. This transformed everything."
-                </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-sm font-bold">
-                    CM
-              </div>
-                  <div>
-                    <div className="text-sm font-semibold text-[#0F172A]">Chief Medical Officer</div>
-                    <div className="text-xs text-slate-500">Healthcare Provider</div>
-          </div>
-        </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { value: '30%', label: 'Efficiency', color: '#2563EB' },
-                  { value: '100%', label: 'Satisfaction', color: '#059669' },
-                  { value: '24/7', label: 'Uptime', color: '#6366F1' },
-                ].map((item, i) => (
-                  <div key={i} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center hover:border-slate-200 transition-all duration-300">
-                    <div className="text-xl font-bold" style={{ color: item.color }}>{item.value}</div>
-                    <div className="text-[10px] text-slate-500">{item.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceProofSection
+        intro={
+          <>
+            A healthcare provider faced care delays from fragmented patient data and outdated
+            management systems. We modernized patient management with integrated database
+            solutions and streamlined workflows — delivering{' '}
+            <strong>30% operational efficiency improvement</strong>, faster and more accurate
+            care delivery, and measurably better satisfaction for staff and patients.
+          </>
+        }
+        stats={[
+          { value: '30%', label: 'Efficiency gain' },
+          { value: 'Faster', label: 'Care delivery' },
+          { value: 'Higher', label: 'Staff & patient satisfaction' },
+        ]}
+      />
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-16">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-              <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
-              FAQ
-            </span>
-            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-              Common questions, straight answers
-          </h2>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: 'Do you build HIPAA-compliant systems?',
-                a: 'We build HIPAA-aware architecture — encryption, access controls, audit logging, BAA-compatible hosting — and work with your compliance officer on certification specifics.'
-              },
-              {
-                q: 'Can you integrate with existing hospital systems?',
-                a: 'Usually yes — HL7/FHIR interfaces and database-level integration are standard scoping questions in healthcare engagements.'
-              },
-              {
-                q: 'Do you work with clinics or only hospitals?',
-                a: 'Both, plus diagnostics, telehealth startups, and health-data companies — the discipline scales in both directions.'
-              }
-            ].map((faq, i) => (
-                <div
-                  key={i}
-                className="border border-slate-100 rounded-xl bg-white p-5 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
-                  style={{
-                  opacity: 0,
-                  animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
-                }}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#2563EB]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[10px] font-bold text-[#2563EB]">Q</span>
-                    </div>
-                  <div>
-                    <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
-                    <p className="text-sm text-slate-500 mt-1 leading-relaxed">{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqAccordionSection
+        items={[
+          {
+            q: 'Do you build HIPAA-compliant systems?',
+            a: 'We build HIPAA-aware architecture — encryption, access controls, audit logging, BAA-compatible hosting — and work with your compliance officer on certification specifics.',
+          },
+          {
+            q: 'Can you integrate with existing hospital systems?',
+            a: 'Usually yes — HL7/FHIR interfaces and database-level integration are standard scoping questions in healthcare engagements.',
+          },
+          {
+            q: 'Do you work with clinics or only hospitals?',
+            a: 'Both, plus diagnostics, telehealth startups, and health-data companies — the discipline scales in both directions.',
+          },
+        ]}
+      />
 
       {/* ===== CTA ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
+      {/* <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-6">
             <Heart size={14} className="text-[#2563EB]" />
@@ -681,7 +503,7 @@ export default function IndustryHealthcare() {
             Let's discuss your healthcare project. We'll show you what's possible.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
               Discuss Your Project
               <ArrowRight size={18} />
             </a>
@@ -691,7 +513,7 @@ export default function IndustryHealthcare() {
           </div>
           <p className="text-sm text-slate-500 mt-4">No obligation. Just a conversation.</p>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

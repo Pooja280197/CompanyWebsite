@@ -8,7 +8,7 @@ const REVIEWS = [
     name: 'Prakash Somnarthe',
     initials: 'PS',
     role: 'Client',
-    product: { label: 'CleanPlan', href: '/product/cleanplan' },
+    product: { label: 'CleanPlan', href: '/cleanplan' },
   },
   {
     quote:

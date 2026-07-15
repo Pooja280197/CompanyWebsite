@@ -36,7 +36,7 @@
 //     bgGradient: 'bg-gradient-to-br from-blue-50 via-blue-100/20 to-white',
 //     stats: ['40% Faster', '100% Digital', '24/7 Live'],
 //     features: ['Scheduling', 'Workforce', 'Task Digitization', 'Client Records'],
-//     path: '/product/cleanplan',
+//     path: '/cleanplan',
 //     image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80',
 //     badge: 'SaaS',
 //     emoji: '🧹',
@@ -53,7 +53,7 @@
 //     bgGradient: 'bg-gradient-to-br from-purple-50 via-purple-100/20 to-white',
 //     stats: ['7 Modules', '25 Licenses', '99.9% Uptime'],
 //     features: ['Inventory', 'Production', 'Sales & CRM', 'Finance'],
-//     path: '/product/rexo-erp',
+//     path: '/rexo-erp',
 //     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
 //     badge: 'ERP',
 //     emoji: '🏭',
@@ -70,7 +70,7 @@
 //     bgGradient: 'bg-gradient-to-br from-indigo-50 via-indigo-100/20 to-white',
 //     stats: ['100% Paperless', '70% Less Admin', '24/7 Access'],
 //     features: ['Admissions', 'Fees', 'Attendance', 'Communication'],
-//     path: '/product/education-erp',
+//     path: '/erp-solutions-for-education',
 //     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=600&q=80',
 //     badge: 'Education',
 //     emoji: '🎓',
@@ -326,7 +326,7 @@
 //             We build custom software too. If your industry needs a tailored solution, let's talk.
 //           </p>
 //           <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
-//             <Link to="/#contact" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
+//             <Link to="/contact-us" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
 //               Start a Custom Project
 //               <MoveRight size={16} />
 //             </Link>
@@ -389,7 +389,7 @@ const PRODUCTS = [
       { value: '24/7', label: 'Live tracking' },
     ],
     features: ['Scheduling', 'Workforce', 'Task Digitization', 'Client Records'],
-    path: '/product/cleanplan',
+    path: '/cleanplan',
     image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80',
     badge: 'SaaS',
     quote: 'Transformed into a seamless platform — smarter, faster, more reliable.',
@@ -411,7 +411,7 @@ const PRODUCTS = [
       { value: '99.9%', label: 'Uptime' },
     ],
     features: ['Inventory', 'Production', 'Sales & CRM', 'Finance & HR'],
-    path: '/product/rexo-erp',
+    path: '/rexo-erp',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
     badge: 'ERP',
     quote: 'Complete visibility from raw materials to finished goods.',
@@ -433,7 +433,7 @@ const PRODUCTS = [
       { value: '24/7', label: 'Parent portal' },
     ],
     features: ['Admissions', 'Fee Mgmt', 'Attendance & Exams', 'Parent Comms'],
-    path: '/product/education-erp',
+    path: '/erp-solutions-for-education',
     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=800&q=80',
     badge: 'Education',
     quote: 'One system that connects students, parents, and staff.',
@@ -800,7 +800,7 @@ function ProductCard({
                 />
               </Link>
               <Link
-                to="/#contact"
+                to="/contact-us"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-[14px] font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all duration-300 border border-transparent hover:border-gray-200"
               >
                 <PlayCircle size={15} />
@@ -1083,7 +1083,7 @@ export default function Products() {
               </p>
               
               <Link
-                to="/#contact"
+                to="/contact-us"
                 className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gray-900 text-white font-semibold text-[15px] hover:bg-black hover:shadow-[0_16px_40px_-8px_rgba(0,0,0,0.3)] hover:scale-[1.03] transition-all duration-400"
               >
                 Start a Custom Project

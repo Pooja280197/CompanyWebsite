@@ -1,6 +1,6 @@
 import type { NavMegaItem } from './navProducts';
 
-/** Case studies mega-menu — SEO-friendly /our-work/* routes */
+/** Our Work mega-menu — SEO-friendly /our-work/* routes */
 export const CASE_STUDY_NAV_ITEMS: NavMegaItem[] = [
   {
     id: 'smart-factory-iot',
@@ -39,9 +39,9 @@ export const CASE_STUDY_NAV_ITEMS: NavMegaItem[] = [
     description: 'Reliable releases on the factory floor',
   },
   {
-    id: 'healthcare-modernization',
-    label: 'Healthcare Modernization',
-    href: '/our-work/healthcare-modernization',
+    id: 'healthcare-patient-management',
+    label: 'Healthcare Patient Management',
+    href: '/our-work/healthcare-patient-management',
     description: 'Legacy systems brought into modern care',
   },
 ];

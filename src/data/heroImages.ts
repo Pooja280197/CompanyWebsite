@@ -86,6 +86,48 @@ export const HERO_IMAGES = {
     alt: 'Salesforce CRM teamwork',
   },
 
+  // Industry pages
+  healthcare: {
+    src: unsplash('photo-1576091160399-112ba8d25d1d'),
+    objectPosition: '68% center',
+    alt: 'Healthcare professionals reviewing patient care technology',
+  },
+  manufacturing: {
+    src: unsplash('photo-1581091226825-a6a2a5aee158'),
+    objectPosition: '72% center',
+    alt: 'Manufacturing shop floor and industrial production',
+  },
+  finance: {
+    src: unsplash('photo-1611974789855-9c2a0a7236a3'),
+    objectPosition: '70% center',
+    alt: 'Finance markets and fintech analysis',
+  },
+  industryEcommerce: {
+    src: unsplash('photo-1556740758-90de374c12ad'),
+    objectPosition: '70% center',
+    alt: 'E-commerce shopping and checkout experience',
+  },
+  realEstate: {
+    src: unsplash('photo-1560518883-ce09059eeffa'),
+    objectPosition: '65% center',
+    alt: 'Modern real estate property and architecture',
+  },
+  travel: {
+    src: unsplash('photo-1488646953014-85cb44e25828'),
+    objectPosition: '62% center',
+    alt: 'Travel destination and journey planning',
+  },
+  education: {
+    src: unsplash('photo-1523240795612-9a054b0db644'),
+    objectPosition: '68% center',
+    alt: 'Students collaborating with digital learning tools',
+  },
+  sports: {
+    src: unsplash('photo-1574629810360-7efbbe195018'),
+    objectPosition: '68% center',
+    alt: 'Sports competition and athletic performance',
+  },
+
   // Pillar pages
   productEngineering: {
     src: unsplash('photo-1504639725590-34d0984388bd'),

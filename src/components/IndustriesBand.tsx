@@ -25,7 +25,7 @@ const INDUSTRIES: Array<{
   },
   {
     label: 'Education',
-    href: '/product/education-erp',
+    href: '/erp-solutions-for-education',
     icon: GraduationCap,
   },
   {
@@ -55,7 +55,7 @@ const INDUSTRIES: Array<{
   },
   {
     label: 'Sports',
-    href: '#contact',
+    href: '/contact-us',
     icon: Trophy,
   },
 ];

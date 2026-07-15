@@ -425,7 +425,7 @@ export default function EducationERP() {
                       }}
                       words={[...line.words]}
                     />
-                  </span>
+                </span>
                 ))}
               </h1>
 
@@ -435,16 +435,16 @@ export default function EducationERP() {
 
               <div className="a3 flex flex-wrap gap-4 mt-8">
                 <Link
-                  to="/#contact"
+                  to="/contact-us"
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-2xl hover:shadow-blue-500/35 transition-all duration-300"
                 >
                   Book a Free Demo
                   <ArrowRight size={18} />
                 </Link>
-                <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-medium shadow-md shadow-slate-900/10 hover:bg-slate-50 hover:shadow-lg transition-all duration-300">
+                {/* <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-medium shadow-md shadow-slate-900/10 hover:bg-slate-50 hover:shadow-lg transition-all duration-300">
                   <PlayCircle size={18} />
                   Watch Demo
-                </button>
+                </button> */}
               </div>
 
               {/* <div className="a4 flex flex-wrap gap-6 mt-8 text-sm text-slate-500">
@@ -471,12 +471,12 @@ export default function EducationERP() {
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
                     <Award size={15} className="text-indigo-600" />
-                  </div>
-                  <div>
+                    </div>
+                    <div>
                     <div className="text-xs font-bold text-gray-900">5K+</div>
                     <div className="text-[9px] text-gray-500">Students managed</div>
+                    </div>
                   </div>
-                </div>
               )}
             >
               <EducationPhoneScreenContent />
@@ -606,7 +606,7 @@ export default function EducationERP() {
                     </div>
                   </div>
                 </div>
-              </div>
+          </div>
 
               <div className="p-8 sm:p-10 lg:col-span-3">
                 <p className="mb-4 text-xs font-bold uppercase tracking-widest text-gray-400">
@@ -616,25 +616,25 @@ export default function EducationERP() {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {PLATFORM_TRAITS.map((trait, i) => {
                     const Icon = trait.icon;
-                    return (
-                      <div
+              return (
+                <div
                         key={trait.label}
                         className={`sr-from-bottom sr-d${Math.min(i + 1, 10)} group flex gap-3 rounded-2xl border border-slate-100 bg-slate-50/80 p-4 transition-all duration-300 hover:border-slate-200 hover:bg-white hover:shadow-md hover:shadow-slate-200/60`}
-                      >
-                        <div
+                >
+                  <div
                           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105"
                           style={{ backgroundColor: `${trait.color}12`, color: trait.color }}
-                        >
+                  >
                           <Icon size={18} strokeWidth={1.75} />
-                        </div>
+                  </div>
                         <div>
                           <p className="text-sm font-semibold text-gray-900">{trait.label}</p>
                           <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{trait.desc}</p>
                         </div>
-                      </div>
-                    );
-                  })}
                 </div>
+              );
+            })}
+          </div>
 
                 <p className="mb-4 mt-8 text-xs font-bold uppercase tracking-widest text-gray-400">
                   Who gets access
@@ -643,12 +643,12 @@ export default function EducationERP() {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {ACCESS_ROLES.map((role, i) => {
                     const Icon = role.icon;
-                    return (
-                      <div
+                  return (
+                    <div
                         key={role.label}
                         className={`sr-from-bottom sr-d${Math.min(i + 5, 10)} group relative overflow-hidden rounded-2xl border border-slate-100 p-4 text-center transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-200/70`}
-                      >
-                        <div
+                    >
+                      <div
                           className="absolute inset-x-0 top-0 h-1 opacity-80"
                           style={{ background: role.color }}
                           aria-hidden="true"
@@ -658,14 +658,14 @@ export default function EducationERP() {
                           style={{ backgroundColor: `${role.color}12`, color: role.color }}
                         >
                           <Icon size={20} strokeWidth={1.75} />
-                        </div>
+                      </div>
                         <p className="text-sm font-semibold text-gray-900">{role.label}</p>
                         <p className="mt-1 text-xs leading-relaxed text-gray-500">{role.desc}</p>
-                      </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -681,153 +681,153 @@ export default function EducationERP() {
         onToggleAutoPlay={toggleAutoPlay}
       >
         <div className="flex items-center justify-between mb-4 pt-2">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center">
-              <GraduationCap size={16} className="text-white" />
-            </div>
-            <span className="text-sm font-bold text-gray-700">EduERP</span>
-          </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-xl bg-indigo-500 flex items-center justify-center">
+                            <GraduationCap size={16} className="text-white" />
+                          </div>
+                          <span className="text-sm font-bold text-gray-700">EduERP</span>
+                        </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[10px] text-gray-500">Live</span>
-          </div>
-        </div>
+                          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="text-[10px] text-gray-500">Live</span>
+                        </div>
+                      </div>
 
-        {activeScreen === 0 && (
-          <div className="space-y-3">
-            <div className="grid grid-cols-3 gap-2">
-              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-lg font-bold text-indigo-600">1,247</div>
-                <div className="text-[10px] text-gray-400">Students</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-lg font-bold text-emerald-600">94%</div>
-                <div className="text-[10px] text-gray-400">Attendance</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-lg font-bold text-amber-600">87</div>
-                <div className="text-[10px] text-gray-400">Staff</div>
-              </div>
-            </div>
-            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-gray-700">Today's Attendance</span>
-                <span className="text-[10px] text-emerald-600">↑ 5%</span>
-              </div>
-              <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-                <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" style={{ width: '94%' }} />
-              </div>
-              <div className="flex justify-between mt-1 text-[10px] text-gray-400">
-                <span>Present: 892</span>
-                <span>Absent: 57</span>
-              </div>
-            </div>
-          </div>
-        )}
+                      {activeScreen === 0 && (
+                        <div className="space-y-3">
+                          <div className="grid grid-cols-3 gap-2">
+                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-lg font-bold text-indigo-600">1,247</div>
+                              <div className="text-[10px] text-gray-400">Students</div>
+                            </div>
+                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-lg font-bold text-emerald-600">94%</div>
+                              <div className="text-[10px] text-gray-400">Attendance</div>
+                            </div>
+                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-lg font-bold text-amber-600">87</div>
+                              <div className="text-[10px] text-gray-400">Staff</div>
+                            </div>
+                          </div>
+                          <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-xs font-semibold text-gray-700">Today's Attendance</span>
+                              <span className="text-[10px] text-emerald-600">↑ 5%</span>
+                            </div>
+                            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                              <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" style={{ width: '94%' }} />
+                            </div>
+                            <div className="flex justify-between mt-1 text-[10px] text-gray-400">
+                              <span>Present: 892</span>
+                              <span>Absent: 57</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
-        {activeScreen === 1 && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
-                AS
-              </div>
-              <div className="flex-1">
-                <div className="text-sm font-semibold text-gray-900">Ananya Sharma</div>
-                <div className="text-xs text-gray-500">Class 10-A • Roll #12</div>
-              </div>
-              <div className="text-xs text-emerald-600 font-medium">Active</div>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-xs text-gray-500">Attendance</div>
-                <div className="text-sm font-bold text-gray-900">95%</div>
-              </div>
-              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-xs text-gray-500">Fees</div>
-                <div className="text-sm font-bold text-emerald-600">Paid</div>
-              </div>
-              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-xs text-gray-500">Exams</div>
-                <div className="text-sm font-bold text-amber-600">3 Upcoming</div>
-              </div>
-              <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
-                <div className="text-xs text-gray-500">Transport</div>
-                <div className="text-sm font-bold text-blue-600">Route B</div>
-              </div>
-            </div>
-          </div>
-        )}
+                      {activeScreen === 1 && (
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                            <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
+                              AS
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-sm font-semibold text-gray-900">Ananya Sharma</div>
+                              <div className="text-xs text-gray-500">Class 10-A • Roll #12</div>
+                            </div>
+                            <div className="text-xs text-emerald-600 font-medium">Active</div>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-xs text-gray-500">Attendance</div>
+                              <div className="text-sm font-bold text-gray-900">95%</div>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-xs text-gray-500">Fees</div>
+                              <div className="text-sm font-bold text-emerald-600">Paid</div>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-xs text-gray-500">Exams</div>
+                              <div className="text-sm font-bold text-amber-600">3 Upcoming</div>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white shadow-sm border border-gray-100 text-center">
+                              <div className="text-xs text-gray-500">Transport</div>
+                              <div className="text-sm font-bold text-blue-600">Route B</div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
-        {activeScreen === 2 && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-gray-700">Fee Collection</span>
-              <span className="text-[10px] text-indigo-600">This Month</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                <div className="text-xs text-gray-500">Collected</div>
-                <div className="text-lg font-bold text-emerald-600">₹24.8L</div>
-                <div className="text-[10px] text-gray-400">85% of target</div>
-              </div>
-              <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                <div className="text-xs text-gray-500">Pending</div>
-                <div className="text-lg font-bold text-amber-600">₹4.2L</div>
-                <div className="text-[10px] text-gray-400">12 students</div>
-              </div>
-            </div>
-            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-gray-600">Collection Progress</span>
-                <span className="text-xs font-medium text-emerald-600">85%</span>
-              </div>
-              <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-                <div className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" style={{ width: '85%' }} />
-              </div>
-            </div>
-          </div>
-        )}
+                      {activeScreen === 2 && (
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-gray-700">Fee Collection</span>
+                            <span className="text-[10px] text-indigo-600">This Month</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                              <div className="text-xs text-gray-500">Collected</div>
+                              <div className="text-lg font-bold text-emerald-600">₹24.8L</div>
+                              <div className="text-[10px] text-gray-400">85% of target</div>
+                            </div>
+                            <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                              <div className="text-xs text-gray-500">Pending</div>
+                              <div className="text-lg font-bold text-amber-600">₹4.2L</div>
+                              <div className="text-[10px] text-gray-400">12 students</div>
+                            </div>
+                          </div>
+                          <div className="p-3 rounded-xl bg-white shadow-sm border border-gray-100">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-xs text-gray-600">Collection Progress</span>
+                              <span className="text-xs font-medium text-emerald-600">85%</span>
+                            </div>
+                            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                              <div className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400" style={{ width: '85%' }} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
-        {activeScreen === 3 && (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-gray-700">Parent Notifications</span>
-              <span className="text-[10px] text-indigo-600">Send</span>
-            </div>
-            <div className="space-y-2">
+                      {activeScreen === 3 && (
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-gray-700">Parent Notifications</span>
+                            <span className="text-[10px] text-indigo-600">Send</span>
+                          </div>
+                          <div className="space-y-2">
               <div className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                  <Bell size={14} />
-                </div>
-                <div className="flex-1">
-                  <div className="text-xs font-medium text-gray-700">Attendance Alert</div>
-                  <div className="text-[10px] text-gray-400">Sent to 45 parents</div>
-                </div>
-                <span className="text-[10px] text-emerald-600">Delivered</span>
-              </div>
+                              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <Bell size={14} />
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xs font-medium text-gray-700">Attendance Alert</div>
+                                <div className="text-[10px] text-gray-400">Sent to 45 parents</div>
+                              </div>
+                              <span className="text-[10px] text-emerald-600">Delivered</span>
+                            </div>
               <div className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                  <Bell size={14} />
-                </div>
-                <div className="flex-1">
-                  <div className="text-xs font-medium text-gray-700">Fee Reminder</div>
-                  <div className="text-[10px] text-gray-400">Scheduled for tomorrow</div>
-                </div>
-                <span className="text-[10px] text-amber-600">Pending</span>
-              </div>
+                              <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <Bell size={14} />
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xs font-medium text-gray-700">Fee Reminder</div>
+                                <div className="text-[10px] text-gray-400">Scheduled for tomorrow</div>
+                              </div>
+                              <span className="text-[10px] text-amber-600">Pending</span>
+                            </div>
               <div className="p-2.5 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
-                  <Bell size={14} />
-                </div>
-                <div className="flex-1">
-                  <div className="text-xs font-medium text-gray-700">Exam Schedule</div>
-                  <div className="text-[10px] text-gray-400">Published to all classes</div>
-                </div>
-                <span className="text-[10px] text-emerald-600">Delivered</span>
-              </div>
-            </div>
-          </div>
-        )}
+                              <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                <Bell size={14} />
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xs font-medium text-gray-700">Exam Schedule</div>
+                                <div className="text-[10px] text-gray-400">Published to all classes</div>
+                              </div>
+                              <span className="text-[10px] text-emerald-600">Delivered</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
       </ProductLivePreviewSection>
 
       {/* CTA */}
@@ -847,7 +847,7 @@ export default function EducationERP() {
               See Education ERP in action. Walk through your workflow and get a clear, itemized quote.
             </p>
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             >
               Book a Free Demo
@@ -887,12 +887,12 @@ export default function EducationERP() {
           <div className="flex flex-col gap-3">
             {FAQS.map((faq, i) => (
               <div key={faq.q} className={`sr-from-bottom sr-d${Math.min(i + 1, 10)}`}>
-                <FaqItem
-                  question={faq.q}
-                  answer={faq.a}
-                  isOpen={faqOpen === i}
-                  onToggle={() => setFaqOpen((prev) => (prev === i ? null : i))}
-                />
+              <FaqItem
+                question={faq.q}
+                answer={faq.a}
+                isOpen={faqOpen === i}
+                onToggle={() => setFaqOpen((prev) => (prev === i ? null : i))}
+              />
               </div>
             ))}
           </div>
@@ -921,7 +921,7 @@ export default function EducationERP() {
             </span>
           </div>
           <Link
-            to="/#contact"
+            to="/contact-us"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white text-sm font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-xl hover:shadow-blue-500/35 transition-all duration-300"
           >
             Book a Free Demo

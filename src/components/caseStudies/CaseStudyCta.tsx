@@ -21,7 +21,7 @@ export function CaseStudyCta({
   subtitle,
   primaryHref,
   primaryLabel,
-  secondaryHref = '/#case-studies',
+  secondaryHref = '/our-work',
   secondaryLabel = 'View All Case Studies',
   footnote = "No pressure. Just clarity on what's possible.",
 }: CaseStudyCtaProps) {

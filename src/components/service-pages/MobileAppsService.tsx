@@ -409,7 +409,7 @@ export default function MobileAppsService() {
             </p>
 
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="nav-cta-btn nav-cta-btn--cta a3 mt-5 inline-flex bg-gradient-to-b from-amber-400 via-orange-500 to-orange-600"
               style={{ '--nav-cta-w': '14.75rem' } as React.CSSProperties}
             >
@@ -454,8 +454,8 @@ export default function MobileAppsService() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-            <article className="webdev-compare-card webdev-compare-card--custom sr-from-left">
+          <div className="flex items-center justify-center">
+            {/* <article className="webdev-compare-card webdev-compare-card--custom sr-from-left">
               <div className="webdev-compare-card__inner">
                 <span className="webdev-compare-card__badge webdev-compare-card__badge--custom">
                   <Check size={12} strokeWidth={2.75} aria-hidden="true" />
@@ -488,7 +488,7 @@ export default function MobileAppsService() {
                   ))}
                 </div>
               </div>
-            </article>
+            </article> */}
 
             <article className="webdev-compare-card webdev-compare-card--shelf sr-from-right webdev-compare-card--enter-second">
               <div className="webdev-compare-card__inner">

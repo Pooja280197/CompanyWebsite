@@ -1228,7 +1228,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ===== WHERE WE WORK ===== */}
-      <section
+      {/* <section
         id="where-we-work"
         className="about-work relative overflow-hidden bg-slate-50 px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
         aria-labelledby="where-we-work-heading"
@@ -1275,7 +1275,7 @@ export default function AboutUsPage() {
               </address>
 
               <div className="about-work__cta">
-                <Link to="/contactUs" className="about-work__btn about-work__btn--primary">
+                <Link to="/contact-us" className="about-work__btn about-work__btn--primary">
                   Work with us
                   <ArrowUpRight size={16} strokeWidth={2.2} />
                 </Link>
@@ -1310,7 +1310,7 @@ export default function AboutUsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <div className="divider-light max-w-5xl mx-auto" />
 
@@ -1376,6 +1376,89 @@ export default function AboutUsPage() {
       <div className="divider-light max-w-5xl mx-auto" />
 
       <Team />
+      <section
+        id="where-we-work"
+        className="about-work relative overflow-hidden bg-slate-50 px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+        aria-labelledby="where-we-work-heading"
+      >
+        <div className="about-work__grid" aria-hidden />
+
+        <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+          <div className="mb-10 flex flex-col items-center text-center sm:mb-14">
+            <h2 id="where-we-work-heading" className="text-[#0F172A]">
+              <ScrollTextReveal
+                tag="span"
+                align="center"
+                animate="scroll"
+                textColor="#0F172A"
+                letterInterval={LETTER_INTERVAL}
+                wordGap="0.2em"
+                style={TITLE_STYLE}
+                words={titleWords('Where we work')}
+              />
+            </h2>
+            <span className="about-beliefs__title-line reveal-up mt-3.5" aria-hidden />
+          </div>
+
+          <div className="about-work__layout reveal-up">
+            <div className="about-work__hq">
+              <p className="about-work__label">
+                <span className="about-work__label-icon" aria-hidden>
+                  <MapPin size={18} strokeWidth={2.35} />
+                </span>
+                Location
+              </p>
+
+              <address className="about-work__address not-italic">
+                {[
+                  '308 Shagun Arcade',
+                  'Plot No. 8, PU-4, Scheme No. 54',
+                  'AB Road, Vijay Nagar',
+                  'Indore (M.P.) 452010, India',
+                ].map((line) => (
+                  <span key={line} className="about-work__line">
+                    {line}
+                  </span>
+                ))}
+              </address>
+
+              <div className="about-work__cta">
+                <Link to="/contact-us" className="about-work__btn about-work__btn--primary">
+                  Work with us
+                  <ArrowUpRight size={16} strokeWidth={2.2} />
+                </Link>
+                <Link to="/careers" className="about-work__btn about-work__btn--ghost">
+                  Join us
+                  <ArrowUpRight size={16} strokeWidth={2.2} />
+                </Link>
+              </div>
+            </div>
+
+            <div className="about-work__spine" aria-hidden>
+              <span className="about-work__spine-dot" />
+              <span className="about-work__spine-rail" />
+              <span className="about-work__spine-dot about-work__spine-dot--end" />
+            </div>
+
+            <div className="about-work__reach">
+              <p className="about-work__stat">
+                <span className="about-work__stat-num">15+</span>
+                <span className="about-work__stat-label">locations worldwide</span>
+              </p>
+              <p className="about-work__reach-copy">
+                Delivery and support across time zones — so your team always has cover where the work happens.
+              </p>
+              <div className="about-work__zones" aria-hidden>
+                {['Americas', 'Europe', 'Asia', 'ANZ'].map((zone) => (
+                  <span key={zone} className="about-work__zone">
+                    {zone}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       </div>
     </>
   );

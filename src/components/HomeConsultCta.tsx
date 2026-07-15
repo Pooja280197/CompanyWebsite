@@ -103,7 +103,7 @@ export default function HomeConsultCta() {
             </a>
 
             <Link
-              to="/contactUs"
+              to="/contact-us"
               className="home-consult__cta inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-b from-amber-400 via-orange-500 to-orange-600 px-6 py-3.5 text-[0.92rem] font-semibold text-white shadow-[0_8px_22px_rgba(249,115,22,0.28)] transition-all duration-250 hover:-translate-y-0.5 hover:gap-2.5 hover:shadow-[0_12px_28px_rgba(249,115,22,0.34)]"
             >
               Book a Free Consultation

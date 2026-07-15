@@ -1,5 +1,5 @@
 // IndustryEcommerce.tsx - E-commerce Industry Page
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -17,7 +17,6 @@ import {
   FileText,
   Layers,
   Quote,
-  X,
   Briefcase,
   Database,
   Server,
@@ -65,6 +64,12 @@ import {
   Percent,
   DollarSign,
 } from 'lucide-react';
+import { FaqAccordionSection } from '../FaqAccordionSection';
+import { ServiceProofSection } from '../service-pages/ServiceProofSection';
+import { HERO_IMAGES } from '../../data/heroImages';
+import { IndustryHero } from './IndustryHero';
+import { IndustryChallenge } from './IndustryChallenge';
+import { IndustryBuildCards } from './IndustryBuildCards';
 
 const injectStyles = () => {
   const id = 'ecommerce-industry-premium';
@@ -310,7 +315,6 @@ function TextReveal({ lines, className = '' }: { lines: string[]; className?: st
 
 export default function IndustryEcommerce() {
   const wrapperRef = useReveal();
-  const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
@@ -339,7 +343,7 @@ export default function IndustryEcommerce() {
     { 
       icon: Brain, 
       title: 'Personalization & AI', 
-      desc: 'Recommendation and segmentation models that drive measurable revenue.', 
+      desc: 'Recommendation and segmentation models; five of our embedded AI engineers drove a 20% sales increase for a retail client.', 
       color: '#7C3AED', 
       bg: '#F5F3FF',
       features: ['Recommendations', 'Segmentation', 'Predictive Models'],
@@ -371,199 +375,75 @@ export default function IndustryEcommerce() {
     <div className="ecommerce-premium" ref={wrapperRef}>
       
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#FEF2F2] via-white to-[#FFFBEB]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#DC2626]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#EF4444]/5 rounded-full blur-3xl" />
-          <ShoppingBag className="float-el top-[15%] right-[8%] text-[#DC2626]/10 w-20 h-20" />
-          <ShoppingCart className="float-el bottom-[25%] right-[12%] text-[#EF4444]/10 w-16 h-16" />
-          <Tag className="float-el top-[35%] left-[85%] text-[#F59E0B]/10 w-14 h-14" />
-        </div>
-
-        <div className="max-w-5xl mx-auto w-full relative z-10">
-          <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="w-10 h-10 rounded-full bg-[#DC2626]/10 flex items-center justify-center">
-              <ShoppingBag size={16} className="text-[#DC2626]" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">E-Commerce</span>
-            <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#DC2626]">Software Development</span>
-          </div>
-
-          <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            Built for the moment between
-            <br />
-            <span className="gradient-text">'add to cart' and 'order confirmed'</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            Ecommerce development services focused on the metric that pays: completed checkouts. Storefronts, marketplaces, and the data engine underneath.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-105">
-              Discuss Your Store
-              <ArrowRight size={18} />
-            </a>
-            <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#DC2626] hover:text-[#DC2626] transition-all duration-300">
-              Explore Solutions
-            </a>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
-            {[
-              { value: '20%', label: 'Sales Lift', icon: TrendingUp, color: '#DC2626' },
-              { value: '80%', label: 'Search Accuracy', icon: Gauge, color: '#EF4444' },
-              { value: '60%', label: 'Faster Evaluation', icon: Zap, color: '#F59E0B' },
-              { value: 'Real-Time', label: 'Stock Sync', icon: Package, color: '#059669' },
-            ].map((stat, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#DC2626] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
-                <div className="text-2xl font-bold text-[#0F172A]">{stat.value}</div>
-                <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <IndustryHero
+        image={HERO_IMAGES.industryEcommerce}
+        eyebrow="E-commerce Software"
+        accent="#fb923c"
+        title={<>Built for the moment between <em>add to cart</em> and order confirmed</>}
+        description="Ecommerce development services focused on the metric that pays: completed checkouts. Storefronts, marketplaces, and the data engine underneath."
+        primaryCta={{ label: 'Discuss Your Store', href: '/contact-us' }}
+        secondaryCta={{ label: 'Explore Solutions', href: '#services' }}
+        rail={['Checkout conversion', 'Realtime stock sync', 'Marketplace ready']}
+      />
 
       {/* ===== THE CHALLENGE ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#DC2626] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#DC2626]" />
-                The Challenge
-              </span>
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                Where revenue leaks
-              </h2>
-              <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Slow product pages, checkout friction, stockouts the site didn't know about, and marketing aimed by guesswork.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  E-commerce rarely fails dramatically — it <span className="font-semibold text-[#0F172A]">leaks, order by abandoned order</span>.
-                </p>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 space-y-3 reveal-right" style={{ transitionDelay: '200ms' }}>
-              {[
-                { label: 'Slow Product Pages' },
-                { label: 'Checkout Friction' },
-                { label: 'Inventory Blindness' },
-                { label: 'Guesswork Marketing' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 hover:shadow-md transition-all duration-300">
-                  <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                    <X size={14} className="text-red-500" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <IndustryChallenge
+        accent="#DC2626"
+        accentSoft="rgba(220, 38, 38, 0.14)"
+        accentSoft2="rgba(239, 68, 68, 0.12)"
+        title="Where revenue leaks"
+        items={[
+          { icon: Clock, label: 'Slow Product Pages' },
+          { icon: ShoppingCart, label: 'Checkout Friction' },
+          { icon: Package, label: 'Inventory Blindness' },
+          { icon: BarChart3, label: 'Guesswork Marketing' },
+        ]}
+      >
+        <p className="text-lg text-slate-600 leading-relaxed">
+          Slow product pages, checkout friction, stockouts the site didn't know about, and marketing aimed by guesswork.
+        </p>
+        <p className="text-lg text-slate-600 leading-relaxed">
+          E-commerce rarely fails dramatically — it <span className="font-semibold text-[#0F172A]">leaks, order by abandoned order</span>.
+        </p>
+      </IndustryChallenge>
 
       {/* ===== WHAT WE BUILD ===== */}
-      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#DC2626]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#EF4444]/5 rounded-full blur-3xl" />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-4 reveal-up">
+      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-16 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3 reveal-up">
               <span className="w-10 h-10 rounded-xl bg-[#DC2626]/10 flex items-center justify-center">
                 <Sparkles size={18} className="text-[#DC2626]" />
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#DC2626]">Solutions</span>
             </div>
             
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                What we <span className="gradient-text">build</span>
-              </h2>
-              <p className="text-slate-400 text-sm reveal-up max-w-sm" style={{ transitionDelay: '150ms' }}>
-                5 core solutions engineered for e-commerce — built to convert, not just to look good.
-              </p>
-            </div>
+            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
+              What we <span className="gradient-text">build</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 reveal-up" style={{ transitionDelay: '150ms' }}>
+              5 core solutions engineered for e-commerce — built to convert, not just to look good.
+            </p>
             
-            <div className="divider-gradient reveal-up" style={{ transitionDelay: '200ms' }} />
+            <div className="divider-gradient mx-auto reveal-up" style={{ transitionDelay: '200ms' }} />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => {
-              const Icon = service.icon;
-              const isActive = activeService === i;
-              return (
-                <div
-                  key={i}
-                  className="service-card-new"
-                  style={{
-                    borderColor: isActive ? service.color : '#f1f5f9',
-                    boxShadow: isActive ? `0 8px 32px ${service.color}15` : '0 1px 3px rgba(0,0,0,0.04)',
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: `fadeUp 0.6s ease ${i * 0.08 + 0.2}s forwards`,
-                  }}
-                  onMouseEnter={() => setActiveService(i)}
-                  onMouseLeave={() => setActiveService(null)}
-                >
-                  <span className="card-number">{service.number}</span>
-
-                  <div className="icon-wrap" style={{ backgroundColor: service.bg, color: service.color }}>
-                    <Icon size={24} strokeWidth={1.75} />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-[#0F172A] pr-12">{service.title}</h3>
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">{service.desc}</p>
-
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {service.features.map((feature, idx) => (
-                      <span key={idx} className="feature-tag">
-                        <Check size={10} className="text-[#DC2626]" />
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div 
-                    className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
-                    style={{ background: service.color }} 
-                  />
-
-                  {service.link ? (
-                    <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#DC2626] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </Link>
-                  ) : (
-                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#DC2626] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
-                  )}
-                </div>
-              );
-            })}
+          <div className="reveal-up" style={{ transitionDelay: '220ms' }}>
+            <IndustryBuildCards items={services} />
           </div>
 
-          <div className="mt-12 text-center reveal-up">
+          {/* <div className="mt-12 text-center reveal-up">
             <p className="text-sm text-slate-500 mb-4">Need a custom e-commerce solution?</p>
-            <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
               Discuss Your Store
               <ArrowRight size={16} />
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* ===== AI PROOF POINT ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#DC2626] mb-4 reveal-up">
@@ -608,124 +488,43 @@ export default function IndustryEcommerce() {
       </section>
 
       {/* ===== PROOF ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#DC2626] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#DC2626]" />
-                Proof
-              </span>
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                From fragmented data to 20% growth
-              </h2>
-              <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  A retail company with fragmented customer data and blind campaigns couldn't understand why their marketing wasn't working.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  We brought in five AI developers to build predictive models and segmentation — <span className="font-semibold text-[#0F172A]">lifting sales 20%</span> through targeted campaigns and better engagement.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  The diamond-similarity engine (<span className="font-semibold text-[#0F172A]">80% accuracy, 60% faster evaluation</span>) came from the same retail practice.
-                </p>
-              </div>
-              <div className="mt-6 reveal-up" style={{ transitionDelay: '200ms' }}>
-                <Link to="/case-studies/retail-ai" className="inline-flex items-center gap-2 text-sm font-semibold text-[#DC2626] hover:text-[#B91C1C] transition-colors group">
-                  Read the full case study
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="space-y-4 reveal-right" style={{ transitionDelay: '200ms' }}>
-              <div className="p-6 rounded-2xl bg-[#FEF2F2] border border-[#DC2626]/10 relative">
-                <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#DC2626] flex items-center justify-center">
-                  <Quote size={14} className="text-white" />
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed italic mt-2">
-                  "We had data, but we couldn't use it. They turned it into our biggest growth lever."
-                </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#DC2626] flex items-center justify-center text-white text-sm font-bold">
-                    SM
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-[#0F172A]">Head of E-Commerce</div>
-                    <div className="text-xs text-slate-500">Retail Company</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { value: '20%', label: 'Sales Lift', color: '#DC2626' },
-                  { value: '80%', label: 'Search Accuracy', color: '#EF4444' },
-                ].map((item, i) => (
-                  <div key={i} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center hover:border-slate-200 transition-all duration-300">
-                    <div className="text-xl font-bold" style={{ color: item.color }}>{item.value}</div>
-                    <div className="text-[10px] text-slate-500">{item.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServiceProofSection
+        intro={
+          <>
+            A retail company with fragmented customer data and blind campaigns couldn&apos;t
+            understand why their marketing wasn&apos;t working. We brought in five AI developers
+            to build predictive models and segmentation — <strong>lifting sales 20%</strong>{' '}
+            through targeted campaigns and better engagement. The diamond-similarity engine (
+            <strong>80% accuracy, 60% faster evaluation</strong>) came from the same retail practice.
+          </>
+        }
+        stats={[
+          { value: '20%', label: 'Sales lift' },
+          { value: '80%', label: 'Search accuracy' },
+          { value: '60%', label: 'Faster evaluation' },
+        ]}
+      />
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-16">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#DC2626] mb-4 reveal-up">
-              <span className="w-1 h-5 rounded-full bg-[#DC2626]" />
-              FAQ
-            </span>
-            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-              Common questions, straight answers
-            </h2>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: "Shopify/WooCommerce or custom — which do we need?",
-                a: "Platforms win until customization fights them; custom wins when your catalog, pricing, or workflow is the differentiator. We'll give you the honest fork in writing after a scoping call."
-              },
-              {
-                q: "Can you connect the store to our inventory system?",
-                a: "Yes — real-time stock sync is standard scope, including with Rexo ERP or your existing system."
-              },
-              {
-                q: "Do you build B2B commerce?",
-                a: "Yes — quotation flows, tiered pricing, credit terms, and approval chains are B2B-native features we've built repeatedly."
-              }
-            ].map((faq, i) => (
-              <div
-                key={i}
-                className="border border-slate-100 rounded-xl bg-[#FAFBFC] p-5 hover:border-[#DC2626]/20 hover:shadow-sm transition-all duration-300"
-                style={{
-                  opacity: 0,
-                  animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
-                }}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#DC2626]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[10px] font-bold text-[#DC2626]">Q</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
-                    <p className="text-sm text-slate-500 mt-1 leading-relaxed">{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqAccordionSection
+        items={[
+          {
+            q: "Shopify/WooCommerce or custom — which do we need?",
+            a: "Platforms win until customization fights them; custom wins when your catalog, pricing, or workflow is the differentiator. We'll give you the honest fork in writing after a scoping call."
+          },
+          {
+            q: "Can you connect the store to our inventory system?",
+            a: "Yes — real-time stock sync is standard scope, including with Rexo ERP or your existing system."
+          },
+          {
+            q: "Do you build B2B commerce?",
+            a: "Yes — quotation flows, tiered pricing, credit terms, and approval chains are B2B-native features we've built repeatedly."
+          }
+        ]}
+      />
 
       {/* ===== CTA ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
+      {/* <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-6">
             <ShoppingBag size={14} className="text-[#DC2626]" />
@@ -740,7 +539,7 @@ export default function IndustryEcommerce() {
             Let's discuss your e-commerce project. We'll show you what's possible.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
               Discuss Your Store
               <ArrowRight size={18} />
             </a>
@@ -750,7 +549,7 @@ export default function IndustryEcommerce() {
           </div>
           <p className="text-sm text-slate-500 mt-4">No obligation. Just a conversation.</p>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

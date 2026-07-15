@@ -1,5 +1,5 @@
 // IndustryRealEstate.tsx - Real Estate Industry Page
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -17,7 +17,6 @@ import {
   FileText,
   Layers,
   Quote,
-  X,
   Briefcase,
   Database,
   Server,
@@ -65,6 +64,11 @@ import {
   Store,
   Armchair,
 } from 'lucide-react';
+import { FaqAccordionSection } from '../FaqAccordionSection';
+import { HERO_IMAGES } from '../../data/heroImages';
+import { IndustryHero } from './IndustryHero';
+import { IndustryChallenge } from './IndustryChallenge';
+import { IndustryBuildCards } from './IndustryBuildCards';
 
 const injectStyles = () => {
   const id = 'realestate-industry-premium';
@@ -310,7 +314,6 @@ function TextReveal({ lines, className = '' }: { lines: string[]; className?: st
 
 export default function IndustryRealEstate() {
   const wrapperRef = useReveal();
-  const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
@@ -370,199 +373,75 @@ export default function IndustryRealEstate() {
     <div className="realestate-premium" ref={wrapperRef}>
       
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#F5F3FF]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-3xl" />
-          <Building className="float-el top-[15%] right-[8%] text-[#2563EB]/10 w-20 h-20" />
-          <Key className="float-el bottom-[25%] right-[12%] text-[#7C3AED]/10 w-16 h-16" />
-          <Home className="float-el top-[35%] left-[85%] text-[#06B6D4]/10 w-14 h-14" />
-        </div>
-
-        <div className="max-w-5xl mx-auto w-full relative z-10">
-          <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
-              <Building size={16} className="text-[#2563EB]" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Real Estate</span>
-            <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Software Development</span>
-          </div>
-
-          <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            From first inquiry to key handover,
-            <br />
-            <span className="gradient-text">one system of record</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            Real estate software development for a business that runs on follow-ups: listings, leads, site visits, bookings, and payments finally connected.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-105">
-              Discuss Your Build
-              <ArrowRight size={18} />
-            </a>
-            <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
-              Explore Solutions
-            </a>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
-            {[
-              { value: 'Real-Time', label: 'Availability', icon: Building, color: '#2563EB' },
-              { value: 'Automated', label: 'Follow-Ups', icon: Users, color: '#7C3AED' },
-              { value: 'Accurate', label: 'Listings', icon: Search, color: '#059669' },
-              { value: 'Self-Serve', label: 'Portals', icon: Home, color: '#D97706' },
-            ].map((stat, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#2563EB] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
-                <div className="text-2xl font-bold text-[#0F172A]">{stat.value}</div>
-                <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <IndustryHero
+        image={HERO_IMAGES.realEstate}
+        eyebrow="Real Estate Software"
+        accent="#38bdf8"
+        title={<>From first inquiry to key handover, <em>one system of record</em></>}
+        description="Real estate software development for a business that runs on follow-ups: listings, leads, site visits, bookings, and payments finally connected."
+        primaryCta={{ label: 'Discuss Your Build', href: '/contact-us' }}
+        secondaryCta={{ label: 'Explore Solutions', href: '#services' }}
+        rail={['Listings & leads', 'Automated follow-ups', 'Owner portals']}
+      />
 
       {/* ===== THE CHALLENGE ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
-                The Challenge
-              </span>
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                The follow-up business
-              </h2>
-              <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Real estate deals die quietly — a lead uncontacted for a week, a site visit never logged, a payment milestone nobody chased.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  The inventory is properties, but the business is <span className="font-semibold text-[#0F172A]">pipeline discipline</span>.
-                </p>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 space-y-3 reveal-right" style={{ transitionDelay: '200ms' }}>
-              {[
-                { label: 'Leads Lost to Inaction' },
-                { label: 'Unlogged Site Visits' },
-                { label: 'Missed Payment Milestones' },
-                { label: 'Stale Listings' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 hover:shadow-md transition-all duration-300">
-                  <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                    <X size={14} className="text-red-500" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <IndustryChallenge
+        accent="#2563EB"
+        accentSoft="rgba(37, 99, 235, 0.14)"
+        accentSoft2="rgba(99, 102, 241, 0.12)"
+        title="The follow-up business"
+        items={[
+          { icon: Users, label: 'Leads Lost to Inaction' },
+          { icon: MapPin, label: 'Unlogged Site Visits' },
+          { icon: DollarSign, label: 'Missed Payment Milestones' },
+          { icon: HomeIcon, label: 'Stale Listings' },
+        ]}
+      >
+        <p className="text-lg text-slate-600 leading-relaxed">
+          Real estate deals die quietly — a lead uncontacted for a week, a site visit never logged, a payment milestone nobody chased.
+        </p>
+        <p className="text-lg text-slate-600 leading-relaxed">
+          The inventory is properties, but the business is <span className="font-semibold text-[#0F172A]">pipeline discipline</span>.
+        </p>
+      </IndustryChallenge>
 
       {/* ===== WHAT WE BUILD ===== */}
-      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#7C3AED]/5 rounded-full blur-3xl" />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-4 reveal-up">
+      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-16 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3 reveal-up">
               <span className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center">
                 <Sparkles size={18} className="text-[#2563EB]" />
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Solutions</span>
             </div>
             
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                What we <span className="gradient-text">build</span>
-              </h2>
-              <p className="text-slate-400 text-sm reveal-up max-w-sm" style={{ transitionDelay: '150ms' }}>
-                5 core solutions engineered for real estate — built to keep the pipeline moving.
-              </p>
-            </div>
+            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
+              What we <span className="gradient-text">build</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 reveal-up" style={{ transitionDelay: '150ms' }}>
+              5 core solutions engineered for real estate — built to keep the pipeline moving.
+            </p>
             
-            <div className="divider-gradient reveal-up" style={{ transitionDelay: '200ms' }} />
+            <div className="divider-gradient mx-auto reveal-up" style={{ transitionDelay: '200ms' }} />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => {
-              const Icon = service.icon;
-              const isActive = activeService === i;
-              return (
-                <div
-                  key={i}
-                  className="service-card-new"
-                  style={{
-                    borderColor: isActive ? service.color : '#f1f5f9',
-                    boxShadow: isActive ? `0 8px 32px ${service.color}15` : '0 1px 3px rgba(0,0,0,0.04)',
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: `fadeUp 0.6s ease ${i * 0.08 + 0.2}s forwards`,
-                  }}
-                  onMouseEnter={() => setActiveService(i)}
-                  onMouseLeave={() => setActiveService(null)}
-                >
-                  <span className="card-number">{service.number}</span>
-
-                  <div className="icon-wrap" style={{ backgroundColor: service.bg, color: service.color }}>
-                    <Icon size={24} strokeWidth={1.75} />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-[#0F172A] pr-12">{service.title}</h3>
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">{service.desc}</p>
-
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {service.features.map((feature, idx) => (
-                      <span key={idx} className="feature-tag">
-                        <Check size={10} className="text-[#2563EB]" />
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div 
-                    className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
-                    style={{ background: service.color }} 
-                  />
-
-                  {service.link ? (
-                    <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </Link>
-                  ) : (
-                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#2563EB] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
-                  )}
-                </div>
-              );
-            })}
+          <div className="reveal-up" style={{ transitionDelay: '220ms' }}>
+            <IndustryBuildCards items={services} />
           </div>
 
-          <div className="mt-12 text-center reveal-up">
+          {/* <div className="mt-12 text-center reveal-up">
             <p className="text-sm text-slate-500 mb-4">Need a custom real estate solution?</p>
-            <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
               Discuss Your Build
               <ArrowRight size={16} />
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* ===== ENGINEERING MATTERS ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
@@ -607,7 +486,7 @@ export default function IndustryRealEstate() {
       </section>
 
       {/* ===== PROOF ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      {/* <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -667,58 +546,25 @@ export default function IndustryRealEstate() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-16">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] mb-4 reveal-up">
-              <span className="w-1 h-5 rounded-full bg-[#2563EB]" />
-              FAQ
-            </span>
-            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-              Common questions, straight answers
-            </h2>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: "Do you build for brokers, builders, or property managers?",
-                a: "All three — the modules differ (listings vs. project milestones vs. tenancy), the pipeline discipline doesn't."
-              },
-              {
-                q: "Can it integrate with listing sites?",
-                a: "Yes — feed syndication and portal APIs are standard scope where the platforms allow it."
-              },
-              {
-                q: "Do you handle rental/tenancy management?",
-                a: "Yes — leases, renewals, rent schedules, maintenance requests, and owner statements in one flow."
-              }
-            ].map((faq, i) => (
-              <div
-                key={i}
-                className="border border-slate-100 rounded-xl bg-[#FAFBFC] p-5 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
-                style={{
-                  opacity: 0,
-                  animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
-                }}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#2563EB]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[10px] font-bold text-[#2563EB]">Q</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
-                    <p className="text-sm text-slate-500 mt-1 leading-relaxed">{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqAccordionSection
+        items={[
+          {
+            q: "Do you build for brokers, builders, or property managers?",
+            a: "All three — the modules differ (listings vs. project milestones vs. tenancy), the pipeline discipline doesn't."
+          },
+          {
+            q: "Can it integrate with listing sites?",
+            a: "Yes — feed syndication and portal APIs are standard scope where the platforms allow it."
+          },
+          {
+            q: "Do you handle rental/tenancy management?",
+            a: "Yes — leases, renewals, rent schedules, maintenance requests, and owner statements in one flow."
+          }
+        ]}
+      />
 
       {/* ===== CTA ===== */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
@@ -736,7 +582,7 @@ export default function IndustryRealEstate() {
             Let's discuss your real estate project. We'll show you what's possible.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
               Discuss Your Build
               <ArrowRight size={18} />
             </a>

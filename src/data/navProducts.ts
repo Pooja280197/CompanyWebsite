@@ -10,29 +10,36 @@ export const PRODUCT_NAV_ITEMS: NavMegaItem[] = [
   {
     id: 'cleanplan',
     label: 'CleanPlan',
-    href: '/product/cleanplan',
+    href: '/cleanplan',
     description: 'Cleaning operations & workforce management',
   },
   {
     id: 'education-erp',
     label: 'Education ERP',
-    href: '/product/education-erp',
+    href: '/erp-solutions-for-education',
     description: 'Admissions, fees, academics & communication',
   },
   {
     id: 'rexo-erp',
     label: 'Rexo ERP',
-    href: '/product/rexo-erp',
+    href: '/rexo-erp',
     description: 'Inventory, production, sales, finance & HR',
   },
   {
-    id: 'our-products',
-    label: 'All Products',
-    href: '/our-products',
-    description: 'Explore the full NSS product suite',
+    id: 'showtimebro',
+    label: 'ShowTimeBro',
+    href: '/showtimebro',
+    description: 'Events, ticketing, check-in & live sales',
   },
 ];
 
 export function isProductsNavActive(pathname: string) {
-  return pathname.startsWith('/product') || pathname === '/our-products';
+  return (
+    pathname === '/rexo-erp' ||
+    pathname === '/cleanplan' ||
+    pathname === '/erp-solutions-for-education' ||
+    pathname === '/showtimebro' ||
+    pathname === '/our-products' ||
+    pathname.startsWith('/product/')
+  );
 }

@@ -14,7 +14,7 @@ function Check({ white = false }) {
 function CollabBtn({ dark = false }) {
   return (
     <a
-      href="#contact"
+      href="/contact-us"
       className={`btn-pill flex items-center justify-between gap-3 font-semibold text-sm pl-6 pr-2.5 py-2.5 rounded-full w-full max-w-[200px] transition-colors ${dark ? 'bg-[#111] text-white hover:bg-[#000]' : 'bg-[#111] text-white hover:bg-[#000]'}`}
     >
       Let's Collaborate

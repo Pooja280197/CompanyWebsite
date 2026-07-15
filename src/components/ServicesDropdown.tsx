@@ -84,6 +84,7 @@ export function ServicesDropdown({
                       {column.title}
                     </Link>
                   </h3>
+                  {column.items.length > 0 && (
                   <ul className="services-dropdown__list">
                     {column.items.map((item) => {
                       const delay = linkIndex++;
@@ -105,6 +106,7 @@ export function ServicesDropdown({
                       );
                     })}
                   </ul>
+                  )}
                 </div>
               );
               })}
@@ -136,22 +138,24 @@ export function ServicesMobileList({ onNavigate }: { onNavigate: () => void }) {
               {column.title}
             </Link>
           </h3>
-          <ul className="services-dropdown__list">
-            {column.items.map((item) => (
-              <li key={item.id}>
-                <Link
-                  to={item.href}
-                  onClick={onNavigate}
-                  aria-current={isItemActive(pathname, item.href) ? 'page' : undefined}
-                  className={`services-dropdown__link text-lg py-3 ${
-                    isItemActive(pathname, item.href) ? 'services-dropdown__link--active' : ''
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {column.items.length > 0 && (
+            <ul className="services-dropdown__list">
+              {column.items.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    to={item.href}
+                    onClick={onNavigate}
+                    aria-current={isItemActive(pathname, item.href) ? 'page' : undefined}
+                    className={`services-dropdown__link text-lg py-3 ${
+                      isItemActive(pathname, item.href) ? 'services-dropdown__link--active' : ''
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       ))}
     </div>

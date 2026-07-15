@@ -15,7 +15,7 @@ export function CaseStudyHero({
   tags,
   image,
   ctaLabel = 'Contact Us',
-  ctaTo = '/#contact',
+  ctaTo = '/contact-us',
 }: CaseStudyHeroProps) {
   const titleBaseDelay = 0.1;
   const charStagger = 0.045;

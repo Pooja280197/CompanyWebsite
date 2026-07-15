@@ -1,5 +1,5 @@
 // IndustryEducation.tsx - Education Industry Page
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -17,7 +17,6 @@ import {
   FileText,
   Layers,
   Quote,
-  X,
   Briefcase,
   Database,
   Server,
@@ -60,7 +59,13 @@ import {
   Key,
   Network,
   LayoutDashboard,
+  CreditCard,
 } from 'lucide-react';
+import { FaqAccordionSection } from '../FaqAccordionSection';
+import { HERO_IMAGES } from '../../data/heroImages';
+import { IndustryHero } from './IndustryHero';
+import { IndustryChallenge } from './IndustryChallenge';
+import { IndustryBuildCards } from './IndustryBuildCards';
 
 const injectStyles = () => {
   const id = 'education-industry-premium';
@@ -306,7 +311,6 @@ function TextReveal({ lines, className = '' }: { lines: string[]; className?: st
 
 export default function IndustryEducation() {
   const wrapperRef = useReveal();
-  const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     injectStyles();
@@ -367,199 +371,75 @@ export default function IndustryEducation() {
     <div className="education-premium" ref={wrapperRef}>
       
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#FFFBEB] via-white to-[#FEF3C7]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D97706]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#F59E0B]/5 rounded-full blur-3xl" />
-          <GraduationCap className="float-el top-[15%] right-[8%] text-[#D97706]/10 w-20 h-20" />
-          <BookOpen className="float-el bottom-[25%] right-[12%] text-[#F59E0B]/10 w-16 h-16" />
-          <Laptop className="float-el top-[35%] left-[85%] text-[#FBBF24]/10 w-14 h-14" />
-        </div>
-
-        <div className="max-w-5xl mx-auto w-full relative z-10">
-          <div className="flex items-center gap-3 mb-8 reveal-up">
-            <span className="w-10 h-10 rounded-full bg-[#D97706]/10 flex items-center justify-center">
-              <GraduationCap size={16} className="text-[#D97706]" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Education</span>
-            <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706]">Software Development</span>
-          </div>
-
-          <h1 className="heading-xl text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-            Learning experiences that
-            <br />
-            <span className="gradient-text">outlast the login page</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed reveal-up" style={{ transitionDelay: '200ms' }}>
-            Education software development from a team that ships its own campus product — e-learning platforms, digital classrooms, and the administrative backbone behind them.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-10 reveal-up" style={{ transitionDelay: '300ms' }}>
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-105">
-              Discuss Your Project
-              <ArrowRight size={18} />
-            </a>
-            <a href="#services" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#D97706] hover:text-[#D97706] transition-all duration-300">
-              Explore Solutions
-            </a>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 reveal-up" style={{ transitionDelay: '400ms' }}>
-            {[
-              { value: '100%', label: 'Student Lifecycle', icon: School, color: '#D97706' },
-              { value: '24/7', label: 'Learning Access', icon: Monitor, color: '#F59E0B' },
-              { value: 'Real-Time', label: 'Communication', icon: Users, color: '#059669' },
-              { value: 'Scalable', label: 'Exam Traffic', icon: Gauge, color: '#2563EB' },
-            ].map((stat, i) => (
-              <div key={i} className="p-4 rounded-2xl bg-white border border-slate-100 text-center hover:border-[#D97706] hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <stat.icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} />
-                <div className="text-2xl font-bold text-[#0F172A]">{stat.value}</div>
-                <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <IndustryHero
+        image={HERO_IMAGES.education}
+        eyebrow="Education Software"
+        accent="#fbbf24"
+        title={<>Learning experiences that <em>outlast the login page</em></>}
+        description="Education software development from a team that ships its own campus product — e-learning platforms, digital classrooms, and the administrative backbone behind them."
+        primaryCta={{ label: 'Discuss Your Project', href: '/contact-us' }}
+        secondaryCta={{ label: 'Explore Solutions', href: '#services' }}
+        rail={['Campus ERP', 'Digital classrooms', 'Academic ops']}
+      />
 
       {/* ===== THE CHALLENGE ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
-                <span className="w-1 h-5 rounded-full bg-[#D97706]" />
-                The Challenge
-              </span>
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                Digital education's real test
-              </h2>
-              <div className="mt-6 space-y-4 reveal-up" style={{ transitionDelay: '150ms' }}>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Anyone can stream a lecture. The hard part is everything around it.
-                </p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Enrollment that doesn't lose students, fee systems parents trust, attendance that syncs to academics, and platforms that <span className="font-semibold text-[#0F172A]">survive exam-day traffic</span>.
-                </p>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 space-y-3 reveal-right" style={{ transitionDelay: '200ms' }}>
-              {[
-                { label: 'Enrollment Friction' },
-                { label: 'Fee Management Errors' },
-                { label: 'Disconnected Attendance' },
-                { label: 'Exam-Day Crashes' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100 hover:shadow-md transition-all duration-300">
-                  <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                    <X size={14} className="text-red-500" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <IndustryChallenge
+        accent="#D97706"
+        accentSoft="rgba(217, 119, 6, 0.14)"
+        accentSoft2="rgba(245, 158, 11, 0.12)"
+        title="Digital education's real test"
+        items={[
+          { icon: Users, label: 'Enrollment Friction' },
+          { icon: CreditCard, label: 'Fee Management Errors' },
+          { icon: Calendar, label: 'Disconnected Attendance' },
+          { icon: Server, label: 'Exam-Day Crashes' },
+        ]}
+      >
+        <p className="text-lg text-slate-600 leading-relaxed">
+          Anyone can stream a lecture. The hard part is everything around it.
+        </p>
+        <p className="text-lg text-slate-600 leading-relaxed">
+          Enrollment that doesn't lose students, fee systems parents trust, attendance that syncs to academics, and platforms that <span className="font-semibold text-[#0F172A]">survive exam-day traffic</span>.
+        </p>
+      </IndustryChallenge>
 
       {/* ===== WHAT WE BUILD ===== */}
-      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#D97706]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#F59E0B]/5 rounded-full blur-3xl" />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-4 reveal-up">
+      <section id="services" className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-16 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3 reveal-up">
               <span className="w-10 h-10 rounded-xl bg-[#D97706]/10 flex items-center justify-center">
                 <Sparkles size={18} className="text-[#D97706]" />
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706]">Solutions</span>
             </div>
             
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-                What we <span className="gradient-text">build</span>
-              </h2>
-              <p className="text-slate-400 text-sm reveal-up max-w-sm" style={{ transitionDelay: '150ms' }}>
-                5 core solutions engineered for education — built with the discipline of a live campus product.
-              </p>
-            </div>
+            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
+              What we <span className="gradient-text">build</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 reveal-up" style={{ transitionDelay: '150ms' }}>
+              5 core solutions engineered for education — built with the discipline of a live campus product.
+            </p>
             
-            <div className="divider-gradient reveal-up" style={{ transitionDelay: '200ms' }} />
+            <div className="divider-gradient mx-auto reveal-up" style={{ transitionDelay: '200ms' }} />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => {
-              const Icon = service.icon;
-              const isActive = activeService === i;
-              return (
-                <div
-                  key={i}
-                  className="service-card-new"
-                  style={{
-                    borderColor: isActive ? service.color : '#f1f5f9',
-                    boxShadow: isActive ? `0 8px 32px ${service.color}15` : '0 1px 3px rgba(0,0,0,0.04)',
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    animation: `fadeUp 0.6s ease ${i * 0.08 + 0.2}s forwards`,
-                  }}
-                  onMouseEnter={() => setActiveService(i)}
-                  onMouseLeave={() => setActiveService(null)}
-                >
-                  <span className="card-number">{service.number}</span>
-
-                  <div className="icon-wrap" style={{ backgroundColor: service.bg, color: service.color }}>
-                    <Icon size={24} strokeWidth={1.75} />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-[#0F172A] pr-12">{service.title}</h3>
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">{service.desc}</p>
-
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {service.features.map((feature, idx) => (
-                      <span key={idx} className="feature-tag">
-                        <Check size={10} className="text-[#D97706]" />
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div 
-                    className={`mt-5 h-0.5 rounded-full transition-all duration-500 ${isActive ? 'w-16' : 'w-10'}`} 
-                    style={{ background: service.color }} 
-                  />
-
-                  {service.link ? (
-                    <Link to={service.link} className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#D97706] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </Link>
-                  ) : (
-                    <button className="mt-4 text-xs font-semibold text-slate-400 hover:text-[#D97706] transition-colors duration-300 flex items-center gap-1 group">
-                      Learn more
-                      <ArrowUpRight size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </button>
-                  )}
-                </div>
-              );
-            })}
+          <div className="reveal-up" style={{ transitionDelay: '220ms' }}>
+            <IndustryBuildCards items={services} />
           </div>
 
-          <div className="mt-12 text-center reveal-up">
+          {/* <div className="mt-12 text-center reveal-up">
             <p className="text-sm text-slate-500 mb-4">Need a custom education solution?</p>
-            <a href="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] text-white font-medium hover:bg-[#1E293B] transition-all duration-300 hover:shadow-lg">
               Discuss Your Project
               <ArrowRight size={16} />
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* ===== PRODUCT-BACKED CREDIBILITY ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-slate-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
@@ -604,7 +484,7 @@ export default function IndustryEducation() {
       </section>
 
       {/* ===== PROOF ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
+      {/* <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFBFC]">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -664,58 +544,25 @@ export default function IndustryEducation() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== FAQ ===== */}
-      <section className="py-24 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-16">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#D97706] mb-4 reveal-up">
-              <span className="w-1 h-5 rounded-full bg-[#D97706]" />
-              FAQ
-            </span>
-            <h2 className="heading-lg text-[#0F172A] reveal-up" style={{ transitionDelay: '100ms' }}>
-              Common questions, straight answers
-            </h2>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: "Do you serve schools, colleges, or edtech startups?",
-                a: "All three — institutions typically start from Education ERP; startups engage product engineering for custom platforms."
-              },
-              {
-                q: "Can you handle exam-season traffic spikes?",
-                a: "That's a cloud-architecture problem we solve deliberately — auto-scaling designed for the calendar's known peaks. See /cloud-devops."
-              },
-              {
-                q: "Does your platform support online learning?",
-                a: "Yes — virtual classrooms integrate with the academic backbone so attendance, content, and assessment stay one record."
-              }
-            ].map((faq, i) => (
-              <div
-                key={i}
-                className="border border-slate-100 rounded-xl bg-[#FAFBFC] p-5 hover:border-[#D97706]/20 hover:shadow-sm transition-all duration-300"
-                style={{
-                  opacity: 0,
-                  animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
-                }}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#D97706]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[10px] font-bold text-[#D97706]">Q</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
-                    <p className="text-sm text-slate-500 mt-1 leading-relaxed">{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqAccordionSection
+        items={[
+          {
+            q: "Do you serve schools, colleges, or edtech startups?",
+            a: "All three — institutions typically start from Education ERP; startups engage product engineering for custom platforms."
+          },
+          {
+            q: "Can you handle exam-season traffic spikes?",
+            a: "That's a cloud-architecture problem we solve deliberately — auto-scaling designed for the calendar's known peaks. See /cloud-devops."
+          },
+          {
+            q: "Does your platform support online learning?",
+            a: "Yes — virtual classrooms integrate with the academic backbone so attendance, content, and assessment stay one record."
+          }
+        ]}
+      />
 
       {/* ===== CTA ===== */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
@@ -733,7 +580,7 @@ export default function IndustryEducation() {
             Let's discuss your education project. We'll show you what's possible.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <a href="/contact-us" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-[#0F172A] font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
               Discuss Your Project
               <ArrowRight size={18} />
             </a>

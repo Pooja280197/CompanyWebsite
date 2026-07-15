@@ -90,7 +90,7 @@ export default function Hero() {
 
         <div className="a3 flex items-center justify-center gap-6 flex-wrap">
           <a
-            href="#contact"
+            href="/contact-us"
             className="btn-pill group flex items-center gap-12 bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold pl-7 pr-2.5 py-2.5 rounded-full hover:brightness-105 transition-all"
           >
             <span className="text-base whitespace-nowrap">Get Started</span>

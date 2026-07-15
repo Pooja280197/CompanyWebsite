@@ -16,7 +16,7 @@ const services: Array<{
     title: 'Product Engineering',
     description:
       'Custom software, web platforms, and mobile apps built for the moment after launch — when real users, real load, and real edge cases show up. From the first architecture decision to version 4.0.',
-    href: '/whatWeDo/productEngineering',
+    href: '/product-engineering',
     bg: '#ede9fe',
     accent: '#7c3aed',
   },
@@ -25,7 +25,7 @@ const services: Array<{
     title: 'AI & Data',
     description:
       'Machine learning, generative AI, and the data engineering that makes both trustworthy. Built for production from day one: governance, MLOps, and data readiness included, not improvised later.',
-    href: '/whatWeDo/ai-and-data',
+    href: '/ai-data',
     bg: '#dbeafe',
     accent: '#2563eb',
   },
@@ -34,16 +34,16 @@ const services: Array<{
     title: 'Cloud & DevOps',
     description:
       'Migration without downtime, architecture that scales on demand, and CI/CD pipelines that turn releases from events into routine. One client runs at 99.99% uptime on a cloud bill 35% smaller than before.',
-    href: '/whatWeDo/cloud-and-devops',
+    href: '/cloud-devops',
     bg: '#ffedd5',
     accent: '#ea580c',
   },
   {
     icon: Users,
-    title: 'Team Extension',
+    title: 'Staff Augmentation',
     description:
       'Vetted engineers embedded in your team, working your hours, under your direction — onboarded in days through a seven-step vetting process. Scale up for a sprint or down after a release.',
-    href: '/whatWeDo/staffAugmentation',
+    href: '/staff-augmentation',
     bg: '#dcfce7',
     accent: '#16a34a',
   },
@@ -126,7 +126,7 @@ export default function Services() {
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
             <a
-              href="#contact"
+              href="/contact-us"
               className="flex items-center gap-2.5 bg-white text-[#111] font-semibold text-sm px-6 py-3 rounded-full hover:bg-[#f5f5f5] transition-colors"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >

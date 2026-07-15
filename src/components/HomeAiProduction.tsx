@@ -244,7 +244,7 @@ export default function HomeAiProduction() {
           </div>
 
           <div className="ai-prod__cta-wrap">
-            <Link to="/whatWeDo/ai-and-data" className="ai-prod__cta">
+            <Link to="/ai-data" className="ai-prod__cta">
               Explore AI &amp; Data
               <ArrowRight size={17} aria-hidden="true" />
             </Link>

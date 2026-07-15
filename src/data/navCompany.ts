@@ -4,7 +4,7 @@ export const COMPANY_NAV_ITEMS: NavMegaItem[] = [
   {
     id: 'about-us',
     label: 'About Us',
-    href: '/aboutus',
+    href: '/about-us',
   },
   {
     id: 'careers',
@@ -16,15 +16,22 @@ export const COMPANY_NAV_ITEMS: NavMegaItem[] = [
     label: 'Blog',
     href: '/blog',
   },
+  {
+    id: 'contact-us',
+    label: 'Contact Us',
+    href: '/contact-us',
+  },
 ];
 
 export function isCompanyNavActive(pathname: string) {
   return (
-    pathname === '/aboutus' ||
-    pathname.startsWith('/aboutus/') ||
+    pathname === '/about-us' ||
+    pathname.startsWith('/about-us/') ||
     pathname === '/careers' ||
     pathname.startsWith('/careers/') ||
     pathname === '/blog' ||
-    pathname.startsWith('/blog/')
+    pathname.startsWith('/blog/') ||
+    pathname === '/contact-us' ||
+    pathname.startsWith('/contact-us/')
   );
 }

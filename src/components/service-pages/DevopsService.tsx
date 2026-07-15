@@ -161,7 +161,7 @@ const FAQS: { q: string; a: ReactNode }[] = [
       <>
         Both work: we build your pipeline foundation as a fixed-scope project, or our specialists embed
         in your team (see{' '}
-        <Link to="/#contact" className="text-[#2563eb] font-medium hover:underline">
+        <Link to="/contact-us" className="text-[#2563eb] font-medium hover:underline">
           staff augmentation
         </Link>
         ). The manufacturing case above was two embedded engineers.
@@ -411,11 +411,11 @@ export default function DevopsService() {
             </p>
 
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="nav-cta-btn nav-cta-btn--cta a3 mt-5 inline-flex bg-gradient-to-b from-amber-400 via-orange-500 to-orange-600"
               style={{ '--nav-cta-w': '14.75rem' } as React.CSSProperties}
             >
-              <span className="nav-cta-btn__label">Get a Fixed Quote</span>
+              <span className="nav-cta-btn__label">Get a Pipeline Audit</span>
               <span className="nav-cta-btn__icon">
                 <svg viewBox="0 0 10 10" fill="none" aria-hidden="true">
                   <path d="M2 8L8 2M8 2H3M8 2V7" stroke="#111" strokeWidth="1.6" strokeLinecap="round" />

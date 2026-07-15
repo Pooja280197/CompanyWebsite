@@ -69,6 +69,53 @@ import {
   Plus,
   Minus,
 } from 'lucide-react';
+import { FaqAccordionSection } from './FaqAccordionSection';
+import { ScrollTextReveal } from './ScrollTextReveal';
+
+const HERO_LETTER_INTERVAL = 52;
+
+const CAREERS_TITLE_LINE_1 = [
+  { text: 'Do' },
+  { text: 'the' },
+  { text: 'work' },
+  { text: "you'll" },
+];
+
+const CAREERS_TITLE_LINE_2 = [
+  { text: 'want' },
+  { text: 'to' },
+  { text: 'talk' },
+  { text: 'about' },
+];
+
+const CAREERS_LINE1_MS =
+  CAREERS_TITLE_LINE_1.reduce((n, w) => n + w.text.length, 0) * HERO_LETTER_INTERVAL + 350;
+
+const CAREERS_ROLE_STREAM = [
+  'Product Engineering',
+  'AI & Data',
+  'Cloud & DevOps',
+  'Mobile',
+  'ERP',
+  'UI/UX',
+  'Staff Aug',
+  'Salesforce',
+];
+
+const CAREER_FAQS = [
+  {
+    q: 'Do you hire freshers or only experienced engineers?',
+    a: 'Both — experienced engineers for client-facing depth, and promising freshers for structured growth paths. The bar is trajectory, not just history.',
+  },
+  {
+    q: 'Is remote work possible?',
+    a: "Role-dependent: many positions are Indore-based for team density, some are hybrid or remote. State your preference in the form — it's a conversation, not a filter.",
+  },
+  {
+    q: 'I sent my resume. When will I hear back?',
+    a: "Every resume gets read. If there's a current or near-term match you'll hear within days; strong profiles stay active in our pipeline for future roles.",
+  },
+];
 
 const injectStyles = () => {
   const id = 'careers-styles-vibrant';
@@ -287,7 +334,7 @@ export default function Careers() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [heroVisible, setHeroVisible] = useState(false);
+  const [titleLine2Ready, setTitleLine2Ready] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -301,11 +348,49 @@ export default function Careers() {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const processTimelineRef = useRef<HTMLOListElement>(null);
+  const whyGridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     injectStyles();
     document.title = 'Careers — NSS';
-    setTimeout(() => setHeroVisible(true), 100);
+  }, []);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setTitleLine2Ready(true), CAREERS_LINE1_MS);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    const el = processTimelineRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('is-inview');
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25, rootMargin: '0px 0px -8% 0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = whyGridRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('is-inview');
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -6% 0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -376,247 +461,258 @@ export default function Careers() {
   };
 
   const processSteps = [
-    { 
-      num: '01', 
-      title: 'Discover', 
-      desc: 'We read every resume that arrives.',
-      icon: Eye,
-      color: '#2563EB',
-      bg: '#EFF6FF',
+    {
+      num: '01',
+      title: 'Resume review',
+      desc: 'We read every resume that arrives — and decide quickly if there’s a fit.',
+      icon: FileText,
+      color: '#14b8a6',
     },
-    { 
-      num: '02', 
-      title: 'Planning', 
-      desc: 'A real technical discussion, not trivia.',
-      icon: Target,
-      color: '#7C3AED',
-      bg: '#F5F3FF',
+    {
+      num: '02',
+      title: 'Technical conversation',
+      desc: 'A real discussion, not trivia — how you think, build, and trade off.',
+      icon: MessageSquare,
+      color: '#3b82f6',
     },
-    { 
-      num: '03', 
-      title: 'Design & Dev', 
-      desc: 'Practical round relevant to actual work.',
+    {
+      num: '03',
+      title: 'Practical round',
+      desc: 'Work relevant to actual shipping — not puzzles for their own sake.',
       icon: Code,
-      color: '#059669',
-      bg: '#ECFDF5',
+      color: '#1e3a8a',
     },
-    { 
-      num: '04', 
-      title: 'Testing', 
-      desc: 'We move in days where we can.',
-      icon: Shield,
-      color: '#D97706',
-      bg: '#FFFBEB',
+    {
+      num: '04',
+      title: 'Offer',
+      desc: 'Clear next steps when it’s a match — and honesty when it isn’t.',
+      icon: Award,
+      color: '#64748b',
     },
   ];
 
   const whyStay = [
-    { icon: Layers, title: 'Variety that compounds', desc: 'One quarter on IoT, the next on RAG pipelines or Rexo ERP modules.' },
-    { icon: Target, title: 'Real Ownership', desc: 'Small teams, direct client exposure, your name on the outcome.' },
-    { icon: TrendingUp, title: 'Continuous Upskilling', desc: 'Skill development is policy, not poster — our clients pay for current.' },
-  ];
-
-  const funFacts = [
-    { emoji: '🚀', text: 'Products running on 3 continents' },
-    { emoji: '💎', text: 'AI that judges diamonds' },
-    { emoji: '🏭', text: 'Factory platforms cutting costs 40%' },
-    { emoji: '☕', text: 'Built here, from Indore' },
+    {
+      icon: Layers,
+      title: 'Variety that compounds',
+      desc: 'One quarter on IoT, the next on RAG pipelines or Rexo ERP modules.',
+      accent: '#2563eb',
+    },
+    {
+      icon: Target,
+      title: 'Real Ownership',
+      desc: 'Small teams, direct client exposure, your name on the outcome.',
+      accent: '#0d9488',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Continuous Upskilling',
+      desc: 'Skill development is policy, not poster — our clients pay for current.',
+      accent: '#ea580c',
+    },
   ];
 
   return (
     <div className="careers-vibrant" ref={wrapperRef}>
-      
-      {/* ===== HERO - JOYFUL ===== */}
-      <section className="relative min-h-[70vh] flex items-center px-6 md:px-12 lg:px-20 py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#EFF6FF] via-white to-[#EEF2FF]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#6366F1]/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#06B6D4]/5 rounded-full blur-3xl" />
-        </div>
+      {/* ===== HERO ===== */}
+      <section className="careers-hero" aria-labelledby="careers-hero-heading">
+        <div className="careers-hero__layout">
+          <div className="careers-hero__inner">
+            
 
-        <div className="absolute inset-0 pointer-events-none">
-          <Factory className="float-icon text-[#2563EB]" style={{ width: '60px', height: '60px', top: '12%', left: '5%' }} />
-          <Diamond className="float-icon text-[#6366F1]" style={{ width: '50px', height: '50px', top: '8%', right: '10%', animationDelay: '1.5s' }} />
-          <Building className="float-icon text-[#059669]" style={{ width: '55px', height: '55px', bottom: '20%', left: '8%', animationDelay: '2.5s' }} />
-          <Cloud className="float-icon text-[#06B6D4]" style={{ width: '45px', height: '45px', top: '45%', right: '5%', animationDelay: '3.5s' }} />
-          <Code className="float-icon text-[#7C3AED]" style={{ width: '50px', height: '50px', bottom: '30%', right: '15%', animationDelay: '4.5s' }} />
-          <Brain className="float-icon text-[#D97706]" style={{ width: '45px', height: '45px', top: '25%', left: '12%', animationDelay: '5.5s' }} />
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto w-full">
-          <div 
-            className="flex items-center gap-3 mb-6"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.6s ease',
-            }}
-          >
-            <span className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
-              <Sparkles size={16} className="text-[#2563EB]" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Careers</span>
-            <span className="text-xs text-slate-300">/</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB]">Join Us</span>
-          </div>
-
-          <h1 
-            className="font-editorial text-5xl md:text-6xl lg:text-7xl text-[#0F172A] leading-[1.05] tracking-tight"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'all 0.7s ease 0.1s',
-            }}
-          >
-            Do the work you'll
-            <br />
-            <span className="gradient-text">want to talk about</span>
-          </h1>
-
-          <p 
-            className="text-lg md:text-xl text-slate-500 max-w-2xl mt-6 leading-relaxed"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.6s ease 0.2s',
-            }}
-          >
-            Factory platforms that cut costs 40%. AI that judges diamonds. Products running businesses on three continents. Built here, from Indore.
-          </p>
-
-          {/* Fun Facts Row */}
-          <div 
-            className="flex flex-wrap gap-4 mt-6"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.6s ease 0.3s',
-            }}
-          >
-            {funFacts.map((fact, i) => (
-              <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-sm text-gray-600 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <span>{fact.emoji}</span>
-                {fact.text}
+            <h1 id="careers-hero-heading" className="careers-hero__title">
+              <span className="careers-hero__title-line">
+                <ScrollTextReveal
+                  tag="span"
+                  align="left"
+                  animate="words"
+                  textColor="#0f172a"
+                  letterInterval={HERO_LETTER_INTERVAL}
+                  letterDurationMs={560}
+                  startDelay={80}
+                  style={{ display: 'block', width: 'fit-content', maxWidth: '100%' }}
+                  words={CAREERS_TITLE_LINE_1}
+                />
               </span>
-            ))}
+              <span className="careers-hero__title-line careers-hero__title-line--accent">
+                {titleLine2Ready ? (
+                  <ScrollTextReveal
+                    key="careers-title-line-2"
+                    tag="span"
+                    align="left"
+                    animate="words"
+                    textColor="#2563eb"
+                    letterInterval={HERO_LETTER_INTERVAL}
+                    letterDurationMs={560}
+                    startDelay={0}
+                    style={{ display: 'block', width: 'fit-content', maxWidth: '100%' }}
+                    words={CAREERS_TITLE_LINE_2}
+                  />
+                ) : (
+                  <span className="careers-hero__title-reserve" aria-hidden="true">
+                    want to talk about
+                  </span>
+                )}
+              </span>
+            </h1>
+
+            <div className="careers-hero__copy">
+              <p className="careers-hero__desc careers-hero__fade-in" style={{ animationDelay: `${CAREERS_LINE1_MS + 700}ms` }}>
+                Factory platforms that cut costs 40%. AI that judges diamonds. Products running businesses
+                on three continents. Built here, from Indore — by engineers who own what ships.
+              </p>
+
+              <div className="careers-hero__actions careers-hero__fade-in" style={{ animationDelay: `${CAREERS_LINE1_MS + 880}ms` }}>
+                <a
+                  href="mailto:hr@nagarsoftwaresolution.com"
+                  className="careers-hero__cta"
+                  onClick={(e) => {
+                    // Ensure mailto opens even if a scroll/overlay handler interferes
+                    e.preventDefault();
+                    window.location.href =
+                      'mailto:hr@nagarsoftwaresolution.com?subject=Job%20Application%20-%20NSS';
+                  }}
+                >
+                  Share Your Resume
+                  <ArrowRight size={18} />
+                </a>
+                <a href="#process" className="careers-hero__ghost">
+                  Our Process
+                </a>
+              </div>
+              <p className="careers-hero__mail-hint careers-hero__fade-in" style={{ animationDelay: `${CAREERS_LINE1_MS + 960}ms` }}>
+                Or email us at{' '}
+                <a href="mailto:hr@nagarsoftwaresolution.com">hr@nagarsoftwaresolution.com</a>
+              </p>
+
+              {/* <div className="careers-hero__rail careers-hero__fade-in" style={{ animationDelay: `${CAREERS_LINE1_MS + 1040}ms` }}>
+                {['Open roles year-round', 'Indore HQ', 'Growth over titles'].map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div> */}
+            </div>
           </div>
 
-          <div 
-            className="flex flex-wrap gap-4 mt-8"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'all 0.6s ease 0.4s',
-            }}
-          >
-            <a href="#apply" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#0F172A] text-white font-semibold hover:bg-[#1E293B] transition-all duration-300 hover:shadow-xl hover:scale-105">
-              Share Your Resume
-              <ArrowRight size={18} />
-            </a>
-            <a href="#process" className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-slate-200 text-[#0F172A] font-semibold hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-300">
-              Our Process
-            </a>
-          </div>
+          <aside className="careers-hero__stage" aria-hidden="true">
+            <p className="careers-hero__watermark">CAREERS</p>
+
+            <div className="careers-hero__orbit">
+              <span className="careers-hero__ring careers-hero__ring--1" />
+              <span className="careers-hero__ring careers-hero__ring--2" />
+              <span className="careers-hero__ring careers-hero__ring--3" />
+              <span className="careers-hero__ring careers-hero__ring--4" />
+
+              <span className="careers-hero__core">
+                <span className="careers-hero__core-pulse" />
+                <img
+                  src="/mainLogo.png"
+                  alt=""
+                  className="careers-hero__core-logo"
+                />
+              </span>
+
+              {CAREERS_ROLE_STREAM.map((role, i) => (
+                <span key={role} className={`careers-hero__chip careers-hero__chip--${i + 1}`}>
+                  <span className="careers-hero__chip-label">{role}</span>
+                </span>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 
       {/* ===== WHY ENGINEERS STAY ===== */}
-      <section className="py-20 px-6 md:px-12 lg:px-20 bg-white border-t border-gray-100">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <div className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4 reveal-up">
-              <span className="text-xs font-bold text-blue-700 tracking-wider">WHY ENGINEERS STAY</span>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 reveal-up" style={{ transitionDelay: '100ms' }}>Build things that matter</h2>
+      <section className="careers-why">
+        <div className="careers-why__inner">
+          <div className="careers-why__head">
+            <p className="careers-why__eyebrow">Why engineers stay</p>
+            <h2 className="careers-why__title">Build things that matter</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="careers-why__grid" ref={whyGridRef}>
             {whyStay.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div
-                  key={i}
-                  className="group p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+                <article
+                  key={item.title}
+                  className="careers-why__card"
                   style={{
-                    opacity: 0,
-                    animation: `fadeUp 0.6s ease ${i * 0.08 + 0.2}s forwards`,
+                    ['--why-accent' as string]: item.accent,
+                    ['--why-delay' as string]: `${0.1 + i * 0.14}s`,
                   }}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon size={22} strokeWidth={1.75} />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
-                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">{item.desc}</p>
-                </div>
+                  <span className="careers-why__badge" aria-hidden="true">
+                    <Icon size={20} strokeWidth={1.75} />
+                  </span>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </article>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* ===== HOW WE HIRE - CIRCLE STEPS (Like Image) ===== */}
-      <section id="process" className="py-20 px-6 md:px-12 lg:px-20 bg-gray-50/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <div className="inline-block px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 mb-4 reveal-up">
-              <span className="text-xs font-bold text-emerald-700 tracking-wider">HOW WE HIRE</span>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 reveal-up" style={{ transitionDelay: '100ms' }}>
-              Industry Best Practices <span className="gradient-text">to the Core</span>
+      {/* ===== HOW WE HIRE — zig-zag process ===== */}
+      <section id="process" className="careers-process">
+        <div className="careers-process__inner">
+          <div className="careers-process__head">
+            <p className="careers-process__eyebrow">The process</p>
+            <h2 className="careers-process__title">
+              Industry Best Practices <span>to the Core</span>
             </h2>
-            <p className="text-gray-500 mt-2 reveal-up" style={{ transitionDelay: '150ms' }}>
-              Our design approach is to simplify. We embrace creating something.
+            <p className="careers-process__lede">
+              Resume review → technical conversation → practical round → offer. Clear steps, no black box.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <ol className="careers-process__timeline" ref={processTimelineRef}>
             {processSteps.map((step, i) => {
               const Icon = step.icon;
+              const side = i % 2 === 0 ? 'left' : 'right';
               return (
-                <div
-                  key={i}
-                  className="step-card group text-center p-6 rounded-2xl bg-white border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+                <li
+                  key={step.num}
+                  className={`careers-process__row careers-process__row--${side}`}
                   style={{
-                    opacity: 0,
-                    animation: `fadeUp 0.5s ease ${i * 0.1 + 0.2}s forwards`,
+                    ['--step-color' as string]: step.color,
+                    ['--step-delay' as string]: `${0.12 + i * 0.18}s`,
                   }}
                 >
-                  <div className="flex justify-center mb-4">
-                    <div 
-                      className="step-circle"
-                      style={{ 
-                        background: step.bg, 
-                        color: step.color,
-                      }}
-                    >
-                      <span className="step-number">{step.num}</span>
-                      <div className="step-icon" style={{ color: step.color }}>
-                        <Icon size={14} strokeWidth={2} />
-                      </div>
+                  <div className="careers-process__pill">
+                    <div className="careers-process__icon-wrap">
+                      <Icon size={22} strokeWidth={1.75} />
+                    </div>
+                    <div className="careers-process__pill-body">
+                      <h3>{step.title}</h3>
+                      <p>{step.desc}</p>
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900">{step.title}</h3>
-                  <p className="text-sm text-gray-500 mt-2 leading-relaxed">{step.desc}</p>
-                </div>
+
+                  <div className="careers-process__rail" aria-hidden="true">
+                    <span className="careers-process__dot" />
+                  </div>
+
+                  <div className="careers-process__label">
+                    <span>STEP</span>
+                    <strong>{step.num}</strong>
+                  </div>
+                </li>
               );
             })}
-          </div>
+          </ol>
 
-          {/* Decorative text like in image */}
-          <div className="mt-10 text-center">
-            <p className="text-sm text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              We denounce righteous indignation and dislike men who beguiled. 
-              At this step, we cater to requirement backed web services.
-            </p>
-          </div>
+          <p className="careers-process__note">
+            We move in days where we can, and we tell you where you stand at every step — the same
+            transparency clients get.
+          </p>
         </div>
       </section>
 
       {/* ===== NO OPENINGS NOTE ===== */}
-      <section className="py-12 px-6 md:px-12 lg:px-20 bg-white">
+      <section className="py-12 px-6 md:px-12 lg:px-20 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="p-8 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 shadow-sm reveal-up">
+          <div className="p-8 rounded-2xl  shadow-sm reveal-up">
             <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4 bounce-soft">
               <Eye size={24} className="text-amber-600" />
             </div>
@@ -637,7 +733,7 @@ export default function Careers() {
       </section>
 
       {/* ===== APPLICATION FORM ===== */}
-      <section id="apply" className="py-20 px-6 md:px-12 lg:px-20 bg-gray-50/50">
+      {/* <section id="apply" className="py-20 px-6 md:px-12 lg:px-20 bg-gray-50/50">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-block px-3 py-1 rounded-full bg-blue-100 border border-blue-200 mb-4 reveal-up">
@@ -812,65 +908,13 @@ export default function Careers() {
             </form>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* ===== FAQ ===== */}
-      <section className="py-20 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-block px-3 py-1 rounded-full bg-gray-100 border border-gray-200 mb-4 reveal-up">
-              <span className="text-xs font-bold text-gray-700 tracking-wider">FAQ</span>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 reveal-up" style={{ transitionDelay: '100ms' }}>Common questions, straight answers</h2>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: 'Do you hire freshers or only experienced engineers?',
-                a: 'Both — experienced engineers for client-facing depth, and promising freshers for structured growth paths. The bar is trajectory, not just history.'
-              },
-              {
-                q: 'Is remote work possible?',
-                a: 'Role-dependent: many positions are Indore-based for team density, some are hybrid or remote. State your preference in the form — it\'s a conversation, not a filter.'
-              },
-              {
-                q: 'I sent my resume. When will I hear back?',
-                a: 'Every resume gets read. If there\'s a current or near-term match you\'ll hear within days; strong profiles stay active in our pipeline for future roles.'
-              }
-            ].map((faq, i) => (
-              <div
-                key={i}
-                className="p-5 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#2563EB]/20 hover:shadow-sm transition-all duration-300"
-                style={{
-                  opacity: 0,
-                  animation: `fadeUp 0.5s ease ${i * 0.08 + 0.2}s forwards`,
-                }}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[10px] font-bold text-blue-600">Q</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-[#0F172A] text-sm">{faq.q}</h3>
-                    <p className="text-sm text-slate-500 mt-1 leading-relaxed">{faq.a}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FaqAccordionSection items={CAREER_FAQS} />
 
       {/* ===== BOTTOM ===== */}
-      <section className="py-12 px-6 md:px-12 lg:px-20 bg-[#0F172A]">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-slate-400">© 2025 Nagar Software Solutions. All rights reserved.</p>
-          <p className="text-xs text-slate-600 mt-1">
-            308 Shagun Arcade, Plot No. 8, PU-4, Scheme No. 54, AB Road, Vijay Nagar, Indore (M.P.) 452010, India
-          </p>
-        </div>
-      </section>
+      
     </div>
   );
 }

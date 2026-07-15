@@ -401,7 +401,7 @@ export default function BrandStrategyService() {
             </p>
 
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="nav-cta-btn nav-cta-btn--cta a3 mt-5 inline-flex bg-gradient-to-b from-amber-400 via-orange-500 to-orange-600"
               style={{ '--nav-cta-w': '14.75rem' } as React.CSSProperties}
             >

@@ -436,7 +436,7 @@ export default function RexoERP() {
 
               <div className="a3 flex flex-wrap gap-4 mt-8">
                 <Link
-                  to="/#contact"
+                  to="/contact-us"
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-2xl hover:shadow-blue-500/35 transition-all duration-300"
                 >
                   Book a Free Demo
@@ -805,7 +805,7 @@ export default function RexoERP() {
               See Rexo ERP in action. Walk through your process, see the modules that matter to you, and get a fixed quote.
             </p>
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             >
               Book a Free Demo
@@ -876,7 +876,7 @@ export default function RexoERP() {
             </span>
           </div>
           <Link
-            to="/#contact"
+            to="/contact-us"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
           >
             Book a Free Demo

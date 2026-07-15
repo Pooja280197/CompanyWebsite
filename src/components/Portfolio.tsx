@@ -7,7 +7,7 @@ const PROJECTS = [
     name: 'CleanPlan',
     description:
       'Scheduling, workforce tracking, and daily operations for cleaning companies — without the paperwork.',
-    href: '/product/cleanplan',
+    href: '/cleanplan',
     img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80&auto=format&fit=crop',
     tags: ['Scheduling', 'Workforce', 'Field Ops'],
     accent: '#2563eb',
@@ -17,7 +17,7 @@ const PROJECTS = [
     name: 'Rexo ERP',
     description:
       'Inventory, production, sales, and daily operations for manufacturers — one system instead of five spreadsheets.',
-    href: '/product/rexo-erp',
+    href: '/rexo-erp',
     img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80&auto=format&fit=crop',
     tags: ['Manufacturing', 'Inventory', 'Production'],
     accent: '#7c3aed',
@@ -27,7 +27,7 @@ const PROJECTS = [
     name: 'Education ERP',
     description:
       'Admissions, fees, attendance, and campus operations for schools — connected from enrollment to exam day.',
-    href: '/product/education-erp',
+    href: '/erp-solutions-for-education',
     img: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=80&auto=format&fit=crop',
     imgFallback: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80&auto=format&fit=crop',
     tags: ['Campus', 'Admissions', 'Fees'],
@@ -38,7 +38,7 @@ const PROJECTS = [
     name: 'ShowTimeBro',
     description:
       'Scheduling, workforce tracking, and daily operations for cleaning companies — without the paperwork.',
-    href: '/product/cleanplan',
+    href: '/showtimebro',
     img: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&q=80&auto=format&fit=crop',
     tags: ['Leagues', 'Scheduling', 'Operations'],
     accent: '#059669',

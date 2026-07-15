@@ -442,16 +442,16 @@ export default function CleanPlan() {
 
               <div className="a3 flex flex-wrap gap-4 mt-8">
                 <Link
-                  to="/#contact"
+                  to="/contact-us"
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-2xl hover:shadow-blue-500/35 transition-all duration-300"
                 >
                   Book a Demo
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-medium shadow-md shadow-slate-900/10 hover:bg-slate-50 hover:shadow-lg transition-all duration-300">
+                {/* <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-white border border-slate-300 text-slate-800 font-medium shadow-md shadow-slate-900/10 hover:bg-slate-50 hover:shadow-lg transition-all duration-300">
                   <PlayCircle size={18} />
                   Watch Demo
-                </button>
+                </button> */}
               </div>
 
               {/* <div className="a4 flex flex-wrap gap-6 mt-8 text-sm text-slate-500">
@@ -764,7 +764,7 @@ export default function CleanPlan() {
               See CleanPlan in action. Walk through your workflow, see the features that matter to you, and get a clear quote.
             </p>
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-blue-600 font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
             >
               Book a Demo
@@ -839,7 +839,7 @@ export default function CleanPlan() {
             </span>
           </div>
           <Link
-            to="/#contact"
+            to="/contact-us"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white text-sm font-semibold shadow-lg shadow-blue-500/30 hover:brightness-105 hover:shadow-xl hover:shadow-blue-500/35 transition-all duration-300"
           >
             Book a Demo

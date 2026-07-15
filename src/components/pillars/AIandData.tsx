@@ -323,7 +323,7 @@ export default function AiData() {
             </p>
 
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="nav-cta-btn nav-cta-btn--cta nav-cta-btn--blue a3 mt-5 inline-flex"
               style={{ '--nav-cta-w': '18.5rem' } as React.CSSProperties}
             >
@@ -580,7 +580,7 @@ export default function AiData() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6 cta-bg border-t border-gray-100">
+      {/* <section className="py-20 px-6 cta-bg border-t border-gray-100">
         <div className="max-w-[900px] mx-auto w-full text-center">
           <div className="sr">
             <h2 className="font-serif-italic text-3xl sm:text-4xl md:text-5xl text-gray-900 leading-tight mb-6">
@@ -590,7 +590,7 @@ export default function AiData() {
               Start with an AI Readiness Call. We'll map your data, identify the right opportunities, and give you an honest roadmap.
             </p>
             <Link
-              to="/#contact"
+              to="/contact-us"
               className="pillar-cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105"
             >
               Book Your AI Readiness Call
@@ -599,7 +599,7 @@ export default function AiData() {
             <p className="text-sm text-gray-500 mt-4">No pressure. Just clarity on what's possible.</p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ */}
       <section className="py-20 px-6" aria-labelledby="faq-heading">
@@ -660,7 +660,7 @@ export default function AiData() {
             </span>
           </div>
           <Link
-            to="/#contact"
+            to="/contact-us"
             className="pillar-cta-btn inline-flex items-center gap-2 px-7 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:scale-105"
           >
             Book an AI Readiness Call

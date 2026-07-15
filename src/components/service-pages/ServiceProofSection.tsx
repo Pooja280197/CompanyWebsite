@@ -45,7 +45,7 @@ export function ServiceProofSection({
               scrollToColor="#f8fafc"
             />
             {intro ? <p className="cloud-proof__text">{intro}</p> : null}
-            <Link to="/#contact" className="cloud-proof__cta">
+            <Link to="/contact-us" className="cloud-proof__cta">
               Discuss your project
               <ArrowRight size={15} strokeWidth={2.25} />
             </Link>
