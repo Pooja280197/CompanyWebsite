@@ -50,7 +50,7 @@ export function CaseStudyHero({
         <div className="case-study-hero__bg-overlay" />
       </div>
 
-      <div className="case-study-hero__inner relative z-10 mx-auto w-full max-w-[1200px] px-4 md:px-0">
+      <div className="case-study-hero__inner relative z-10 mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <h1 className="case-study-hero__title">
           {wordGroups.map((group, groupIndex) => (
             <span key={`${group.word}-${groupIndex}`} className="case-study-hero__title-word-group">

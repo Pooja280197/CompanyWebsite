@@ -640,7 +640,7 @@ export default function EducationERP() {
                   Who gets access
                 </p>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                   {ACCESS_ROLES.map((role, i) => {
                     const Icon = role.icon;
                   return (

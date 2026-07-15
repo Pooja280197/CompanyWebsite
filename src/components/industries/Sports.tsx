@@ -384,7 +384,7 @@ export default function IndustrySports() {
             </p>
           </div>
 
-          <div className="grid gap-x-4 gap-y-8 pt-3 md:grid-cols-3">
+          <div className="grid gap-x-4 gap-y-8 pt-3 lg:grid-cols-3">
             {reliability.map((item, i) => {
               const Icon = item.icon;
               return (

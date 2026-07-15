@@ -46,12 +46,12 @@ export function ServicesDropdown({
       aria-hidden={!open}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`services-dropdown hidden md:block absolute inset-x-0 top-full z-40 pt-2 ${
+      className={`services-dropdown hidden lg:block absolute inset-x-0 top-full z-40 pt-2 ${
         open ? 'services-dropdown--open pointer-events-auto' : 'pointer-events-none'
       }`}
     >
       <NavDropdownCaret left={arrowLeft} visible={open} />
-      <div className="max-w-[920px] mx-auto px-4">
+      <div className="services-dropdown__shell">
         <div
           ref={panelRef}
           className={`services-dropdown__panel ${open ? 'services-dropdown__panel--open' : ''}`}
@@ -122,32 +122,32 @@ export function ServicesMobileList({ onNavigate }: { onNavigate: () => void }) {
   const { pathname } = useLocation();
 
   return (
-    <div className="mt-1 pb-4 space-y-6">
+    <div>
       {SERVICE_MEGA_COLUMNS.map((column) => (
-        <div key={column.id}>
-          <h3 className="services-dropdown__col-title">
+        <div key={column.id} className="mmenu__group">
+          <h3 className="mmenu__group-title">
             <Link
               to={column.href}
               onClick={onNavigate}
               aria-label={`View ${column.title} overview`}
               aria-current={isItemActive(pathname, column.href) ? 'page' : undefined}
-              className={`services-dropdown__link services-dropdown__link--heading text-lg py-3 ${
-                isItemActive(pathname, column.href) ? 'services-dropdown__link--active' : ''
+              className={`mmenu__sublink mmenu__sublink--heading${
+                isItemActive(pathname, column.href) ? ' mmenu__sublink--active' : ''
               }`}
             >
               {column.title}
             </Link>
           </h3>
           {column.items.length > 0 && (
-            <ul className="services-dropdown__list">
+            <ul className="mmenu__list">
               {column.items.map((item) => (
                 <li key={item.id}>
                   <Link
                     to={item.href}
                     onClick={onNavigate}
                     aria-current={isItemActive(pathname, item.href) ? 'page' : undefined}
-                    className={`services-dropdown__link text-lg py-3 ${
-                      isItemActive(pathname, item.href) ? 'services-dropdown__link--active' : ''
+                    className={`mmenu__sublink${
+                      isItemActive(pathname, item.href) ? ' mmenu__sublink--active' : ''
                     }`}
                   >
                     {item.label}

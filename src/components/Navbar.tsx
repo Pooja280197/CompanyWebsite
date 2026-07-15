@@ -145,15 +145,15 @@ export default function Navbar() {
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 nav-header ${isInnerPage && !scrolled ? 'nav-header--frosted' : ''} ${scrolled ? 'nav-glass' : ''}`}
         onMouseLeave={scheduleCloseMenu}
       >
-        <div className="max-w-[1200px] mx-auto px-0 py-3 flex items-center justify-between gap-4 relative">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3 lg:gap-4 relative">
           <Logo />
-          <nav className="hidden md:flex items-center bg-transparent rounded-full px-2 py-1.5 gap-0.5" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center bg-transparent rounded-full px-1 xl:px-2 py-1.5 gap-0.5" aria-label="Main navigation">
             {NAV_LINKS.map((l) => {
               const sectionActive = isNavSectionActive(l.label, location.pathname, location.hash);
               if (l.dropdown) {
                 const menuOpen = openDropdown === l.dropdown;
                 const canNavigate = l.navigate !== false;
-                const triggerClass = `nav-link nav-link--dropdown px-5 pt-1.5 pb-1 rounded-full text-[0.95rem] font-medium ${
+                const triggerClass = `nav-link nav-link--dropdown px-3 xl:px-5 pt-1.5 pb-1 rounded-full text-[0.9rem] xl:text-[0.95rem] font-medium ${
                   sectionActive || menuOpen ? 'nav-link--active' : ''
                 }`;
                 const triggerInner = (
@@ -214,7 +214,7 @@ export default function Navbar() {
                 <a
                   key={l.label}
                   href={l.href}
-                  className={`nav-link px-5 pt-1.5 pb-1 rounded-full text-[0.95rem] font-medium ${sectionActive ? 'nav-link--active' : ''
+                  className={`nav-link px-3 xl:px-5 pt-1.5 pb-1 rounded-full text-[0.9rem] xl:text-[0.95rem] font-medium ${sectionActive ? 'nav-link--active' : ''
                     }`}
                 >
                   {l.label}
@@ -232,12 +232,16 @@ export default function Navbar() {
               </span>
             </a>
             <button
-              onClick={() => setOpen(true)}
-              className="md:hidden flex flex-col justify-center gap-[5px] w-10 h-10 rounded-full border border-[#e5e5e5] items-center"
+              onClick={() => {
+                setOpen(true);
+                setMobileDropdown(null);
+              }}
+              className="lg:hidden flex flex-col justify-center gap-[5px] w-10 h-10 rounded-full border border-slate-200 bg-white/80 items-center hover:bg-slate-50 transition-colors"
               aria-label="Open menu"
             >
-              <span className="w-[18px] h-0.5 bg-[#111] rounded block" />
-              <span className="w-[18px] h-0.5 bg-[#111] rounded block" />
+              <span className="w-[16px] h-[1.5px] bg-[#0f172a] rounded-full block" />
+              <span className="w-[16px] h-[1.5px] bg-[#0f172a] rounded-full block" />
+              <span className="w-[16px] h-[1.5px] bg-[#0f172a] rounded-full block" />
             </button>
           </div>
         </div>
@@ -295,79 +299,53 @@ export default function Navbar() {
         />
       </header>
       <div className={`fixed inset-0 z-[200] bg-white mmenu ${open ? 'mmenu-open' : 'mmenu-close'}`}>
-        <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="mmenu__header">
           <Logo />
           <button
-            onClick={() => setOpen(false)}
-            className="w-9 h-9 bg-[#f3f3f3] rounded-full flex items-center justify-center hover:bg-[#eee] transition-colors"
+            onClick={() => {
+              setOpen(false);
+              setMobileDropdown(null);
+            }}
+            className="w-10 h-10 bg-[#f1f5f9] rounded-full flex items-center justify-center hover:bg-[#e2e8f0] transition-colors"
             aria-label="Close menu"
           >
-            <X size={16} className="text-[#111]" />
+            <X size={18} className="text-[#0f172a]" strokeWidth={2.25} />
           </button>
         </div>
-        <nav className="px-6 pt-6 overflow-y-auto max-h-[calc(100vh-5rem)]" aria-label="Mobile navigation">
-          {NAV_LINKS.map((l, i) => {
+        <nav className="mmenu__nav" aria-label="Mobile navigation">
+          {NAV_LINKS.map((l) => {
+            const sectionActive = isNavSectionActive(l.label, location.pathname, location.hash);
             if (l.dropdown) {
               const expanded = mobileDropdown === l.dropdown;
               return (
-                <div key={l.label} className="border-b border-[#f0f0f0]">
+                <div key={l.label} className="mmenu__item">
                   <button
                     type="button"
                     onClick={() => setMobileDropdown((v) => (v === l.dropdown ? null : l.dropdown!))}
-                    className="flex w-full items-center justify-between py-4 group"
+                    className={`mmenu__trigger${sectionActive || expanded ? ' mmenu__trigger--active' : ''}`}
                     aria-expanded={expanded}
                   >
-                    <span
-                      className="text-[#111] group-hover:opacity-50 transition-opacity"
-                      style={{
-                        fontFamily: 'Inter,sans-serif',
-                        fontWeight: 800,
-                        fontSize: 'clamp(1.8rem,5vw,3rem)',
-                        letterSpacing: '-0.03em',
-                      }}
-                    >
-                      {l.label}
-                    </span>
-                    <ChevronDown
-                      size={22}
-                      className={`text-[#ccc] transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
-                      aria-hidden="true"
-                    />
+                    <span>{l.label}</span>
+                    <ChevronDown size={18} strokeWidth={2.25} className="mmenu__chevron" aria-hidden="true" />
                   </button>
-                  {expanded && renderMobileDropdownList(l.dropdown)}
+                  {expanded && <div className="mmenu__panel">{renderMobileDropdownList(l.dropdown)}</div>}
                 </div>
               );
             }
             return (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between py-4 border-b border-[#f0f0f0] group"
-                style={{
-                  animation: open ? `fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) ${i * 0.05 + 0.1}s both` : 'none',
-                }}
-              >
-                <span
-                  className="text-[#111] group-hover:opacity-50 transition-opacity"
-                  style={{
-                    fontFamily: 'Inter,sans-serif',
-                    fontWeight: 800,
-                    fontSize: 'clamp(1.8rem,5vw,3rem)',
-                    letterSpacing: '-0.03em',
-                  }}
+              <div key={l.label} className="mmenu__item">
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={`mmenu__link${sectionActive ? ' mmenu__link--active' : ''}`}
+                  aria-current={sectionActive ? 'page' : undefined}
                 >
-                  {l.label}
-                </span>
-                <span className="text-[#ccc] text-sm font-medium">0{i + 1}</span>
-              </a>
+                  <span>{l.label}</span>
+                </a>
+              </div>
             );
           })}
-          <a
-            href="/contact-us"
-            onClick={() => setOpen(false)}
-            className="inline-flex items-center gap-2 mt-8 bg-[#111] text-white font-semibold px-6 py-3 rounded-full text-sm hover:bg-[#222] transition-colors"
-          >
+          <a href="/contact-us" onClick={() => setOpen(false)} className="mmenu__cta">
             Let's Collaborate
           </a>
         </nav>

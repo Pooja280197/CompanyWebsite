@@ -570,16 +570,16 @@ export default function RexoERP() {
             />
           </div>
 
-          <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-x-4 gap-y-10 pt-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-x-4 gap-y-10 pt-4 sm:grid-cols-2 xl:grid-cols-4">
             {TECH_SPECS.map((spec, i) => {
               const Icon = spec.icon;
               const lastRowCenter =
-                i === 8 ? 'lg:col-start-2' : i === 9 ? 'lg:col-start-3' : '';
+                i === 8 ? 'xl:col-start-2' : i === 9 ? 'xl:col-start-3' : '';
 
               return (
                 <div
                   key={spec.title}
-                  className={`sr-from-bottom sr-d${Math.min(i + 1, 10)} group relative mx-auto flex h-full w-full max-w-[280px] flex-col ${lastRowCenter}`}
+                  className={`sr-from-bottom sr-d${Math.min(i + 1, 10)} group relative mx-auto flex h-full w-full max-w-none xl:max-w-[280px] flex-col ${lastRowCenter}`}
                 >
                   <div
                     className="absolute -top-5 left-1/2 z-10 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-white to-slate-50 shadow-lg shadow-slate-300/50 transition-transform duration-300 group-hover:scale-105"

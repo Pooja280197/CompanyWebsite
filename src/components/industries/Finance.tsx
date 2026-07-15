@@ -461,7 +461,7 @@ export default function IndustryFinance() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 pt-3">
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-8 pt-3">
             {securityFeatures.map((feature, i) => {
               const Icon = feature.icon;
               return (

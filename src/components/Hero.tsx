@@ -40,7 +40,7 @@ export default function Hero() {
           style={{
             fontFamily: 'Inter,sans-serif',
             fontWeight: 600,
-            fontSize: 'clamp(2.75rem,6.5vw,4.75rem)',
+            fontSize: 'clamp(2.1rem,6.5vw,4.75rem)',
             letterSpacing: '-0.02em',
             lineHeight: 1.15,
             color: '#1b1d1e',
@@ -60,8 +60,8 @@ export default function Hero() {
                   width: 'fit-content',
                   maxWidth: '100%',
                   textAlign: line.align,
-                  whiteSpace: 'nowrap',
                 }}
+                className="hero-title-line"
                 words={[...line.words]}
               />
             );
@@ -93,7 +93,7 @@ export default function Hero() {
             href="/contact-us"
             className="btn-pill group flex items-center gap-12 bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 text-white font-semibold pl-7 pr-2.5 py-2.5 rounded-full hover:brightness-105 transition-all"
           >
-            <span className="text-base whitespace-nowrap">Get Started</span>
+            <span className="text-base whitespace-normal sm:whitespace-nowrap">Book a free consultation</span>
             <span className="w-9 h-9 bg-white rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2 10L10 2M10 2H4M10 2V8" stroke="#1d4ed8" strokeWidth="1.8" strokeLinecap="round"/>
@@ -119,13 +119,13 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="a4 max-w-[900px] mx-auto w-full mt-24 px-2">
-        <div className="flex items-center gap-4 w-full mb-3">
-          <span className="flex-1 h-px bg-black/30" />
-          <p className="text-gray-700 text-md shrink-0 text-center">
+      <div className="a4 max-w-[900px] mx-auto w-full mt-16 sm:mt-24 px-2">
+        <div className="hero-trust-strip flex items-center gap-3 sm:gap-4 w-full mb-3">
+          <span className="hero-trust-strip__line flex-1 h-px bg-black/30" />
+          <p className="hero-trust-strip__text text-gray-700 text-sm sm:text-base text-center max-w-[40rem]">
           Trusted by government research institutions, data companies, and growing enterprises worldwide.
           </p>
-          <span className="flex-1 h-px bg-black/30" />
+          <span className="hero-trust-strip__line flex-1 h-px bg-black/30" />
         </div>
       </div>
     </section>

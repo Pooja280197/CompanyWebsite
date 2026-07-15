@@ -94,7 +94,7 @@ export function NavListDropdown({
       aria-hidden={!open}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`services-dropdown services-dropdown--anchored hidden md:block absolute top-full z-40 pt-2 ${
+      className={`services-dropdown services-dropdown--anchored hidden lg:block absolute top-full z-40 pt-2 ${
         open ? 'services-dropdown--open pointer-events-auto' : 'pointer-events-none'
       }`}
       style={anchored}
@@ -144,7 +144,7 @@ export function NavListMobileList({
   const { pathname } = useLocation();
 
   return (
-    <ul className="services-dropdown__list mt-1 pb-4 space-y-0">
+    <ul className="mmenu__list">
       {items.map((item) => {
         const active = isItemActive(pathname, item.href);
         return (
@@ -153,9 +153,7 @@ export function NavListMobileList({
               to={item.href}
               onClick={onNavigate}
               aria-current={active ? 'page' : undefined}
-              className={`services-dropdown__link text-base py-3 opacity-100 translate-y-0 ${
-                active ? 'services-dropdown__link--active' : ''
-              }`}
+              className={`mmenu__sublink${active ? ' mmenu__sublink--active' : ''}`}
             >
               {item.label}
             </Link>

@@ -459,7 +459,7 @@ export default function IndustryTravel() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-x-4 gap-y-8 pt-3">
+          <div className="grid lg:grid-cols-3 gap-x-4 gap-y-8 pt-3">
             {[
               {
                 icon: Gauge,

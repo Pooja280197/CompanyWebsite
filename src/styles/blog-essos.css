@@ -720,10 +720,13 @@
   margin-bottom: 1.25rem;
 }
 
-@media (max-width: 959px) {
+@media (max-width: 1099px) {
   .blog-essos__hero {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 959px) {
 
   .blog-essos__featured {
     min-height: 360px;
